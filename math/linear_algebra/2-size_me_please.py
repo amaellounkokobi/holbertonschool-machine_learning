@@ -27,7 +27,7 @@ def matrix_shape(matrix):
 
     shape = []
 
-    for index in range(5):
+    while 42:
         shape.append(len(matrix))
         if type(matrix[0]) is list:
 
