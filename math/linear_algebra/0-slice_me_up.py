@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-"""
-This Exercices concist on usig array function to get certain elements of an array
-
-variables:
-   arr(array) : array of numbers
-   arr1(array) : array of numbers
-   arr2(array) : array of numbers
-   arr3(array) : array of numbers
-
-"""
-
 arr = [9, 8, 2, 3, 9, 4, 1, 0, 3]
 arr1 =  arr[:2]
 arr2 =  arr[4:]
