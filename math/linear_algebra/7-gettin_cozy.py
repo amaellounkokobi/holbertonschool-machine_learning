@@ -115,9 +115,6 @@ def cat_matrices2D(mat1, mat2, axis=0):
        None: If the two matrices cannot be concatenated
 
     """
-    if matrix2D_isEmpty(mat1) or matrix2D_isEmpty(mat2):
-        return None
-
     new_matrix = matrix2D_copy(mat1)
     
     sh_mat1 = matrix_shape(mat1)
