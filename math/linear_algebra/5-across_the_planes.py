@@ -38,8 +38,7 @@ def matrix_shape(matrix):
 
     while 42:
         shape.append(len(matrix))
-        if type(matrix[0]) is list:
-
+        if type(matrix[0] is list):
             matrix = matrix[0][0:len(matrix[0])]
         else:
             break
@@ -63,7 +62,7 @@ def add_matrices2D(mat1, mat2):
     """
     new_matrix = []
 
-    if len(mat1) > 0:
+    if len(mat1[0]) > 0:
         mat1_shape = matrix_shape(mat1)
         mat2_shape = matrix_shape(mat2)
 
