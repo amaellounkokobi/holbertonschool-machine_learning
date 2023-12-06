@@ -62,7 +62,7 @@ def add_matrices2D(mat1, mat2):
     """
     new_matrix = []
 
-    if len(mat1[0]) > 0:
+    if not mat1[0]:
         mat1_shape = matrix_shape(mat1)
         mat2_shape = matrix_shape(mat2)
 
