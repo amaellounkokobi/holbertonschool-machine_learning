@@ -22,31 +22,28 @@ function:
 """
 
 
-def matrix_shape(matrix):
+
+def add_arrays(arr1, arr2):
     """
-    That calculates the shape of a matrix
+    A function def add_arrays(arr1, arr2): that adds
+    two arrays element-wise:
 
     args:
-       matrix(array):
+       arr1(list(int/float):list of in float
 
     Returns:
-      shape(list): Shape of the matrix
-      None: if the matrice is empty or if the shape is empty
+       new_list: arr1 + arr2
+       None: if the arr1 and arr2 are of different shapes
     """
+    new_vector = []
 
-    shape = []
-
-    while 42:
-        shape.append(len(matrix))
-        if type(matrix[0] is list):
-            matrix = matrix[0][0:len(matrix[0])]
-        else:
-            break
-
-    if len(shape) == 0:
+    if len(arr1) != len(arr2):
         return None
 
-    return shape
+    for line in range(len(arr1)):
+        new_vector.append(arr1[line] + arr2[line])
+
+    return new_vector
 
 
 def add_matrices2D(mat1, mat2):
@@ -62,22 +59,7 @@ def add_matrices2D(mat1, mat2):
     """
     new_matrix = []
 
-    if not mat1[0]:
-        mat1_shape = matrix_shape(mat1)
-        mat2_shape = matrix_shape(mat2)
-
-        if mat1_shape != mat2_shape:
-            return None
-
-        len_line = mat1_shape[0]
-        len_column = mat1_shape[1]
-    else:
-        return new_matrix
-
-    for line in range(len_line):
-        new_line = []
-        for column in range(len_column):
-            new_line.append(mat1[line][column] + mat2[line][column])
-        new_matrix.append(new_line)
+    for line in range(mat1):
+        new_matrix.append(add_arrays(mat1[line], mat2[line]))
 
     return new_matrix
