@@ -36,7 +36,7 @@ def matrix_shape(matrix):
 
     shape = []
 
-    if len(matrix) is 0:
+    if len(matrix) == 0:
         return None
     
     while 42:
@@ -47,7 +47,7 @@ def matrix_shape(matrix):
         else:
             break
 
-    if len(shape) is 0:
+    if len(shape) == 0:
         return None
         
     return shape
@@ -87,6 +87,8 @@ def add_matrices2D(mat1, mat2):
 
     return new_matrix
 
-mat1 = []
-mat2 = []
+mat1 = [[1, 2], [3, 4]]
+mat2 = [[5, 6], [7, 8]]
 print(add_matrices2D(mat1, mat2))
+print(mat1)
+print(mat2)
