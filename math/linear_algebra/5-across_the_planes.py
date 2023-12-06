@@ -34,9 +34,7 @@ def matrix_shape(matrix):
     Returns:
       shape(list): Shape of the matrix
     """
-
     shape = []
-
 
     while 42:
         shape.append(len(matrix))
