@@ -33,28 +33,27 @@ Functions:
 
 def matrix_shape(matrix):
     """
-    That calculates the shape of a matrix.
+    That calculates the shape of a matrix
 
     args:
        matrix(array):
 
     Returns:
-      shape(list): Shape of the matrix.
+      shape(list): Shape of the matrix
     """
-    shape = []
 
-    while 42:
-        shape.append(len(matrix))
-        if matrix[0]:
-            if type(matrix[0]) is list:
-                matrix = matrix[0][0:len(matrix[0])]
-            else:
-                break
+    shape = []
+    while type(matrix) is list:
+        if len(matrix):
+            shape.append(len(matrix))
         else:
-            return []
+            shape.append(0)
+        if matrix:
+            matrix = matrix[0]
+        else:
+            break
 
     return shape
-
 
 
 def matrix2D_isEmpty(matrix):
