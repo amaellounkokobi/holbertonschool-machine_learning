@@ -36,9 +36,6 @@ def matrix_shape(matrix):
 
     shape = []
 
-    if len(matrix) == 0:
-        return None
-    
     while 42:
         shape.append(len(matrix))
         if type(matrix[0]) is list:
@@ -49,7 +46,7 @@ def matrix_shape(matrix):
 
     if len(shape) == 0:
         return None
-        
+
     return shape
 
 
@@ -64,20 +61,19 @@ def add_matrices2D(mat1, mat2):
     Returns:
        A new matrice
     """
-
-    mat1_shape = matrix_shape(mat1)
-    mat2_shape = matrix_shape(mat2)
-
-    if mat1_shape != mat2_shape:
-        return None
+    new_matrix = []
 
     if len(mat1) > 0:
+        mat1_shape = matrix_shape(mat1)
+        mat2_shape = matrix_shape(mat2)
+
+        if mat1_shape != mat2_shape:
+            return None
+
         len_line = mat1_shape[0]
         len_column = mat1_shape[1]
     else:
-        return []
-
-    new_matrix = []
+        return new_matrix
 
     for line in range(len_line):
         new_line = []
