@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This module contains 
+This module contains
 - A function that performs a matrix multiplication
 - A function that return the shapes of a Matrix
 
