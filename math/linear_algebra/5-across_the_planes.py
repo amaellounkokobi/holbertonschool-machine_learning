@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-This module contains a function that adds two matrices and
-a function that perform a add operation on two line array(vectors)
-
+This module contains:
+- a function that adds two matrices and
+- a function that perform a add operation on two line array(vectors)
+- a function that return the shapes of a Matrix
 Example:
    >>> mat1 = [[1, 2], [3, 4]]
    ... mat2 = [[5, 6], [7, 8]]
@@ -18,9 +19,36 @@ Example:
 function:
    def matrix_shape(matrix):
    def add_matrices2D(mat1, mat2):
+   def matrix_shape(matrix):
 
 """
 
+
+def matrix_shape(matrix):
+    """
+    That calculates the shape of a matrix
+
+    args:
+       matrix(array):
+
+    Returns:
+      shape(list): Shape of the matrix
+    """
+
+    shape = []
+
+
+    while 42:
+        shape.append(len(matrix))
+        if matrix[0]:
+            if type(matrix[0]) is list:
+                matrix = matrix[0][0:len(matrix[0])]
+            else:
+                break
+        else:
+            return []
+
+    return shape
 
 
 def add_arrays(arr1, arr2):
@@ -57,6 +85,9 @@ def add_matrices2D(mat1, mat2):
     Returns:
        A new matrice
     """
+    if matrix_shape(mat1) != matrix_shape(mat2):
+        return None
+
     new_matrix = []
 
     for line in range(len(mat1)):
