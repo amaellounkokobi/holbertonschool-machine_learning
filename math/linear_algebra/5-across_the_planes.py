@@ -31,10 +31,14 @@ def matrix_shape(matrix):
 
     Returns:
       shape(list): Shape of the matrix
+      None: if the matrice is empty or if the shape is empty
     """
 
     shape = []
 
+    if len(matrix) is 0:
+        return None
+    
     while 42:
         shape.append(len(matrix))
         if type(matrix[0]) is list:
@@ -82,3 +86,7 @@ def add_matrices2D(mat1, mat2):
         new_matrix.append(new_line)
 
     return new_matrix
+
+mat1 = []
+mat2 = []
+print(add_matrices2D(mat1, mat2))
