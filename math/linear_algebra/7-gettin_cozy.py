@@ -30,7 +30,6 @@ Functions:
 
 """
 
-
 def matrix_shape(matrix):
     """
     That calculates the shape of a matrix
@@ -56,28 +55,6 @@ def matrix_shape(matrix):
     return shape
 
 
-def matrix2D_copy(matrix):
-    """
-    A function that returns a copy of a 2Dmatrix
-
-    Args:
-       matrix/ 2D matrix of int/float
-
-    Returns:
-       new matrix: 2D matrix
-
-    """
-    new_matrix = []
-
-    for line in matrix:
-        new_line = []
-        for column in line:
-            new_line.append(column)
-        new_matrix.append(new_line)
-
-    return new_matrix
-
-
 def cat_matrices2D(mat1, mat2, axis=0):
     """
     A function def cat_matrices2D(mat1, mat2, axis=0):
@@ -92,7 +69,13 @@ def cat_matrices2D(mat1, mat2, axis=0):
        None: If the two matrices cannot be concatenated
 
     """
-    new_matrix = matrix2D_copy(mat1)
+    new_matrix = []
+
+    for line in mat1:
+        new_line = []
+        for column in line:
+            new_line.append(column)
+        new_matrix.append(new_line)
 
     sh_mat1 = matrix_shape(mat1)
     sh_mat2 = matrix_shape(mat2)
