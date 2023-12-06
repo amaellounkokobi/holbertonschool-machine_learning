@@ -116,6 +116,7 @@ def cat_matrices2D(mat1, mat2, axis=0):
 
     """
     new_matrix = matrix2D_copy(mat1)
+    
     sh_mat1 = matrix_shape(mat1)
     sh_mat2 = matrix_shape(mat2)
 
@@ -124,14 +125,14 @@ def cat_matrices2D(mat1, mat2, axis=0):
 
     if axis == 0:
         if sh_mat1[1] == sh_mat2[1]:
-            for element in mat2:
-                new_matrix.append(element)
+            for index in range(len(mat2)):
+                new_matrix.append(mat2[index])
         else:
             return None
         
     elif axis == 1:
         if sh_mat1[0] == sh_mat2[0]:
-            for index, element in enumerate(mat1):
+            for index in range(len(mat1)):
                 new_matrix[index].append(mat2[index][0])
         else:
             return None
