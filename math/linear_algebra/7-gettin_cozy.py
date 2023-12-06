@@ -30,6 +30,7 @@ Functions:
 
 """
 
+
 def matrix_shape(matrix):
     """
     That calculates the shape of a matrix
