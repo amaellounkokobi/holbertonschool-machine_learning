@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-This module contains a function that adds two matrices
+This module contains a function that adds two matrices and
+a function that perform a add operation on two line array(vectors)
 
 Example:
    >>> mat1 = [[1, 2], [3, 4]]
@@ -57,12 +58,19 @@ def add_matrices2D(mat1, mat2):
        A new matrice
     """
 
-    if matrix_shape(mat1) != matrix_shape(mat2):
+    mat1_shape = matrix_shape(mat1)
+    mat2_shape = matrix_shape(mat2)
+
+    if mat1_shape != mat2_shape:
         return None
 
-    for line in mat1:
+    new_matrix = []
+    len_line = mat1_shape[0]
+    len_column = mat1_shape[1]
+
+    for line in range(len_line):
         new_line = []
-        for column in line:
+        for column in range(len_column):
             new_line.append(mat1[line][column] + mat2[line][column])
         new_matrix.append(new_line)
 
