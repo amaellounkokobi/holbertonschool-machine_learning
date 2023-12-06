@@ -19,6 +19,7 @@ Function:
    def add_arrays(arr1, arr2)
 """
 
+
 def add_arrays(arr1, arr2):
     """
     A function def add_arrays(arr1, arr2): that adds
@@ -32,11 +33,11 @@ def add_arrays(arr1, arr2):
        None: if the arr1 and arr2 are of different shapes
     """
     new_vector = []
-    
+
     if len(arr1) != len(arr2):
         return None
-    
+
     for line in range(len(arr1)):
         new_vector.append(arr1[line] + arr2[line])
-    
+
     return new_vector
