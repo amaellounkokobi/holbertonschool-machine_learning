@@ -86,9 +86,3 @@ def add_matrices2D(mat1, mat2):
         new_matrix.append(new_line)
 
     return new_matrix
-
-mat1 = [[1, 2], [3, 4]]
-mat2 = [[5, 6], [7, 8]]
-print(add_matrices2D(mat1, mat2))
-print(mat1)
-print(mat2)
