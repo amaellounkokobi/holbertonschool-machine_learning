@@ -60,22 +60,8 @@ def add_matrices2D(mat1, mat2):
     new_matrix = []
 
     for line in range(len(mat1)):
-        new_matrix.append(add_arrays(mat1[line], mat2[line]))
+        new_line = add_arrays(mat1[line], mat2[line])
+        if new_line is not None:
+            new_matrix.append(new_line)
 
     return new_matrix
-
-"""
-mat1 = [[1, 2], [3, 4]]
-mat2 = [[5, 6], [7, 8]]
-print(add_matrices2D(mat1, mat2))
-print(mat1)
-print(mat2)
-print(add_matrices2D(mat1, [[1, 2, 3], [4, 5, 6]]))
-
-mat1 = [[], []]
-mat2 = [[], []]
-print(add_matrices2D(mat1, mat2))
-print(mat1)
-print(mat2)
-print(add_matrices2D(mat1, [[1, 2, 3], [4, 5, 6]]))
-"""
