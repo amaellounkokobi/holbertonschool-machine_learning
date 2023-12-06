@@ -56,28 +56,6 @@ def matrix_shape(matrix):
     return shape
 
 
-def matrix2D_isEmpty(matrix):
-    """
-    A function that returns true if the matrix is empty
-
-    Args:
-       matrix/ 2D matrix of int/float
-
-    Returns:
-       True/False
-
-    """
-    result = False
-
-    for line in matrix:
-        if line:
-            result = result or False
-        else:
-            result = result or True
-
-    return result
-
-
 def matrix2D_copy(matrix):
     """
     A function that returns a copy of a 2Dmatrix
@@ -115,7 +93,7 @@ def cat_matrices2D(mat1, mat2, axis=0):
 
     """
     new_matrix = matrix2D_copy(mat1)
-    
+
     sh_mat1 = matrix_shape(mat1)
     sh_mat2 = matrix_shape(mat2)
 
@@ -125,16 +103,13 @@ def cat_matrices2D(mat1, mat2, axis=0):
                 new_matrix.append(mat2[index])
         else:
             return None
-        
-    elif axis == 1:
+
+    if axis == 1:
         if sh_mat1[0] == sh_mat2[0]:
             for index in range(len(mat1)):
                 for index2 in range(len(mat2[index])):
                     new_matrix[index].append(mat2[index][index2])
         else:
             return None
-        
-    else:
-        pass
 
     return new_matrix
