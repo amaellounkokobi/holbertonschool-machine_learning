@@ -26,12 +26,13 @@ def matrix_shape(matrix):
     """
 
     shape = []
-
-    while 42:
-        shape.append(len(matrix))
-        if type(matrix[0]) is list:
-
-            matrix = matrix[0][0:len(matrix[0])]
+    while type(matrix) is list:
+        if len(matrix):
+            shape.append(len(matrix))
+        else:
+            shape.append(0)
+        if matrix:
+            matrix = matrix[0]
         else:
             break
 
