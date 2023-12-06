@@ -43,6 +43,9 @@ def matrix_shape(matrix):
         else:
             break
 
+    if len(shape) is 0:
+        return None
+        
     return shape
 
 
@@ -64,9 +67,13 @@ def add_matrices2D(mat1, mat2):
     if mat1_shape != mat2_shape:
         return None
 
+    if not mat1_shape is None:
+        len_line = mat1_shape[0]
+        len_column = mat1_shape[1]
+    else:
+        return []
+
     new_matrix = []
-    len_line = mat1_shape[0]
-    len_column = mat1_shape[1]
 
     for line in range(len_line):
         new_line = []
