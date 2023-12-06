@@ -71,7 +71,7 @@ def add_matrices2D(mat1, mat2):
     if mat1_shape != mat2_shape:
         return None
 
-    if not mat1_shape is None:
+    if len(mat1) > 0:
         len_line = mat1_shape[0]
         len_column = mat1_shape[1]
     else:
