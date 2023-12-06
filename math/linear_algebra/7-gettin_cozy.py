@@ -56,6 +56,28 @@ def matrix_shape(matrix):
     return shape
 
 
+def matrix2D_copy(matrix):
+    """
+    A function that returns a copy of a 2Dmatrix
+
+    Args:
+       matrix/ 2D matrix of int/float
+
+    Returns:
+       new matrix: 2D matrix
+
+    """
+    new_matrix = []
+
+    for line in matrix:
+        new_line = []
+        for column in line:
+            new_line.append(column)
+        new_matrix.append(new_line)
+
+    return new_matrix
+
+
 def cat_matrices2D(mat1, mat2, axis=0):
     """
     A function def cat_matrices2D(mat1, mat2, axis=0):
