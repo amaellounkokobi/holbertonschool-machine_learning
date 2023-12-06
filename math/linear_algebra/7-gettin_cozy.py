@@ -56,6 +56,29 @@ def matrix_shape(matrix):
     return shape
 
 
+
+def matrix2D_isEmpty(matrix):
+    """
+    A function that returns true if the matrix is empty
+
+    Args:
+       matrix/ 2D matrix of int/float
+
+    Returns:
+       True/False
+
+    """
+    result = False
+
+    for line in matrix:
+        if line:
+            result = result or False
+        else:
+            result = result or True
+
+    return result
+
+
 def matrix2D_copy(matrix):
     """
     A function that returns a copy of a 2Dmatrix
@@ -71,7 +94,6 @@ def matrix2D_copy(matrix):
 
     for line in matrix:
         new_line = []
-
         for column in line:
             new_line.append(column)
         new_matrix.append(new_line)
@@ -93,23 +115,25 @@ def cat_matrices2D(mat1, mat2, axis=0):
        None: If the two matrices cannot be concatenated
 
     """
+
     new_matrix = matrix2D_copy(mat1)
     sh_mat1 = matrix_shape(mat1)
     sh_mat2 = matrix_shape(mat2)
 
+    if sh_mat1 != sh_mat2:
+        return None
+
+    if matrix2D_isEmpty(mat1) or matrix2D_isEmpty(mat2):
+        return None
+
     if axis == 0:
-        if sh_mat1[1] == sh_mat2[1]:
-            for element in mat2:
-                new_matrix.append(element)
-        else:
-            return None
+        for element in mat2:
+            new_matrix.append(element)
 
     elif axis == 1:
-        if sh_mat1[0] == sh_mat2[0]:
-            for index, element in enumerate(mat1):
-                new_matrix[index].append(mat2[index][0])
-        else:
-            return None
+        for index, element in enumerate(mat1):
+            new_matrix[index].append(mat2[index][0])
+
     else:
         pass
 
