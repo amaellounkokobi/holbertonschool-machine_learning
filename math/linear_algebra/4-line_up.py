@@ -39,4 +39,4 @@ def add_arrays(arr1, arr2):
     for line in range(len(arr1)):
         new_vector.append(arr1[line] + arr2[line])
     
-    return new_vetor
+    return new_vector
