@@ -115,13 +115,13 @@ def cat_matrices2D(mat1, mat2, axis=0):
        None: If the two matrices cannot be concatenated
 
     """
+    if matrix2D_isEmpty(mat1) or matrix2D_isEmpty(mat2):
+        return None
+
     new_matrix = matrix2D_copy(mat1)
     
     sh_mat1 = matrix_shape(mat1)
     sh_mat2 = matrix_shape(mat2)
-
-    if matrix2D_isEmpty(mat1) or matrix2D_isEmpty(mat2):
-        return None
 
     if axis == 0:
         if sh_mat1[1] == sh_mat2[1]:
@@ -133,7 +133,8 @@ def cat_matrices2D(mat1, mat2, axis=0):
     elif axis == 1:
         if sh_mat1[0] == sh_mat2[0]:
             for index in range(len(mat1)):
-                new_matrix[index].append(mat2[index][0])
+                for index2 in range(len(mat2[index])):
+                    new_matrix[index].append(mat2[index][index2])
         else:
             return None
         
@@ -141,4 +142,3 @@ def cat_matrices2D(mat1, mat2, axis=0):
         pass
 
     return new_matrix
-
