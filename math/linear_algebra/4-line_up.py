@@ -32,7 +32,11 @@ def add_arrays(arr1, arr2):
        None: if the arr1 and arr2 are of different shapes
     """
     new_vector = []
-    for line range(len(arr1)):
+    
+    if len(arr1) != len(arr2):
+        return None
+    
+    for line in range(len(arr1)):
         new_vector.append(arr1[line] + arr2[line])
-
+    
     return new_vetor
