@@ -115,26 +115,29 @@ def cat_matrices2D(mat1, mat2, axis=0):
        None: If the two matrices cannot be concatenated
 
     """
-
     new_matrix = matrix2D_copy(mat1)
     sh_mat1 = matrix_shape(mat1)
     sh_mat2 = matrix_shape(mat2)
-
-    if sh_mat1 != sh_mat2:
-        return None
 
     if matrix2D_isEmpty(mat1) or matrix2D_isEmpty(mat2):
         return None
 
     if axis == 0:
-        for element in mat2:
-            new_matrix.append(element)
-
+        if sh_mat1[1] == sh_mat2[1]:
+            for element in mat2:
+                new_matrix.append(element)
+        else:
+            return None
+        
     elif axis == 1:
-        for index, element in enumerate(mat1):
-            new_matrix[index].append(mat2[index][0])
-
+        if sh_mat1[0] == sh_mat2[0]:
+            for index, element in enumerate(mat1):
+                new_matrix[index].append(mat2[index][0])
+        else:
+            return None
+        
     else:
         pass
 
     return new_matrix
+
