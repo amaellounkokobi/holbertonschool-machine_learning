@@ -10,13 +10,13 @@ Examples:
    ...print("Add:\n", add, "\nSub:\n", sub, "\nMul:\n", mul, "\nDiv:\n", div)
    Add:
     [[12 24 36]
-    [48 60 72]] 
+    [48 60 72]]
    Sub:
     [[10 20 30]
-    [40 50 60]] 
+    [40 50 60]]
    Mul:
     [[ 11  44  99]
-    [176 275 396]] 
+    [176 275 396]]
 Div:
     [[11. 11. 11.]
     [11. 11. 11.]]
@@ -28,15 +28,15 @@ Functions:
 
 def np_elementwise(mat1, mat2):
     """
-    This function def np_elementwise(mat1, mat2) performs 
+    This function def np_elementwise(mat1, mat2) performs
     element-wise addition, subtraction, multiplication, and division
-    
+
     Args:
        mat1:Numpy n dimension array
        mat2:Numpy n dimension array
-    
-    Returns: 
-       A tuple containing the element-wise 
+
+    Returns:
+       A tuple containing the element-wise
        sum, difference, product, and quotient, respectively
 
     """
@@ -44,7 +44,7 @@ def np_elementwise(mat1, mat2):
     ew_dif = mat1 - mat2
     ew_pro = mat1 * mat2
     ew_div = mat1 / mat2
-    
+
     result_operations = (ew_sum, ew_dif, ew_pro, ew_div)
 
     return result_operations
