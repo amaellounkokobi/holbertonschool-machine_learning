@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 This module contains:
-- A function that performs element-wise addition, subtraction, multiplication, and division
+- A function that performs element-wise addition, subtraction,
+  multiplication, and division
 
 Examples:
    >>> mat1 = np.array([[11, 22, 33], [44, 55, 66]])
