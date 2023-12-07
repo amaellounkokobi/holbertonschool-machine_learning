@@ -19,7 +19,7 @@ Example:
 def np_shape(matrix):
     """ This function calculates the shape
     of a Numpy array
-    
+
     Args:
        matrix:Any numpy.array
 
