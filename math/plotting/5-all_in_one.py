@@ -34,7 +34,7 @@ x0 = np.arange(0,11)
 ax0.plot(x0,y0,'r')
 
 ax1 = fig.add_subplot(grid_spec[0, 1])
-ax1.scatter(x1,y1,c='m') 
+ax1.scatter(x1,y1,c='m')
 ax1.set_xlabel("Height (in)", size='x-small')
 ax1.set_ylabel("Weight (lbs)", size='x-small')
 ax1.set_title("Men's Height vs Weight", size='x-small')
