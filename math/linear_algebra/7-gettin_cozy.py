@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 This module contains :
-- A function taht concatanate two matrices.
+- A function taht concatenate two matrices.
 - A function that return the shapes of a matrix.
 - A function that makes a full copy of a matrix
 
