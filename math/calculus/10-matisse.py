@@ -26,7 +26,7 @@ def poly_derivative(poly):
     poly = poly[1:]
 
     for index in range(len(poly)):
-        if type(poly) is not list:
+        if type(index) is not int:
             return None
         
         coef = poly[index]
