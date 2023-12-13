@@ -20,12 +20,16 @@ def poly_derivative(poly):
     Args:
       poly(list): the list represents the power of x that the coefficient
     """
-    result = 0
+    if type(poly) is not list :
+        return [0]
+    
     poly = poly[1:]
-
+    
     for index in range(len(poly)):
         coef = poly[index]
         poly[index] = coef * (index + 1)
 
+    if len(poly) < 1:
+        return [0]
+
     return poly
-      
