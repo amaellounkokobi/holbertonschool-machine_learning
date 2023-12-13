@@ -21,6 +21,9 @@ def poly_derivative(poly):
       poly(list): the list represents the power of x that the coefficient
     """
     if type(poly) is not list :
+        return None
+    
+    if len(poly) < 1 :
         return [0]
     
     poly = poly[1:]
@@ -29,7 +32,6 @@ def poly_derivative(poly):
         coef = poly[index]
         poly[index] = coef * (index + 1)
 
-    if len(poly) < 1:
-        return [0]
+
 
     return poly
