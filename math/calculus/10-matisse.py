@@ -24,13 +24,13 @@ def poly_derivative(poly):
         return None
     
     if len(poly) < 2:
-        return [0]
+        return None
 
     for index in range(len(poly)):
         if type(poly[index]) is not int:
             return None
         coef = poly[index]
-        poly[index] = coef * (index)
+        poly[index] = coef*index
 
     poly = poly[1:]
 
