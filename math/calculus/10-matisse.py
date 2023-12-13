@@ -26,10 +26,13 @@ def poly_derivative(poly):
     poly = poly[1:]
 
     for index in range(len(poly)):
+        if type(poly) is not list:
+            return None
+        
         coef = poly[index]
         poly[index] = coef * (index + 1)
 
-    if len(poly) < 1 :
+    if len(poly) < 1:
         return [0]
 
     return poly
