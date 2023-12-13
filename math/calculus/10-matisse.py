@@ -22,6 +22,9 @@ def poly_derivative(poly):
     """
     if type(poly) is not list:
         return None
+    
+    if len(poly) < 2:
+        return [0]
 
     for index in range(len(poly)):
         if type(poly[index]) is not int:
@@ -30,8 +33,5 @@ def poly_derivative(poly):
         poly[index] = coef * (index)
 
     poly = poly[1:]
-
-    if len(poly) < 1:
-        return [0]
 
     return poly
