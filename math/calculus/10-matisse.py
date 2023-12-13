@@ -28,7 +28,7 @@ def poly_derivative(poly):
     for index in range(len(poly)):
         coef = poly[index]
 
-        if coef is not int:
+        if type(coef) is not int:
             return None
 
         poly[index] = coef * (index + 1)
@@ -37,3 +37,6 @@ def poly_derivative(poly):
         return [0]
 
     return poly
+
+poly = [5, 3, 0, 1]
+print(poly_derivative(poly))
