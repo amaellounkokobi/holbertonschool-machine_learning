@@ -13,6 +13,7 @@ Function:
 
 """
 
+
 def poly_derivative(poly):
     """
     This function that calculates the derivative of a polynomial
