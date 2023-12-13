@@ -28,7 +28,7 @@ def summation_i_squared(n):
         return None
 
     nums = [*range(start_index, n+1)]
-    pow_nums = list(map(lambda num:pow(num, 2), nums))
+    pow_nums = list(map(lambda num: pow(num, 2), nums))
     result = sum(pow_nums)
 
     return result
