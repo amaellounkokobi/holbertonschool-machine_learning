@@ -24,7 +24,7 @@ def summation_i_squared(n):
     """
     start_index = 1
 
-    if type(n) is not int and n < start_index:
+    if type(n) is not int or n < start_index:
         return None
 
     nums = [*range(start_index, n+1)]
