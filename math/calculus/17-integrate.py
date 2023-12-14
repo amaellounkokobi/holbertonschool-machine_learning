@@ -29,21 +29,20 @@ def poly_integral(poly, C=0):
         return None
     if type(C) is not int:
         return None
+    if poly[0] == 0 and len(poly) == 1:
+        return [C]
 
     poly.insert(0, C)
 
-    if len(poly) > 2:
-        for index in range(1, len(poly)):
-            if type(poly[index]) is not int:
-                return None
+    for index in range(1, len(poly)):
+        if type(poly[index]) is not int:
+            return None
 
-            number = poly[index] / index
+        number = poly[index] / index
 
-            if (number % 1) == 0:
-                poly[index] = int(number)
-            else:
-                poly[index] = number
-    else:
-        return [C]
+        if (number % 1) == 0:
+            poly[index] = int(number)
+        else:
+            poly[index] = number
 
     return poly
