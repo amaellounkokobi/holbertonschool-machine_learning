@@ -32,17 +32,16 @@ def poly_integral(poly, C=0):
 
     poly.insert(0,C)
 
-    for index in range(1,len(poly)):
-        if type(poly[index]) is not int:
-            return None
+    if len(poly) > 2:
+        for index in range(1,len(poly)):
+            if type(poly[index]) is not int:
+                return None
         
-        coef = poly[index]
-        divid = index    
-        number = coef / index 
-        
-        if (number % 1) == 0:
-            poly[index] = int(number)
-        else:
-            poly[index] = number
+            number = poly[index] / index
+                       
+            if (number % 1) == 0:
+                poly[index] = int(number)
+            else:
+                poly[index] = number
 
     return poly
