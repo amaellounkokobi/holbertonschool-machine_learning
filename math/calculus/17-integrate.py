@@ -33,13 +33,11 @@ def poly_integral(poly, C=0):
     for index in range(len(poly)):
         if type(poly[index]) is not int:
             return None
-
+        
         coef = poly[index]
-        if (coef % 1) == 0:
-             coef = int(coef)
-            
-        divid = 1 / (index+1)
-        number = coef * divid
+        divid = (index+1)
+        
+        number = coef / (index + 1) 
         
         if (number % 1) == 0:
             poly[index] = int(number)
