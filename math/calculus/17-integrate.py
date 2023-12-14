@@ -30,15 +30,15 @@ def poly_integral(poly, C=0):
     if type(C) is not int:
         return None
 
-    poly.insert(0,C)
+    if len(poly) > 1:
+        poly.insert(0, C)
 
-    if len(poly) > 2:
-        for index in range(1,len(poly)):
+        for index in range(1, len(poly)):
             if type(poly[index]) is not int:
                 return None
-        
+
             number = poly[index] / index
-                       
+
             if (number % 1) == 0:
                 poly[index] = int(number)
             else:
