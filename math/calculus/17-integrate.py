@@ -36,7 +36,7 @@ def poly_integral(poly, C=0):
 
         coef = poly[index]
         divid = 1 / (index+1)
-        number = coef * divid
+        number = coef * round(divid,2)
 
         if (number % 1) == 0:
             poly[index] = int(number)
