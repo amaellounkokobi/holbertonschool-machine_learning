@@ -30,20 +30,19 @@ def poly_integral(poly, C=0):
     if type(C) is not int:
         return None
 
+    poly.insert(0,C)
+
     for index in range(len(poly)):
         if type(poly[index]) is not int:
             return None
         
         coef = poly[index]
-        divid = (index+1)
-        
-        number = coef / (index + 1) 
+        divid = index    
+        number = coef / index 
         
         if (number % 1) == 0:
             poly[index] = int(number)
         else:
             poly[index] = number
-
-    poly.insert(0,C)
 
     return poly
