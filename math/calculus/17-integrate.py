@@ -32,7 +32,7 @@ def poly_integral(poly, C=0):
 
     poly.insert(0,C)
 
-    for index in range(len(poly)):
+    for index in range(1,len(poly)):
         if type(poly[index]) is not int:
             return None
         
