@@ -35,11 +35,11 @@ def poly_integral(poly, C=0):
             return None
 
         coef = poly[index]
-        print(coef)
+        if (coef % 1) == 0:
+             coef = int(coef)
+            
         divid = 1 / (index+1)
-        print(divid)
         number = coef * divid
-        print(number)
         
         if (number % 1) == 0:
             poly[index] = int(number)
@@ -49,6 +49,3 @@ def poly_integral(poly, C=0):
     poly.insert(0,C)
 
     return poly
-
-poly = [5, 3, 0, 1]
-print(poly_integral(poly))
