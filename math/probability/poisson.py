@@ -123,11 +123,11 @@ class Poisson():
         if self.data:
             if k > len(self.data) and k < 0:
                 return 0
-            
-        e_val = 2.7183
+
+        e_val = 2.7182818285
         k_fact = self.fact(int(k))
 
-        return ((e_val ** -self.lambtha) * (self.lambtha ** int(k))) / k_fact
+        return (pow(e_val, -self.lambtha) * pow(self.lambtha, int(k))) / k_fact
 
     def fact(self, value):
         """
