@@ -55,7 +55,7 @@ class Poisson():
             return float(self.__lambtha)
 
         gen_lambtha = sum(self.__data) / len(self.__data)
-
+        
         return gen_lambtha
 
     @lambtha.setter
@@ -128,6 +128,25 @@ class Poisson():
         k_fact = self.fact(int(k))
 
         return (pow(e_val, -self.lambtha) * pow(self.lambtha, int(k))) / k_fact
+
+    def cdf(self, k):
+        """
+        This method calculate the cumulative distribution fuction
+        for a give success
+
+        Args:
+           k(int): the number of successes
+        """
+        result_cdf = 0
+
+        if self.data:
+            if k > len(self.data) or k < 0:
+                return 0
+
+        for x_val in range(k + 1):
+           result_cdf += self.pmf(x_val)
+
+        return result_cdf
 
     def fact(self, value):
         """
