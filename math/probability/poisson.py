@@ -14,7 +14,7 @@ Example:
    Lambtha: 5.0
 
 """
-
+import numpy as np
 
 class Poisson():
     """
@@ -110,3 +110,37 @@ class Poisson():
                 raise ValueError('data must contain multiple values')
 
             self.__data = value
+
+    def pmf(self, k):
+        """
+        This method calculate the probability mass fuction
+        for a give success
+
+        Args:
+           k(int): the number of successes
+        """
+
+        if self.data:
+            if k > len(self.data) and k < 0:
+                return 0
+
+        e_val = 2.7183
+        k_fact = self.fact(int(k))
+
+        return ((e_val ** -self.lambtha) * (self.lambtha ** int(k))) / k_fact
+
+    def fact(self, value):
+        """
+        This method calculate the factoriel
+        of a number
+
+        Args:
+           value(int):Value of factoriel
+        """
+        result = 1
+
+        while value >= 1:
+            result *= value
+            value -= 1
+
+        return result
