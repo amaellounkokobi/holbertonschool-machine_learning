@@ -121,7 +121,7 @@ class Poisson():
         """
 
         if self.data:
-            if k > len(self.data) and k < 0:
+            if k > len(self.data) or k < 0:
                 return 0
 
         e_val = 2.7182818285
