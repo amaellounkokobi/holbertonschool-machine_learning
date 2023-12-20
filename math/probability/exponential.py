@@ -11,7 +11,7 @@ Example:
 Lambtha: 2.1771114730906937
 
 """
-
+import numpy as np
 
 class Exponential():
     """
@@ -137,4 +137,3 @@ class Exponential():
                 return 0
 
         return 1 - pow(self.e_val, (-self.lambtha * x))
-
