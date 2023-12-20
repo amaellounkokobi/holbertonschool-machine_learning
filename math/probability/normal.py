@@ -181,7 +181,7 @@ class Normal():
         Args:
            z: is the z-score
         """
-        return self.mean - (z * self.stddev)
+        return self.mean + (z * self.stddev)
 
     def pdf(self, x):
         """
