@@ -143,7 +143,7 @@ class Poisson():
             if k > len(self.data) or k < 0:
                 return 0
 
-        for x_val in range(k + 1):
+        for x_val in range(int(k) + 1):
            result_cdf += self.pmf(x_val)
 
         return result_cdf
