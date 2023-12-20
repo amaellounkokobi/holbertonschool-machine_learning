@@ -102,11 +102,11 @@ class Poisson():
 
         if value is None:
             self.__data = value
-        else:    
+        else:
             if type(value) is not list:
                 raise TypeError('data must be a list')
-        
+
             if len(value) < 2:
                 raise ValueError('data must contain multiple values')
-        
+
             self.__data = value
