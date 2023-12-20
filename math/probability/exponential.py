@@ -11,7 +11,7 @@ Example:
 Lambtha: 2.1771114730906937
 
 """
-import numpy as np
+
 
 class Exponential():
     """
