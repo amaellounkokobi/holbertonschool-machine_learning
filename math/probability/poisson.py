@@ -55,7 +55,7 @@ class Poisson():
             return float(self.__lambtha)
 
         gen_lambtha = sum(self.__data) / len(self.__data)
-        
+
         return gen_lambtha
 
     @lambtha.setter
@@ -144,7 +144,7 @@ class Poisson():
                 return 0
 
         for x_val in range(int(k) + 1):
-           result_cdf += self.pmf(x_val)
+            result_cdf += self.pmf(x_val)
 
         return result_cdf
 
