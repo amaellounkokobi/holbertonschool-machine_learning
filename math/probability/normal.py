@@ -191,8 +191,8 @@ class Normal():
         pi_val = 3.1415926536
         sigma = self.stddev
         mu = self.mean
-        pow_xpr = -1 * pow(x - mu, 2) / 2 * pow(sigma,2)
-        sqrt_xpr = pow(pow(2 * pi_val * sigma, 2), 0.5)
+        pow_xpr = -(pow(x - mu, 2)) / (2 * pow(sigma, 2))
+        sqrt_xpr = pow(2 * pi_val * pow(sigma, 2), 0.5)
 
         return (1 / sqrt_xpr) * pow(self.e_val, pow_xpr)
 
