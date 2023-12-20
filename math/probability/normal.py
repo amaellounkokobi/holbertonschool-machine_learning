@@ -83,7 +83,6 @@ class Normal():
 
         self.__mean = float(value)
 
-
     @property
     def stddev(self):
         """
