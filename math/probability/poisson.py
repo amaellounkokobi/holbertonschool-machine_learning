@@ -72,7 +72,7 @@ class Poisson():
 
         """
         if value <= 0:
-            raise ValueError('lambtha must be a positive')
+            raise ValueError('lambtha must be a positive value')
 
         self.__lambtha = value
 
