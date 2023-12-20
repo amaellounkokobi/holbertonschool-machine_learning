@@ -74,7 +74,7 @@ class Poisson():
         if value <= 0:
             raise ValueError('lambtha must be a positive value')
 
-        self.__lambtha = value
+        self.__lambtha = float(value)
 
     @property
     def data(self):
@@ -123,7 +123,7 @@ class Poisson():
         if self.data:
             if k > len(self.data) and k < 0:
                 return 0
-
+            
         e_val = 2.7183
         k_fact = self.fact(int(k))
 
