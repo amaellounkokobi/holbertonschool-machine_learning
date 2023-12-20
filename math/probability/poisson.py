@@ -99,17 +99,14 @@ class Poisson():
            TypeError: If data is not a list
 
         """
-        if len(value) < 2:
-            raise ValueError('data must contain multiple values')
-
         if value:
+            if len(value) < 2:
+                raise ValueError('data must contain multiple values')
+
             if type(value) is not list:
                 raise TypeError('data must be a list')
             else:
-                if len(value) < 2:
-                    raise ValueError('data must contain multiple values')
-                else:
-                    if sum(value) == 0:
-                        value = None
+                if sum(value) == 0:
+                    value = None
 
         self.__data = value
