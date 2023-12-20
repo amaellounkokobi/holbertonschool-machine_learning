@@ -151,7 +151,6 @@ class Normal():
            TypeError: If data is not a list
 
         """
-
         if value is None:
             self.__data = value
         else:
@@ -183,26 +182,27 @@ class Normal():
 
     def pdf(self, x):
         """
-        This method calculate the probability mass fuction
-        for a give success
+        This method calculate the probability density fuction
+        for a given x value
 
         Args:
-           k(int): the number of successes
+           x(int): is the x-value
         """
+        pi_val = 3.1415926536
+        sigma = self.stddev
+        mu = self.mean
+        pow_xpr = -1 * pow(x - mu, 2) / 2 * pow(sigma,2)
+        sqrt_xpr = pow(pow(2 * pi_val * sigma, 2), 0.5)
 
-        if self.data:
-            if x > len(self.data) or x < 0:
-                return 0
-
-        return self.lambtha * pow(self.e_val, (-self.lambtha * x))
+        return (1 / sqrt_xpr) * pow(self.e_val, pow_xpr)
 
     def cdf(self, x):
         """
         This method calculate the cumulative distribution fuction
-        for a give success
+        for a given x-value
 
         Args:
-           k(int): the number of successes
+           x(int):
         """
         if self.data:
             if x > len(self.data) or x < 0:
