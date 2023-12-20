@@ -14,7 +14,7 @@ Example:
    Lambtha: 5.0
 
 """
-import numpy as np
+
 
 class Poisson():
     """
