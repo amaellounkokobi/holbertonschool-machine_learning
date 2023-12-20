@@ -99,7 +99,6 @@ class Poisson():
            TypeError: If data is not a list
 
         """
-        
         if value:
             if type(value) is not list:
                 raise TypeError('data must be a list')
