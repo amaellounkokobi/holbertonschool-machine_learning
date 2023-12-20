@@ -163,12 +163,10 @@ class Normal():
 
             self.__data = value
 
-
-
     def z_score(self, x):
         """
         This method calculate the z-score of x
-        
+
         Args:
            x: is the x-value
         """
@@ -177,7 +175,7 @@ class Normal():
     def x_value(self, z):
         """
         This method calculates the x-value of a given z-score
-       
+
         Args:
            z: is the z-score
         """
