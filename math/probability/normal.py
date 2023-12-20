@@ -163,6 +163,26 @@ class Normal():
 
             self.__data = value
 
+
+
+    def z_score(self, x):
+        """
+        This method calculate the z-score of x
+        
+        Args:
+           x: is the x-value
+        """
+        return (x - self.mean) / self.stddev
+
+    def x_value(self, z):
+        """
+        This method calculates the x-value of a given z-score
+       
+        Args:
+           z: is the z-score
+        """
+        return self.mean - (z * self.stddev)
+
     def pdf(self, x):
         """
         This method calculate the probability mass fuction
