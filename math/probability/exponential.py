@@ -54,7 +54,7 @@ class Exponential():
 
         gen_lambtha = sum(self.__data) / len(self.__data)
 
-        return gen_lambtha
+        return 1 / gen_lambtha
 
     @lambtha.setter
     def lambtha(self, value):
