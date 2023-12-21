@@ -44,6 +44,7 @@ class Normal():
 
         """
         self.e_val = 2.7182818285
+        self.pi_val = 3.1415926536
         self.data = data
 
         if self.__data is None:
@@ -180,11 +181,10 @@ class Normal():
         Args:
            x(int): is the x-value
         """
-        pi_val = 3.1415926536
         sigma = self.stddev
         mu = self.mean
         pow_xpr = -(pow(x - mu, 2)) / (2 * pow(sigma, 2))
-        sqrt_xpr = pow(2 * pi_val * pow(sigma, 2), 0.5)
+        sqrt_xpr = pow(2 * self.pi_val * pow(sigma, 2), 0.5)
 
         return (1 / sqrt_xpr) * pow(self.e_val, pow_xpr)
 
@@ -196,8 +196,9 @@ class Normal():
         Args:
            x(int):
         """
-        if self.data:
-            if x > len(self.data) or x < 0:
-                return 0
+        result_cdf = 0
 
-        return 1 - pow(self.e_val, (-self.lambtha * x))
+        for x_val in range(int(x) + 1):
+            result_cdf += self.pdf(x_val)
+
+        return result_cdf
