@@ -46,8 +46,13 @@ class Normal():
         """
         self.e_val = 2.7182818285
         self.data = data
-        self.mean = mean
-        self.stddev = stddev
+
+        if self.__data is None:
+            self.mean = mean
+            self.stddev = stddev
+        else:
+            self.__mean = sum(self.__data) / len(self.__data)
+            self.__stddev = calculate_stddev()
 
     @property
     def mean(self):
@@ -57,18 +62,9 @@ class Normal():
         of the distribution.
 
         Returns:
-           (float) the value of lambda
-
-        Raises:
-           ValueError:data must be a list
-
+           (float) the value of mean
         """
-        if self.__data is None:
-            return float(self.__mean)
-
-        gen_mean = sum(self.__data) / len(self.__data)
-
-        return gen_mean
+        return self.__mean
 
     @mean.setter
     def mean(self, value):
@@ -80,35 +76,14 @@ class Normal():
            value(float): A positif float value
 
         """
-
         self.__mean = float(value)
 
     @property
     def stddev(self):
         """
-        Getting the lambtha:
-        This property calculates and returns the lambda
-        of the class.
-
-        Returns:
-           (float) the value of lambda
-
-        Raises:
-           ValueError:data must be a list
-
+        Getting the stddev:
         """
-        if self.__data is None:
-            return float(self.__stddev)
-
-        Σ_res = 0
-        n_pop = len(self.__data)
-
-        for x_val in self.__data:
-            Σ_res = Σ_res + pow(x_val - self.mean, 2)
-
-        gen_stddev = pow(Σ_res / n_pop, 0.5)
-
-        return gen_stddev
+        return self.__stddev
 
     @stddev.setter
     def stddev(self, value):
@@ -161,6 +136,21 @@ class Normal():
                 raise ValueError('data must contain multiple values')
 
             self.__data = value
+
+    def calculate_stddev(self):
+        """
+        This method calculates the standard deviation
+
+        Returns:
+           float standard deviation.
+        """
+        Σ_res = 0
+        n_pop = len(self.__data)
+
+        for x_val in self.__data:
+            Σ_res = Σ_res + pow(x_val - self.mean, 2)
+
+        return gen_stddev = pow(Σ_res / n_pop, 0.5)
 
     def z_score(self, x):
         """
