@@ -202,6 +202,6 @@ class Normal():
         F0 = self.e_val ** ((-(pow(0 - mu, 2)) / (2 * pow(sigma, 2))))
         FX = self.e_val ** ((-(pow(x - mu, 2)) / (2 * pow(sigma, 2))))
 
-        result_cdf = 1 - (const * (FX - F0))
+        result_cdf = (const * (FX - F0))
 
         return  result_cdf
