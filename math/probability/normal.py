@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """
 This module contains:
 - A class That represents a normal distribution
@@ -52,7 +51,7 @@ class Normal():
             self.stddev = stddev
         else:
             self.__mean = sum(self.__data) / len(self.__data)
-            self.__stddev = calculate_stddev()
+            self.__stddev = self.calculate_stddev()
 
     @property
     def mean(self):
@@ -82,6 +81,9 @@ class Normal():
     def stddev(self):
         """
         Getting the stddev:
+
+        Return:
+           float standard deviation
         """
         return self.__stddev
 
@@ -150,7 +152,7 @@ class Normal():
         for x_val in self.__data:
             Σ_res = Σ_res + pow(x_val - self.mean, 2)
 
-        return gen_stddev = pow(Σ_res / n_pop, 0.5)
+        return pow(Σ_res / n_pop, 0.5)
 
     def z_score(self, x):
         """
