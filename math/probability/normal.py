@@ -196,9 +196,12 @@ class Normal():
         Args:
            x(int):
         """
-        result_cdf = 0
+        sigma = self.stddev
+        mu = self.mean
+        const = 1 / (sigma * ((2 * self.pi_val) ** 0.5))
+        F0 = self.e_val ** ((-(pow(0 - mu, 2)) / (2 * pow(sigma, 2))))
+        FX = self.e_val ** ((-(pow(x - mu, 2)) / (2 * pow(sigma, 2))))
 
-        for x_val in range(x):
-            result_cdf += self.pdf(x_val)
+        result_cdf = 1 - (const * (FX - F0))
 
-        return result_cdf
+        return  result_cdf
