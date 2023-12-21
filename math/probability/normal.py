@@ -198,7 +198,7 @@ class Normal():
         """
         result_cdf = 0
 
-        for x_val in range(int(x) + 1):
+        for x_val in range(x):
             result_cdf += self.pdf(x_val)
 
         return result_cdf
