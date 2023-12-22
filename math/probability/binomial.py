@@ -43,7 +43,6 @@ class Binomial():
         else:
             self.__n, self.__p = self.calculate_n_p()
 
-
     def calculate_n_p(self):
         """
         This method calculates the probability of success
@@ -66,7 +65,7 @@ class Binomial():
         result_p = variance / (result_n * q)
 
         return result_n, result_p
-    
+
     @property
     def n(self):
         """
