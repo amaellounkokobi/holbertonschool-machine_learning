@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-this module contains:
+This module contains:
 - A class that represents a binomial distribution
 
 Example:
@@ -164,15 +164,19 @@ class Binomial():
         Args:
            k(int): the number of successes
         """
+        if type(k) is not int:
+            k = int(k)
+
         if self.data:
             if k > len(self.data) or k < 0:
                 return 0
 
         n = self.__n
-        p = self.__p
-        n_in_x = self.fact(n) / self.fact(n) * self.fact(n - k)
+        p = round(self.__p, 3)        
+        n_fail = n - k
+        coef = self.fact(k) / (self.fact(k) * self.fact(n_fail))
 
-        return n_in_x * (p ** k) * ((1 - p) ** (n - k))
+        return coef * (p ** k) * ((1 - p) ** (n_fail))
 
     def fact(self, value):
         """
