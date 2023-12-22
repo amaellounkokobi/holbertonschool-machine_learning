@@ -172,11 +172,14 @@ class Binomial():
                 return 0
 
         n = self.__n
-        p = round(self.__p, 3)        
+        p = self.__p
+        q = 1 - self.__p
         n_fail = n - k
-        coef = self.fact(k) / (self.fact(k) * self.fact(n_fail))
+        coef = self.fact(n) / (self.fact(k) * self.fact(n_fail))
+        power_success = pow(p, k)
+        power_fail = pow(q, n_fail)
 
-        return coef * (p ** k) * ((1 - p) ** (n_fail))
+        return coef * power_success * power_fail
 
     def fact(self, value):
         """
