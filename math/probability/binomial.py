@@ -61,7 +61,7 @@ class Binomial():
         result_p = 1 - (variance / mean)
         q = 1 - result_p
         result_n = round(variance / (result_p * (1 - result_p)))
-        result_p = round(variance / (result_n * q), 3)
+        result_p = variance / (result_n * q)
 
         return result_n, result_p
 
