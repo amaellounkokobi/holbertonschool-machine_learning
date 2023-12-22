@@ -61,13 +61,12 @@ class Binomial():
 
         variance = round(sum_res / len_data)
         result_p = 1 - (variance / mean)
-        q = 1 -  result_p
+        q = 1 - result_p
         result_n = round(variance / (result_p * (1 - result_p)))
-        result_p = variance /(result_n * q)
-        
+        result_p = variance / (result_n * q)
+
         return result_n, result_p
-
-
+    
     @property
     def n(self):
         """
@@ -158,4 +157,3 @@ class Binomial():
                 raise ValueError('data must contain multiple values')
 
             self.__data = value
-
