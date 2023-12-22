@@ -189,14 +189,14 @@ class Normal():
 
         return (1 / sqrt_xpr) * pow(self.e_val, pow_xpr)
 
-    def erf(self,x):
+    def erf(self, x):
         """
-        This method implements an approximation 
+        This method implements an approximation
         of the error function
-        
+
         Args:
            x(int): is the x-value
-        
+
         """
         const = 2 / self.pi_val ** 0.5
         factor = x - (x**3) / 3 + (x**5) / 10 - (x**7) / 42 + (x**9) / 216
