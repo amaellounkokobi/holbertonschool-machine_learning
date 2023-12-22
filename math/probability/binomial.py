@@ -52,10 +52,9 @@ class Binomial():
            (float) success probability
 
         """
-        variance = 0
         sum_res = 0
         len_data = len(self.__data)
-        mean = round(sum(self.__data) / len_data)
+        mean = sum(self.__data) / len_data
 
         for x_val in self.__data:
             sum_res = sum_res + pow(x_val - mean, 2)
