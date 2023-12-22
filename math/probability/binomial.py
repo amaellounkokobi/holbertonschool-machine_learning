@@ -55,7 +55,7 @@ class Binomial():
         variance = 0
         sum_res = 0
         len_data = len(self.__data)
-        mean = sum(self.__data) / len_data
+        mean = round(sum(self.__data) / len_data)
 
         for x_val in self.__data:
             sum_res = sum_res + pow(x_val - mean, 2)
@@ -63,7 +63,8 @@ class Binomial():
         variance = sum_res / len_data
         result_p = 1 - (variance / mean)
         result_n = round(variance / (result_p * (1 - result_p)))
-
+        result_p = variance / (result_n * (1 - result_p))
+        
         return result_n, result_p
 
 
@@ -116,7 +117,7 @@ class Binomial():
            ValueError p must be greater than 0 and less than 1
 
         """
-        if value < 0 or value >= 1 :
+        if value < 0 and value >= 1 :
             raise ValueError('p must be greater than 0 and less than 1')
 
         self.__p = value
@@ -154,3 +155,4 @@ class Binomial():
                 raise ValueError('data must contain multiple values')
 
             self.__data = value
+
