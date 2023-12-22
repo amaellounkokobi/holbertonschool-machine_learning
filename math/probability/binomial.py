@@ -172,8 +172,8 @@ class Binomial():
                 return 0
 
         n = self.__n
-        p = self.__p
-        q = 1 - self.__p
+        p = round(self.__p,3)
+        q = 1 - p
         n_fail = n - k
         coef = self.fact(n) / (self.fact(k) * self.fact(n_fail))
         power_success = pow(p, k)
