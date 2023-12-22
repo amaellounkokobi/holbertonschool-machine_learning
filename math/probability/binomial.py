@@ -34,7 +34,6 @@ class Binomial():
            n(int): the Bernouilli trials
            p(float): the probability of a success
         """
-
         self.data = data
 
         if self.__data is None:
@@ -156,3 +155,37 @@ class Binomial():
                 raise ValueError('data must contain multiple values')
 
             self.__data = value
+
+    def pmf(self, k):
+        """
+        This method calculate the probability mass fuction
+        for a give success
+
+        Args:
+           k(int): the number of successes
+        """
+        if self.data:
+            if k > len(self.data) or k < 0:
+                return 0
+
+        n = self.__n
+        p = self.__p
+        n_in_x = self.fact(n) / self.fact(n) * self.fact(n - k)
+
+        return n_in_x * (p ** k) * ((1 - p) ** (n - k))
+
+    def fact(self, value):
+        """
+        This method calculate the factoriel
+        of a number
+
+        Args:
+           value(int):Value of factoriel
+        """
+        result = 1
+
+        while value >= 1:
+            result *= value
+            value -= 1
+
+        return result
