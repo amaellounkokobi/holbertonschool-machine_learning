@@ -115,7 +115,7 @@ class Binomial():
            ValueError p must be greater than 0 and less than 1
 
         """
-        if value < 0:
+        if value <= 0:
             raise ValueError('p must be greater than 0 and less than 1')
 
         if value >= 1:
