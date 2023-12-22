@@ -61,7 +61,7 @@ class Binomial():
         result_p = 1 - (variance / mean)
         q = 1 - result_p
         result_n = round(variance / (result_p * (1 - result_p)))
-        result_p = variance / (result_n * q)
+        result_p = round(variance / (result_n * q), 3)
 
         return result_n, result_p
 
@@ -172,7 +172,7 @@ class Binomial():
                 return 0
 
         n = self.__n
-        p = round(self.__p,3)
+        p = self.__p
         q = 1 - p
         n_fail = n - k
         coef = self.fact(n) / (self.fact(k) * self.fact(n_fail))
