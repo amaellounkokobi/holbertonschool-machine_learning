@@ -181,6 +181,25 @@ class Binomial():
 
         return coef * power_success * power_fail
 
+    def cdf(self, k):
+        """
+        This method calculate the cumulative distribution fuction
+        for a give success
+
+        Args:
+           k(int): the number of successes
+        """
+        result_cdf = 0
+
+        if self.__data:
+            if k > len(self.__data) or k < 0:
+                return 0
+
+        for x_val in range(int(k) + 1):
+            result_cdf += self.pmf(x_val)
+
+        return result_cdf
+
     def fact(self, value):
         """
         This method calculate the factoriel
