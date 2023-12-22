@@ -63,7 +63,6 @@ class Binomial():
         variance = sum_res / len_data
         result_p = 1 - (variance / mean)
         result_n = round(variance / (result_p * (1 - result_p)))
-        result_p = variance / (result_n * (1 - result_p))
         
         return result_n, result_p
 
@@ -117,7 +116,10 @@ class Binomial():
            ValueError p must be greater than 0 and less than 1
 
         """
-        if value < 0 and value >= 1 :
+        if value < 0:
+            raise ValueError('p must be greater than 0 and less than 1')
+
+        if value >= 1:
             raise ValueError('p must be greater than 0 and less than 1')
 
         self.__p = value
