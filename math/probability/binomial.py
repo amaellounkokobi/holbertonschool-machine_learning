@@ -60,9 +60,11 @@ class Binomial():
         for x_val in self.__data:
             sum_res = sum_res + pow(x_val - mean, 2)
 
-        variance = sum_res / len_data
+        variance = round(sum_res / len_data)
         result_p = 1 - (variance / mean)
+        q = 1 -  result_p
         result_n = round(variance / (result_p * (1 - result_p)))
+        result_p = variance /(result_n * q)
         
         return result_n, result_p
 
