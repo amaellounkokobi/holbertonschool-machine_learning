@@ -36,11 +36,12 @@ class Normal():
     """
     def __init__(self, data=None, mean=0., stddev=1.):
         """
-        Initializing datas and lambtha.
+        Initializing attributs.
 
         Args:
            data(list): the list of data for the distribution
-           lambtha(float):the average  occurance of the event for a given time
+           mean(float):the average values of datas
+           stddev(float):standard deviation
 
         """
         self.e_val = 2.7182818285
@@ -188,6 +189,20 @@ class Normal():
 
         return (1 / sqrt_xpr) * pow(self.e_val, pow_xpr)
 
+    def erf(self,x):
+        """
+        This method implements an approximation 
+        of the error function
+        
+        Args:
+           x(int): is the x-value
+        
+        """
+        const = 2 / self.pi_val ** 0.5
+        factor = x - (x**3) / 3 + (x**5) / 10 - (x**7) / 42 + (x**9) / 216
+
+        return const * factor
+
     def cdf(self, x):
         """
         This method calculate the cumulative distribution fuction
@@ -196,12 +211,7 @@ class Normal():
         Args:
            x(int):
         """
-        sigma = self.stddev
-        mu = self.mean
-        const = 1 / (sigma * ((2 * self.pi_val) ** 0.5))
-        F0 = self.e_val ** ((-(pow(0 - mu, 2)) / (2 * pow(sigma, 2))))
-        FX = self.e_val ** ((-(pow(x - mu, 2)) / (2 * pow(sigma, 2))))
+        z = (x - self.__mean) / (self.__stddev * (2 ** 0.5))
+        result_cdf = (1 / 2) * (1 + self.erf(z))
 
-        result_cdf = (const * (FX - F0))
-
-        return  result_cdf
+        return result_cdf
