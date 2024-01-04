@@ -42,7 +42,7 @@ class Neuron():
         if nx < 1:
             raise ValueError('nx must be a positive integer')
 
-        self.__W = np.random.normal(size=(1,nx))
+        self.__W = np.random.normal(size=(1, nx))
         self.__b = 0
         self.__A = 0
 
@@ -55,7 +55,7 @@ class Neuron():
         return self.__W
 
     @W.setter
-    def W(self,value):
+    def W(self, value):
         """
         Setting the weight vector
         """
@@ -71,7 +71,7 @@ class Neuron():
         return self.__b
 
     @b.setter
-    def b(self,value):
+    def b(self, value):
         """
         Setting the bias
         """
@@ -87,7 +87,7 @@ class Neuron():
         return self.__A
 
     @A.setter
-    def A(self,value):
+    def A(self, value):
         """
         Setting the activation output
         """
