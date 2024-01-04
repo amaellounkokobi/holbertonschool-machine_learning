@@ -35,7 +35,10 @@ class Poisson():
 
         """
         self.data = data
-        self.lambtha = lambtha
+        if self.__data is None:
+            self.lambtha = lambtha
+        else:
+            self.__lambtha = sum(self.__data) / len(self.__data)    
 
     @property
     def lambtha(self):
@@ -51,12 +54,8 @@ class Poisson():
            ValueError:data must be a list
 
         """
-        if self.__data is None:
-            return float(self.__lambtha)
+        return self.__lambtha
 
-        gen_lambtha = sum(self.__data) / len(self.__data)
-
-        return gen_lambtha
 
     @lambtha.setter
     def lambtha(self, value):

@@ -22,25 +22,52 @@ I - SIMPLE USE CASES
 
 >>> p1 = Poisson(data)
 
->>> print('Lambtha:', p1.lambtha) # doctest: +ELLIPSIS
+>>> print('Lambtha:', p1.lambtha) ############################################### doctest: +ELLIPSIS
 Lambtha: 4.84
 
 
 2) Printing lambtha with no data set parameters
 
 >>> p2 = Poisson(lambtha=5)
->>> print('Lambtha:', p2.lambtha) # doctest: +ELLIPSIS
+>>> print('Lambtha:', p2.lambtha) ################################################ doctest: +ELLIPSIS
 Lambtha: 5.0
 
-II - ERROR CASES
+II - PMF METHOD
+
+1) testing PMF method
+
+>>> data = np.random.poisson(5., 100).tolist()
+>>> p1 = Poisson(data)
+>>> print('P(9):', p1.pmf(9)) ################################################ POISSON PMF
+P(9): 0.03175849616802446
+
+>>> p2 = Poisson(lambtha=5)
+>>> print('P(9):', p2.pmf(9)) ################################################ POISSON PMF 2
+P(9): 0.036265577412911795
+
+
+III - PMF CDF
+
+1) testing CDF method
+
+>>> data = np.random.poisson(5., 100).tolist()
+>>> p1 = Poisson(data)
+>>> print('F(9):', p1.cdf(9)) ################################################ POISSON CDF 
+F(9): 0.9736102067423525
+
+>>> p2 = Poisson(lambtha=5)
+>>> print('F(9):', p2.cdf(9)) ################################################ POISSON CDF 2
+F(9): 0.9681719426208609
+
+IV - ERROR CASES
 
 1) Negative lambda
 
 >>> data = np.random.poisson(5,100).tolist()
->>> p3 = Poisson(data, lambtha=-1) # doctest: +ELLIPSIS
+>>> p3 = Poisson(data, lambtha=-1) ############################################## doctest: +ELLIPSIS
 Traceback (most recent call last):
 	  ...
-ValueError: lambtha must be a positive
+ValueError: lambtha must be a positive value
 
 
 2) None data
@@ -48,6 +75,7 @@ ValueError: lambtha must be a positive
 >>> p4 = Poisson(data, lambtha=5)
 >>> print('Lambtha:', p4.lambtha) # doctest: +ELLIPSIS
 Lambtha: 5.0
+
 
 3) Not enough datas
 
@@ -65,3 +93,12 @@ ValueError: data must contain multiple values
 Traceback (most recent call last):
 	  ...
 TypeError: data must be a list
+
+
+3) Not enough datas
+
+>>> data = []
+>>> p5 = Poisson(data) # doctest: +ELLIPSIS
+Traceback (most recent call last):
+	  ...
+ValueError: data must contain multiple values

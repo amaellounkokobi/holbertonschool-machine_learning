@@ -33,28 +33,28 @@ class Exponential():
         """
         self.e_val = 2.7182818285
         self.data = data
-        self.lambtha = lambtha
+        
+        if self.__data is None:
+            self.lambtha = lambtha
+        else:
+            self.__lambtha = 1 / (sum(self.__data) / len(self.__data))
 
     @property
     def lambtha(self):
         """
         Getting the lambtha:
-        This property calculates and returns the lambda
+        This property calculates and returns the lambtha
         of the class.
 
         Returns:
-           (float) the value of lambda
+           (float) the value of lambtha
 
         Raises:
            ValueError:data must be a list
 
         """
-        if self.__data is None:
-            return float(self.__lambtha)
-
-        gen_lambtha = sum(self.__data) / len(self.__data)
-
-        return 1 / gen_lambtha
+        return self.__lambtha
+               
 
     @lambtha.setter
     def lambtha(self, value):
