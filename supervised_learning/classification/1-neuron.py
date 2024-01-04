@@ -69,4 +69,3 @@ class Neuron():
         """
 
         return self.__A
-
