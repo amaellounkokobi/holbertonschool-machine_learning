@@ -11,6 +11,7 @@ Import:
    Numpy Library
 
 """
+import numpy as np
 
 
 class Neuron():
