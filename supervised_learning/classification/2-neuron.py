@@ -21,7 +21,7 @@ Examples:
 
   #SHOW CHARACTER
   image_values = X[:,1220]  # Ajoutez les valeurs complètes ici
-  assert len(image_values) == 28 * 28, 
+  assert len(image_values) == 28 * 28,
   "La taille de la liste ne correspond pas à une image 28x28."
   for i in range(28):
     row = image_values[i * 28: (i + 1) * 28]
