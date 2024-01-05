@@ -21,7 +21,8 @@ Examples:
 
   #SHOW CHARACTER
   image_values = X[:,1220]  # Ajoutez les valeurs complètes ici
-  assert len(image_values) == 28 * 28, "La taille de la liste ne correspond pas à une image 28x28."
+  assert len(image_values) == 28 * 28, 
+  "La taille de la liste ne correspond pas à une image 28x28."
   for i in range(28):
     row = image_values[i * 28: (i + 1) * 28]
     ascii_row = "".join("O" if value == 0 else "1" for value in row)
@@ -104,7 +105,7 @@ class Neuron():
            the private attribute __A
 
         """
-        activation  = np.add(np.matmul(self.__W,X),self.__b)
+        activation = np.add(np.matmul(self.__W, X), self.__b)
         self.__A = 1/(1 + np.exp(-activation))
 
         return self.__A
