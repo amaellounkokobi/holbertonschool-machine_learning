@@ -169,22 +169,24 @@ class Neuron():
         """
         Calculates one pass of gradient descent on the neuron
         Updates the private attributes __W and __b
-        
+
         Args:
-        X: is a numpy.ndarray with shape (nx, m) that contains 
+        X: is a numpy.ndarray with shape (nx, m) that contains
         the input data nx is the number of input features to the neuron
         m is the number of examples
 
         Y: is a numpy.ndarray with shape (1, m) that contains
         the correct labels for the input data
-        
+
         A: is a numpy.ndarray with shape (1, m) containing the
         activated output of the neuron for each example alpha
         is the learning rate
-        
-        """
-        dW = (A - Y) * X
-        db = (A - Y)
 
-        self.__W = self.__W - np.transpose(alpha * dW)
+        """
+        N = Y.shape[1]
+
+        dW = 1 / N * np.dot(X, (A.T - Y.T))
+        db = 1 / N * np.sum((A - Y))
+
+        self.__W = self.__W - alpha * dW
         self.__b = self.__b - alpha * db
