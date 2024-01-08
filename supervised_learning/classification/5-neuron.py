@@ -185,7 +185,7 @@ class Neuron():
         """
         N = Y.shape[1]
 
-        dW = 1 / N * np.sum(X.T * (A - Y))
+        dW = 1 / N * np.dot((A - Y), X)
         db = 1 / N * np.sum((A - Y))
 
         self.__W = self.__W - alpha * dW
