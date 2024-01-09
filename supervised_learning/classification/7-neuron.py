@@ -249,7 +249,7 @@ class Neuron():
 
         if graph is True:
             plt.plot(x_iterations, y_cost, color='skyblue')
-            plt.xlabel('iterations')
+            plt.xlabel('iteration')
             plt.ylabel('cost')
             plt.title('Trainning cost')
             plt.show()
