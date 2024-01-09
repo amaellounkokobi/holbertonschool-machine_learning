@@ -31,6 +31,7 @@ Import:
    Numpy Library
 
 """
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -141,11 +142,10 @@ class Neuron():
         the correct labels for the input data
 
         """
-        activation = np.add(np.matmul(self.__W, X), self.__b)
-        A = 1/(1 + np.exp(-activation))
+        A = self.forward_prop(X)
         cost = self.cost(Y, A)
         step = np.vectorize(self.step)
-
+        print("example weight in evaluate", self.__W[0][1])
         return step(A, 0.5), cost
 
     def step(self, value, threshold):
@@ -206,9 +206,18 @@ class Neuron():
 
         alpha: is the learning rate
         """
+
+        if type(iterations) is not int:
+            raise TypeError('iterations must be an integer')
+        if iterations < 0:
+            raise ValueError('iterations must be a positive integer')
+        if type(alpha) is not float:
+            raise TypeError('alpha must be a float')
+        if alpha < 0:
+            raise ValueError('alpha must be positive')
+
         for ite in range(iterations):
             A = self.forward_prop(X)
             self.gradient_descent(X, Y, A, alpha)
 
-        cost = self.cost(Y, A)
-        return A, cost
+        return self.evaluate(X, Y)
