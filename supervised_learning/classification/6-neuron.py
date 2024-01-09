@@ -144,7 +144,7 @@ class Neuron():
         A = self.forward_prop(X)
         cost = self.cost(Y, A)
         step = np.vectorize(self.step)
-        print("example weight in evaluate", self.__W[0][1])
+
         return step(A, 0.5), cost
 
     def step(self, value, threshold):
