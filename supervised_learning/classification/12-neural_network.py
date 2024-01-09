@@ -167,3 +167,21 @@ class NeuralNetwork():
         step = np.vectorize(self.step)
 
         return step(self.__A, 0.5), cost
+
+    def step(self, value, threshold):
+        """
+        Take a value between 1 and zeo and returns 1 or 0
+        according to a threshold
+
+        Args:
+           Value: float number between 0 and 1
+
+        Returns:
+           0 or 1
+
+        """
+
+        if value >= threshold:
+            return 1
+        else:
+            return 0
