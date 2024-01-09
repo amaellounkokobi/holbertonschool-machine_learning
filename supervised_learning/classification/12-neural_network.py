@@ -146,11 +146,12 @@ class NeuralNetwork():
         """
         N = Y.shape[1]
         cost_function = -(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
+
         return 1 / N * np.sum(cost_function)
 
     def evaluate(self, X, Y):
         """
-        Evaluates the neuron’s predictions
+        Evaluates the neural networf’s predictions
 
         Args:
         X: is a numpy.ndarray with shape (nx, m) that contains the
@@ -161,12 +162,12 @@ class NeuralNetwork():
         the correct labels for the input data
 
         """
-        A = self.forward_prop(X)
+        _ , A = self.forward_prop(X)
 
         cost = self.cost(Y, A)
         step = np.vectorize(self.step)
 
-        return step(self.__A, 0.5), cost
+        return step(self.__A2, 0.5), cost
 
     def step(self, value, threshold):
         """
