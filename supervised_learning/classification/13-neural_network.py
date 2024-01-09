@@ -207,12 +207,11 @@ class NeuralNetwork():
         """
         N = X.shape[1]
 
-        dZ2 = A2 - Y
-        dW2 = 1 / N * np.dot(dZ2, A1.T)
-        db2 = 1 / N * np.sum(dZ2)
-
-        dZ1 = (self.__W2 * dZ2) * (A1 * (1 - A1))
-        dW1 = 1 / N * np.dot(dZ1 , X.T)
+       
+        dW2 = 1 / N * np.dot((A2 - Y), A1.T)
+        db2 = 1 / N * np.sum((A2 - Y))
+       
+        dW1 = 1 / N * np.dot((A1 - Y) , X.T)
         db1 = 1 / N * np.sum((A1 - Y))
 
         self.__W2 = self.__W2 - alpha * dW2
