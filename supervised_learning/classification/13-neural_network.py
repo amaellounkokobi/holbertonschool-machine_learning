@@ -208,10 +208,10 @@ class NeuralNetwork():
         N = X.shape[1]
 
         dW2 = 1 / N * np.dot((A2 - Y), A1.T)
-        db2 = 1 / N * np.sum((A2 - Y), axis=1, keepdims=True)
+        db2 = 1 / N * np.sum((A2 - Y))
 
         dW1 = 1 / N * np.dot((A1 - Y), X.T)
-        db1 = 1 / N * np.sum((A1 - Y), axis=1, keepdims=True)
+        db1 = 1 / N * np.sum((A1 - Y))
 
         self.__W2 = self.__W2 - alpha * dW2
         self.__b2 = self.__b2 - alpha * db2
