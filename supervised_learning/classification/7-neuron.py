@@ -218,7 +218,7 @@ class Neuron():
             raise ValueError('alpha must be positive')
         if type(step) is not int:
             raise TypeError('step must be an integer')
-        if step < 0 or step > iterations:
+        if step <= 0 or step > iterations:
             raise ValueError('step must be positive and <= iterations')
 
         step_func = np.vectorize(self.step)
@@ -241,7 +241,7 @@ class Neuron():
             self.gradient_descent(X, Y, A, alpha)
             cost = self.cost(Y, A)
 
-            if ite % step == 0:
+            if ite % step == 0 or ite == iterations :
                 x_iterations.append(ite)
                 y_cost.append(cost)
                 if verbose is True:
@@ -251,7 +251,7 @@ class Neuron():
             plt.plot(x_iterations, y_cost, color='skyblue')
             plt.xlabel('iteration')
             plt.ylabel('cost')
-            plt.title('Trainning cost')
+            plt.title('Training Cost')
             plt.show()
 
         return step_func(A, 0.5), cost
