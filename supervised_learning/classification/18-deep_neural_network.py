@@ -99,7 +99,7 @@ class DeepNeuralNetwork():
                 n_b = 'b{0}'.format(l_n + 1)
                 n_A = 'A{0}'.format(l_n)
                 activation = np.matmul(
-                    self.__weights[n_W], self.__cache[n_A]) + self.__weights[n_b])
+                    self.__weights[n_W], self.__cache[n_A]) + self.__weights[n_b]
 
                 A = 1/(1 + np.exp(-activation))
                 self.__cache['A{0}'.format(l_n + 1)] = A
