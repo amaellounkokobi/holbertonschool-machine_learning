@@ -205,6 +205,7 @@ class NeuralNetwork():
         self.__W1 = self.__W1 - alpha * dW1
         self.__b1 = self.__b1 - alpha * db1
         print("W1",(self.__W1 - alpha * dW1)[0][0])
+        print("W1-",(self.__W1[0][0])
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """
