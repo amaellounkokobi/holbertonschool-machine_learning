@@ -202,10 +202,12 @@ class NeuralNetwork():
         self.__W2 = self.__W2 - alpha * dW2
         self.__b2 = self.__b2 - alpha * db2
 
-        self.__W1 = self.__W1 - alpha * dW1
-        self.__b1 = self.__b1 - alpha * db1
         print("W1",(self.__W1 - alpha * dW1)[0][0])
-        print("W1-",(self.__W1[0][0]))
+        self.__W1 = self.__W1 - alpha * dW1
+        print("W1-updtated",(self.__W1[0][0]))
+        self.__b1 = self.__b1 - alpha * db1
+
+
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """
