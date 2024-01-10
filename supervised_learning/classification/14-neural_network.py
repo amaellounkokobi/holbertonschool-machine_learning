@@ -165,27 +165,8 @@ class NeuralNetwork():
         _, A = self.forward_prop(X)
 
         cost = self.cost(Y, A)
-        step = np.vectorize(self.step)
-
-        return step(A, 0.5), cost
-
-    def step(self, value, threshold):
-        """
-        Take a value between 1 and zeo and returns 1 or 0
-        according to a threshold
-
-        Args:
-           Value: float number between 0 and 1
-
-        Returns:
-           0 or 1
-
-        """
-
-        if value >= threshold:
-            return 1
-        else:
-            return 0
+        
+        return np.where(A >= 0.5, 1, 0), cost
 
     def gradient_descent(self, X, Y, A1, A2, alpha=0.05):
         """
@@ -207,14 +188,17 @@ class NeuralNetwork():
         """
         N = X.shape[1]
 
-        dW2 = 1 / N * np.dot((A2 - Y), A1.T)
+        """ Back propagation """
+        dW2 = 1 / N * np.matmul((A2 - Y), A1.T)
         db2 = 1 / N * np.sum((A2 - Y))
 
         dA1 = A1 * (1 - A1)
         dZ1 = np.dot(self.__W2.T, (A2 - Y)) * dA1
-        dW1 = 1 / N * np.dot(dZ1, X.T)
+
+        dW1 = 1 / N * np.matmul(dZ1, X.T)
         db1 = 1 / N * np.sum(dZ1)
 
+        """ Update parameters """
         self.__W2 = self.__W2 - alpha * dW2
         self.__b2 = self.__b2 - alpha * db2
 
@@ -236,7 +220,6 @@ class NeuralNetwork():
 
         alpha: is the learning rate
         """
-        step_func = np.vectorize(self.step)
 
         if type(iterations) is not int:
             raise TypeError('iterations must be an integer')
@@ -252,4 +235,4 @@ class NeuralNetwork():
             cost = self.cost(Y, A2)
             self.gradient_descent(X, Y, A1, A2, alpha)
 
-        return step_func(A2, 0.5), cost
+        return self.evaluate(X, Y)
