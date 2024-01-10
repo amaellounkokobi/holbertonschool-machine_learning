@@ -121,6 +121,7 @@ class NeuralNetwork():
            the private attribute A1, A2
 
         """
+        print('Forward Propagation')
         activation1 = np.add(np.matmul(self.__W1, X), self.__b1)
         self.__A1 = 1/(1 + np.exp(-activation1))
 
@@ -144,6 +145,7 @@ class NeuralNetwork():
 
            The cost
         """
+        print('Cost')
         N = Y.shape[1]
         cost_function = -(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
 
@@ -162,6 +164,7 @@ class NeuralNetwork():
         the correct labels for the input data
 
         """
+        print('Evaluate')
         _, A = self.forward_prop(X)
 
         cost = self.cost(Y, A)
@@ -186,6 +189,7 @@ class NeuralNetwork():
         is the learning rate
 
         """
+        print('Gradient')
         N = X.shape[1]
 
         """ Back propagation """
@@ -221,7 +225,7 @@ class NeuralNetwork():
 
         alpha: is the learning rate
         """
-
+        print('Train')
         if type(iterations) is not int:
             raise TypeError('iterations must be an integer')
         if iterations < 0:
