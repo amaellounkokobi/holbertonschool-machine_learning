@@ -232,7 +232,7 @@ class NeuralNetwork():
 
         for ite in range(iterations):
             A1, A2 = self.forward_prop(X)
-            cost = self.cost(Y, A2)
             self.gradient_descent(X, Y, A1, A2, alpha)
-
+            cost = self.cost(Y, A2)
+            
         return self.evaluate(X, Y)
