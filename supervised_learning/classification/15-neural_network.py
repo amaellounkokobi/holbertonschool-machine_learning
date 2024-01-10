@@ -189,13 +189,13 @@ class NeuralNetwork():
 
         """ Back propagation """
         dW2 = 1 / N * np.matmul((A2 - Y), A1.T)
-        db2 = 1 / N * np.sum((A2 - Y), axis=1, keepdims=True)
+        db2 = 1 / N * np.sum((A2 - Y))
 
         dA1 = A1 * (1 - A1)
         dZ1 = np.matmul(self.__W2.T, (A2 - Y)) * dA1
 
         dW1 = 1 / N * np.matmul(dZ1, X.T)
-        db1 = 1 / N * np.sum(dZ1, axis=1, keepdims=True)
+        db1 = 1 / N * np.sum(dZ1)
 
         """ Update parameters """
         self.__W2 = self.__W2 - alpha * dW2
@@ -264,4 +264,3 @@ class NeuralNetwork():
             plt.show()
 
         return np.where(A2 >= 0.5, 1, 0), cost
-
