@@ -11,6 +11,7 @@ Import:
    Numpy Library
 
 """
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -167,7 +168,7 @@ class NeuralNetwork():
         cost = self.cost(Y, A)
         step = np.vectorize(self.step)
 
-        return step(self.__A2, 0.5), cost
+        return step(A, 0.5), cost
 
     def step(self, value, threshold):
         """
@@ -221,6 +222,7 @@ class NeuralNetwork():
         self.__W1 = self.__W1 - alpha * dW1
         self.__b1 = self.__b1 - alpha * db1
 
+
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """
         Trains the neuron
@@ -235,7 +237,7 @@ class NeuralNetwork():
 
         alpha: is the learning rate
         """
-
+        step_func = np.vectorize(self.step)
 
         if type(iterations) is not int:
             raise TypeError('iterations must be an integer')
@@ -248,6 +250,7 @@ class NeuralNetwork():
 
         for ite in range(iterations):
             A1, A2 = self.forward_prop(X)
+            cost = self.cost(Y, A2)
             self.gradient_descent(X, Y, A1, A2, alpha)
 
-        return self.evaluate(X, Y)
+        return step_func(A2, 0.5), cost
