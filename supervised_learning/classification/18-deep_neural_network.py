@@ -87,11 +87,10 @@ class DeepNeuralNetwork():
         """
 
         self.__cache['A0'] = X
-        for l_n  in range(self.__L) :
+        for l_n in range(self.__L):
             if l_n == 0:
                 activation = np.add(np.matmul(
-                    self.__weights['W1'], X)
-                    , self.__weights['b1'])
+                    self.__weights['W1'], X), self.__weights['b1'])
 
                 A = 1/(1 + np.exp(-activation))
                 self.__cache['A{0}'.format(l_n + 1)] = A
@@ -100,9 +99,8 @@ class DeepNeuralNetwork():
                 name_b = 'b{0}'.format(l_n + 1)
                 name_A = 'A{0}'.format(l_n)
                 activation = np.add(np.matmul(
-                    self.__weights[name_W]
-                    , self.__cache[name_A] )
-                    , self.__weights[name_b])
+                    self.__weights[name_W], self.__cache[name_A] )
+                                    , self.__weights[name_b])
 
                 A = 1/(1 + np.exp(-activation))
                 self.__cache['A{0}'.format(l_n + 1)] = A
