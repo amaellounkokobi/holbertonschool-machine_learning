@@ -37,10 +37,10 @@ class DeepNeuralNetwork():
 
         Raise:
            TypeError with the exception: nx must be an integer
-           
+
            ValueError with the exception: nx must be a positive integer
-           
-           TypeError with the exception: layers must 
+
+           TypeError with the exception: layers must
            be a list of positive integers
 
         """
@@ -59,14 +59,15 @@ class DeepNeuralNetwork():
         self.cache = {}
         self.weights = {}
 
-        for l_n , layer in enumerate(layers):
+        for l_n, layer in enumerate(layers):
             if l_n == 0:
                 w_ini = np.random.randn(layers[l_n], nx) * np.sqrt(2 / nx)
                 self.weights['W{0}'.format(l_n + 1)] = w_ini
                 self.weights['b{0}'.format(l_n + 1)] = np.zeros((layer, 1))
             else:
                 w_ini = np.random.randn(
-                    layers[l_n], layers[l_n - 1]) * np.sqrt(2 / layers[l_n - 1])
+                    layers[l_n], layers[l_n - 1]) * np.sqrt(
+                        2 / layers[l_n - 1])
                 self.weights['W{0}'.format(l_n + 1)] = w_ini
                 self.weights['b{0}'.format(l_n + 1)] = np.zeros((layer, 1))
 
