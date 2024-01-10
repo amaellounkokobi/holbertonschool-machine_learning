@@ -205,8 +205,6 @@ class NeuralNetwork():
         self.__W1 = self.__W1 - alpha * dW1
         self.__b1 = self.__b1 - alpha * db1
 
-
-
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """
         Trains the neuron
@@ -234,5 +232,5 @@ class NeuralNetwork():
             A1, A2 = self.forward_prop(X)
             self.gradient_descent(X, Y, A1, A2, alpha)
             cost = self.cost(Y, A2)
-            
+
         return self.evaluate(X, Y)
