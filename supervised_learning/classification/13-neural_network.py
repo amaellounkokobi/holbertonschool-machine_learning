@@ -210,14 +210,13 @@ class NeuralNetwork():
         dW2 = 1 / N * np.dot((A2 - Y), A1.T)
         db2 = 1 / N * np.sum((A2 - Y))
 
-
-        self.__W2 = self.__W2 - alpha * dW2
-        self.__b2 = self.__b2 - alpha * db2
-
         dA1 = A1 * (1 - A1)
         dZ1 = np.dot(self.__W2.T, (A2 - Y)) * dA1
         dW1 = 1 / N * np.dot(dZ1 , X.T)
         db1 = 1 / N * np.sum(dZ1)
+        
+        self.__W2 = self.__W2 - alpha * dW2
+        self.__b2 = self.__b2 - alpha * db2
 
         self.__W1 = self.__W1 - alpha * dW1
         self.__b1 = self.__b1 - alpha * db1
