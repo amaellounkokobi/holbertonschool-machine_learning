@@ -11,7 +11,6 @@ Import:
    Numpy Library
 
 """
-import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -265,3 +264,4 @@ class NeuralNetwork():
             plt.show()
 
         return np.where(A2 >= 0.5, 1, 0), cost
+
