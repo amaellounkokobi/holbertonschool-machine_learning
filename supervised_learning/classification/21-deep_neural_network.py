@@ -166,7 +166,7 @@ class DeepNeuralNetwork():
         is the learning rate
 
         """
-        N = X.shape[1]
+        N = Y.shape[1]
 
         for l_n in reversed(range(0,self.__L)):
             if l_n == self.__L - 1:
@@ -205,7 +205,7 @@ class DeepNeuralNetwork():
 
                 dA1 = A1 * (1 - A1)
                 dZ1 = np.matmul(W2.T, (A2 - Y)) * dA1
-                dW1 = 1 / N * np.matmul(dZ1, X.T)
+                dW1 = 1 / N * np.matmul(dZ1, cache['A0'].T)
                 db1 = 1 / N * np.sum(dZ1, axis=1, keepdims=True)
 
                 self.__weights['W1'] = self.__weights['W1'] - alpha * dW1
