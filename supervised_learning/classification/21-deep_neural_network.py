@@ -169,14 +169,14 @@ class DeepNeuralNetwork():
         N = Y.shape[1]
 
         for l_n in reversed(range(1,self.__L + 1)):
-            curr_W_name = 'W{}'.format(l_n)
-            curr_b_name = 'b{}'.format(l_n)
-            curr_A_name = 'A{}'.format(l_n)
-            prev_A_name = 'A{}'.format(l_n - 1)
+            c_W_n = 'W{}'.format(l_n)
+            c_b_n = 'b{}'.format(l_n)
+            c_A_n = 'A{}'.format(l_n)
+            p_A_n = 'A{}'.format(l_n - 1)
 
-            curr_W = self.__weights[curr_W_name]
-            curr_A = cache[curr_A_name]
-            prev_A = cache[prev_A_name]
+            curr_W = self.__weights[c_W_n]
+            curr_A = cache[c_A_n]
+            prev_A = cache[p_A_n]
             curr_dSig = curr_A * (1 - curr_A)
 
             if l_n == self.__L:
@@ -185,21 +185,19 @@ class DeepNeuralNetwork():
                 dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
             else:
 
-                next_W_name = 'W{}'.format(l_n + 1)
-                next_A_name = 'A{}'.format(l_n + 1)
+                n_W_n = 'W{}'.format(l_n + 1)
+                n_A_n = 'A{}'.format(l_n + 1)
 
-                next_W = self.__weights[next_W_name]
-                next_A = cache[next_A_name]
+                next_W = self.__weights[n_W_n]
+                next_A = cache[n_A_n]
 
                 dZ_curr = np.matmul(next_W.T, next_A) * curr_dSig
                 dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
 
             dB_curr = 1 / N * np.sum(dZ_curr, axis=1, keepdims=True)                
 
-            self.__weights[curr_W_name] =
-            self.__weights[curr_W_name] - alpha * dW_curr
-            self.__weights[curr_b_name] =
-            self.__weights[curr_b_name] - alpha * dB_curr
+            self.__weights[c_W_n] = self.__weights[c_W_n] - alpha * dW_curr
+            self.__weights[c_b_n] = self.__weights[c_b_n] - alpha * dB_curr
 
     @property
     def L(self):
