@@ -168,48 +168,38 @@ class DeepNeuralNetwork():
         """
         N = Y.shape[1]
 
-        for l_n in reversed(range(0,self.__L)):
-            if l_n == self.__L - 1:
-                Wn = 'W{0}'.format(l_n + 1)
-                bn = 'b{0}'.format(l_n + 1)
-                An = cache['A{0}'.format(l_n + 1)]
-                A1n = cache['A{0}'.format(l_n)]
+        for l_n in reversed(range(1,self.__L + 1)):
+            curr_W_name = 'W{}'.format(l_n)
+            curr_b_name = 'b{}'.format(l_n)
+            curr_A_name = 'A{}'.format(l_n)
+            prev_A_name = 'A{}'.format(l_n - 1)
 
-                dWn = 1 / N * np.matmul((An - Y), A1n.T)
-                dbn = 1 / N * np.sum((An - Y), axis=1, keepdims=True)
+            curr_W = self.__weights[curr_W_name]
+            curr_A = cache[curr_A_name]
+            prev_A = cache[prev_A_name]
+            curr_dSig = curr_A * (1 - curr_A)
 
-                self.__weights[Wn] = self.__weights[Wn] - alpha * dWn
-                self.__weights[bn] = self.__weights[bn] - alpha * dbn
+            if l_n == self.__L:
 
-            elif l_n > 0:
-                Wn = 'W{0}'.format(l_n + 2)
-                bn = 'b{0}'.format(l_n + 1)
-                Wn2 = self.__weights[Wn]
-                bn1 = self.__weights[bn]
-                An2 = cache['A{0}'.format(l_n + 2)]
-                An1 = cache['A{0}'.format(l_n + 1)]
-
-                dA1 = An1 * (1 - An1)
-                dZn1 = np.matmul(Wn2.T, (An2 - Y)) * dA1
-                dWn1 = 1 / N * np.matmul(dZn1, An1.T)
-                dbn1 = 1 / N * np.sum(dZn1, axis=1, keepdims=True)
-
-                self.__weights[Wn] = self.__weights[Wn] - alpha * dWn1
-                self.__weights[bn] = self.__weights[bn] - alpha * dbn1
-
+                dZ_curr = curr_A - Y
+                dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
             else:
-                W2 = self.__weights['W2']
-                b1 = self.__weights['b1']
-                A2 = cache['A2']
-                A1 = cache['A1']
 
-                dA1 = A1 * (1 - A1)
-                dZ1 = np.matmul(W2.T, (A2 - Y)) * dA1
-                dW1 = 1 / N * np.matmul(dZ1, cache['A0'].T)
-                db1 = 1 / N * np.sum(dZ1, axis=1, keepdims=True)
+                next_W_name = 'W{}'.format(l_n + 1)
+                next_A_name = 'A{}'.format(l_n + 1)
 
-                self.__weights['W1'] = self.__weights['W1'] - alpha * dW1
-                self.__weights['b1'] = self.__weights['b1'] - alpha * db1
+                next_W = self.__weights[next_W_name]
+                next_A = cache[next_A_name]
+
+                dZ_curr = np.matmul(next_W.T, next_A) * curr_dSig
+                dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
+
+            dB_curr = 1 / N * np.sum(dZ_curr, axis=1, keepdims=True)                
+
+            self.__weights[curr_W_name] =
+            self.__weights[curr_W_name] - alpha * dW_curr
+            self.__weights[curr_b_name] =
+            self.__weights[curr_b_name] - alpha * dB_curr
 
     @property
     def L(self):
