@@ -192,7 +192,7 @@ class DeepNeuralNetwork():
 
             self.__weights[c_W_n] = self.__weights[c_W_n] - alpha * dW_curr
             self.__weights[c_b_n] = self.__weights[c_b_n] - alpha * dB_curr
-            
+
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """
         Trains the neuron
