@@ -89,8 +89,8 @@ class DeepNeuralNetwork():
         self.__cache['A0'] = X
         for l_n in range(self.__L):
             if l_n == 0:
-                activation = np.add(np.matmul(
-                    self.__weights['W1'], X), self.__weights['b1'])
+                activation = np.matmul(
+                    self.__weights['W1'], X) + self.__weights['b1']
 
                 A = 1/(1 + np.exp(-activation))
                 self.__cache['A{0}'.format(l_n + 1)] = A
@@ -180,24 +180,19 @@ class DeepNeuralNetwork():
             curr_dSig = curr_A * (1 - curr_A)
 
             if l_n == self.__L:
-
                 dZ_curr = curr_A - Y
-                dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
             else:
-
                 n_W_n = 'W{}'.format(l_n + 1)
                 n_A_n = 'A{}'.format(l_n + 1)
-
                 next_W = self.__weights[n_W_n]
                 next_A = cache[n_A_n]
+                dZ_curr = np.matmul(next_W.T, dZ_curr) * curr_dSig
 
-                dZ_curr = np.matmul(next_W.T, next_A) * curr_dSig
-                dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
+        dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
+        dB_curr = 1 / N * np.sum(dZ_curr, axis=1, keepdims=True)
 
-            dB_curr = 1 / N * np.sum(dZ_curr, axis=1, keepdims=True)                
-
-            self.__weights[c_W_n] = self.__weights[c_W_n] - alpha * dW_curr
-            self.__weights[c_b_n] = self.__weights[c_b_n] - alpha * dB_curr
+        self.__weights[c_W_n] = self.__weights[c_W_n] - alpha * dW_curr
+        self.__weights[c_b_n] = self.__weights[c_b_n] - alpha * dB_curr
 
     @property
     def L(self):
