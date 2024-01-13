@@ -170,64 +170,29 @@ class DeepNeuralNetwork():
 
         c_A_n = 'A{}'.format(self.__L)
         curr_A = cache[c_A_n]
-        
+
         dZ_curr = curr_A - Y
 
         for l_n in range(self.__L, 0, -1):
-            
+
             p_A_n = 'A{}'.format(l_n - 1)
             prev_A = cache[p_A_n]
-            
+
             dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
             dB_curr = 1 / N * np.sum(dZ_curr, axis=1, keepdims=True)
 
             c_W_n = 'W{}'.format(l_n)
             curr_W = self.__weights[c_W_n]
 
-            # add next_dSig
             next_dSig = prev_A * (1 - prev_A)
 
-            # change dZ_curr : j'ai remplacé next_W par curr_W et curr_dSig par next_dSig
             dZ_curr = np.matmul(curr_W.T, dZ_curr) * next_dSig
 
-
             c_b_n = 'b{}'.format(l_n)
-        
+
             self.__weights[c_W_n] = self.__weights[c_W_n] - alpha * dW_curr
             self.__weights[c_b_n] = self.__weights[c_b_n] - alpha * dB_curr
 
-        """        
-        c_W_n = 'W{}'.format(self.__L)
-        c_A_n = 'A{}'.format(self.__L)
-        p_A_n = 'A{}'.format(self.__L - 1)
-        c_b_n = 'b{}'.format(self.__L)
-        
-        curr_A = cache[c_A_n]
-        prev_A = cache[p_A_n]
-
-        dZ_curr = curr_A - Y        
-                              
-        for l_n in reversed(range(1,self.__L)):
-            c_W_n = 'W{}'.format(l_n)
-            c_b_n = 'b{}'.format(l_n)
-            c_A_n = 'A{}'.format(l_n)
-            p_A_n = 'A{}'.format(l_n - 1)
-
-            curr_W = self.__weights[c_W_n]
-            curr_A = cache[c_A_n]
-            prev_A = cache[p_A_n]
-            curr_dSig = curr_A * (1 - curr_A)
-
-            n_W_n = 'W{}'.format(l_n + 1)
-            next_W = self.__weights[n_W_n]
-            dZ_curr = np.matmul(next_W.T, dZ_curr) * curr_dSig
-
-            dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
-            dB_curr = 1 / N * np.sum(dZ_curr, axis=1, keepdims=True)                  
-
-            self.__weights[c_W_n] = self.__weights[c_W_n] - alpha * dW_curr
-            self.__weights[c_b_n] = self.__weights[c_b_n] - alpha * dB_curr
-   """         
     @property
     def L(self):
         """
