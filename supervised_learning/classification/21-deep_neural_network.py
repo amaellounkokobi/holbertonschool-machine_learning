@@ -183,16 +183,14 @@ class DeepNeuralNetwork():
                 dZ_curr = curr_A - Y
             else:
                 n_W_n = 'W{}'.format(l_n + 1)
-                n_A_n = 'A{}'.format(l_n + 1)
                 next_W = self.__weights[n_W_n]
-                next_A = cache[n_A_n]
                 dZ_curr = np.matmul(next_W.T, dZ_curr) * curr_dSig
 
-        dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
-        dB_curr = 1 / N * np.sum(dZ_curr, axis=1, keepdims=True)
+            dW_curr = 1 / N * np.matmul(dZ_curr, prev_A.T)
+            dB_curr = 1 / N * np.sum(dZ_curr, axis=1, keepdims=True)                  
 
-        self.__weights[c_W_n] = self.__weights[c_W_n] - alpha * dW_curr
-        self.__weights[c_b_n] = self.__weights[c_b_n] - alpha * dB_curr
+            self.__weights[c_W_n] = self.__weights[c_W_n] - alpha * dW_curr
+            self.__weights[c_b_n] = self.__weights[c_b_n] - alpha * dB_curr
 
     @property
     def L(self):
