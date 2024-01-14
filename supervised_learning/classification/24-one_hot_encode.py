@@ -19,10 +19,9 @@ def one_hot_encode(Y, classes):
     classes: is the maximum number of classes found in Y
 
     """
-
-    if isinstance(Y, np.ndarray):
+    if isinstance(Y, np.ndarray) is False:
         return None
-    if classes is not int:
+    if isinstance(classes, int) is False:
         return None
     if classes < 2:
         return None
