@@ -24,10 +24,10 @@ def one_hot_decode(one_hot):
 
     if isinstance(one_hot, np.ndarray) is False:
         return None
-    
+
     if one_hot.ndim != 2:
         return None
-    
+
     one_hot_decode = np.argmax(one_hot.T, axis=1)
 
     return one_hot_decode
