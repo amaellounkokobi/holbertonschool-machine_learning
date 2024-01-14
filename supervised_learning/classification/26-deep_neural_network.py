@@ -287,25 +287,24 @@ class DeepNeuralNetwork():
 
         return np.where(A >= 0.5, 1, 0), cost
 
-    
     def save(self, filename):
         """
         Saves the instance object to a file in pickle format
-        
+
         Args:
            filename: is the file to which the object should be saved
-        """  
+        """
         fileObject = open(filename,'wb')
-        pickle.dump(,fileObject)
+        pickle.dump(self.__cache,fileObject)
         fileObject.close()
-        
+
     def load(filename):
         """
         Loads a pickled DeepNeuralNetwork object
-        
+
         Args:
         filename is the file from which the object should be loaded
         """
 
-        fileObject = open(file_Name,'r')
-        b = pickle.load(fileObject)  
+        fileObject = open(filename,'r')
+        self.__cache = pickle.load(fileObject)
