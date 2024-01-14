@@ -19,6 +19,16 @@ def one_hot_encode(Y, classes):
     classes: is the maximum number of classes found in Y
 
     """
+
+    if Y is not list:
+        return None
+    if classes is not int:
+        return None
+    if classes < 2:
+        return None
+    if classes < Y.max():
+        return None
+
     one_hot = np.eye(classes)[Y]
 
     return one_hot.T
