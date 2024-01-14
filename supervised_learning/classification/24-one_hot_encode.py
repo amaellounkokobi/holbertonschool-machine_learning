@@ -19,7 +19,6 @@ def one_hot_encode(Y, classes):
     classes: is the maximum number of classes found in Y
 
     """
-    one_hot = np.zeros((Y.size,classes))
-    one_hot[Y, np.arange(classes)] = 1
+    one_hot = np.eye(classes)[Y]
 
-    return one_hot
+    return one_hot.T
