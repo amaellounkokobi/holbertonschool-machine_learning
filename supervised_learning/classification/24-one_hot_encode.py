@@ -20,7 +20,7 @@ def one_hot_encode(Y, classes):
 
     """
 
-    if Y is not np.ndarray:
+    if isinstance(Y, np.ndarray):
         return None
     if classes is not int:
         return None
