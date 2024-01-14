@@ -21,7 +21,7 @@ def one_hot_encode(Y, classes):
     """
 
     if Y is not list:
-        return "Y is not list"
+        return "Y is not list Y is a {} ".format(type(Y))
     if classes is not int:
         return "classes is not int"
     if classes < 2:
