@@ -20,14 +20,14 @@ def one_hot_encode(Y, classes):
 
     """
 
-    if Y is not list:
-        return "Y is not list Y is a {} ".format(type(Y))
+    if Y is not numpy.ndarray:
+        return None
     if classes is not int:
-        return "classes is not int"
+        return None
     if classes < 2:
-        return "classes < 2"
+        return None
     if classes < Y.max():
-        return "classes < Y.max()"
+        return None
 
     one_hot = np.eye(classes)[Y]
 
