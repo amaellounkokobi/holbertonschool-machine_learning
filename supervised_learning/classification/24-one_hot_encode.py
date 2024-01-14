@@ -21,13 +21,13 @@ def one_hot_encode(Y, classes):
     """
 
     if Y is not list:
-        return None
+        return "Y is not list"
     if classes is not int:
-        return None
+        return "classes is not int"
     if classes < 2:
-        return None
+        return "classes < 2"
     if classes < Y.max():
-        return None
+        return "classes < Y.max()"
 
     one_hot = np.eye(classes)[Y]
 
