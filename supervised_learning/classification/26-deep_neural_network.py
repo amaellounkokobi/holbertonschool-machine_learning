@@ -250,8 +250,8 @@ class DeepNeuralNetwork():
             raise ValueError('alpha must be positive')
         if type(step) is not int:
             raise TypeError('step must be an integer')
-        if step <= 0 or step > iterations:
-            raise ValueError('step must be positive and <= iterations')
+       # if step <= 0 or step > iterations:
+       #     raise ValueError('step must be positive and <= iterations')
 
         x_iterations = []
         y_cost = []
@@ -294,8 +294,13 @@ class DeepNeuralNetwork():
         Args:
            filename: is the file to which the object should be saved
         """
+
+        if filename.find('pkl') == -1:
+            filename = "{}.pkl".format(filename)
+
         fileObject = open(filename,'wb')
-        pickle.dump(self.__cache,fileObject)
+
+        pickle.dump(self, fileObject)
         fileObject.close()
 
     def load(filename):
@@ -305,6 +310,9 @@ class DeepNeuralNetwork():
         Args:
         filename is the file from which the object should be loaded
         """
+        try:
+            file_object = open(filename,'rb')
+        except IOError:
+            return None
 
-        fileObject = open(filename,'r')
-        self.__cache = pickle.load(fileObject)
+        return  pickle.load(file_object)
