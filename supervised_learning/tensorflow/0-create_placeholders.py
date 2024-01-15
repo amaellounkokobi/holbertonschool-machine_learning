@@ -7,7 +7,7 @@ Function:
    def create_placeholders(nx, classes):
 
 """
-
+import tensorflow.compat.v1 as tf
 
 def create_placeholders(nx, classes):
     """
