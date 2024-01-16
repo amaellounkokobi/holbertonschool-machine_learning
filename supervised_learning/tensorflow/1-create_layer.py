@@ -27,7 +27,7 @@ def create_layer(prev, n, activation):
     layer = tf.layers.dense(
             prev,
             n,
-            activation=activaion,
+            activation=activation,
             use_bias=False,
             kernel_initializer=None,
             bias_initializer=tf.compat.v1.zeros_initializer(),
@@ -39,6 +39,7 @@ def create_layer(prev, n, activation):
             trainable=True,
             name=activation.__name__.capitalize(),
             reuse=None
-        )
-    
+    )
+        
     return layer
+
