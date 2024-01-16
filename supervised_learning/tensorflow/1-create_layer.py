@@ -38,7 +38,7 @@ def create_layer(prev, n, activation):
             kernel_constraint=None,
             bias_constraint=None,
             trainable=True,
-            name=layer/Tanh,
+            name="layer/Tanh",
             reuse=None
         )
     
