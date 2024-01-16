@@ -29,7 +29,7 @@ def create_layer(prev, n, activation):
             n,
             activation=activation,
             use_bias=False,
-            kernel_initializer=None,
+            kernel_initializer=tf.keras.initializers.VarianceScaling(mode='fan_avg'),
             bias_initializer=tf.compat.v1.zeros_initializer(),
             kernel_regularizer=None,
             bias_regularizer=None,
