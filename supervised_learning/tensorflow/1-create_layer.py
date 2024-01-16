@@ -8,7 +8,7 @@ Function:
 
 """
 import tensorflow.compat.v1 as tf
-tf.disable_eager_execution()
+
 
 def create_layer(prev, n, activation):
     """
@@ -23,23 +23,18 @@ def create_layer(prev, n, activation):
         placeholders named x and y, respectively
         x is the placeholder for the input data to the neural network
         y is the placeholder for the one-hot labels for the input data
-    """    
+    """
+    
+    w_init = tf.keras.initializers.VarianceScaling(mode='fan_avg')
+    name = activation.__name__.capitalize()
+    
     layer = tf.layers.dense(
             prev,
             n,
             activation=activation,
-            use_bias=False,
-            kernel_initializer=tf.keras.initializers.VarianceScaling(mode='fan_avg'),
+            kernel_initializer=w_init,
             bias_initializer=tf.compat.v1.zeros_initializer(),
-            kernel_regularizer=None,
-            bias_regularizer=None,
-            activity_regularizer=None,
-            kernel_constraint=None,
-            bias_constraint=None,
-            trainable=True,
-            name=activation.__name__.capitalize(),
-            reuse=None
+            name=name,
     )
-        
-    return layer
 
+    return layer
