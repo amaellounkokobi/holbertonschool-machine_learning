@@ -24,10 +24,10 @@ def create_layer(prev, n, activation):
         x is the placeholder for the input data to the neural network
         y is the placeholder for the one-hot labels for the input data
     """
-    
+
     w_init = tf.keras.initializers.VarianceScaling(mode='fan_avg')
     name = activation.__name__.capitalize()
-    
+
     layer = tf.layers.dense(
             prev,
             n,
