@@ -23,14 +23,13 @@ def create_layer(prev, n, activation):
         placeholders named x and y, respectively
         x is the placeholder for the input data to the neural network
         y is the placeholder for the one-hot labels for the input data
-    """
-
-    layer = tf.compat.v1.layers.dense(
+    """    
+    layer = tf.layers.dense(
             prev,
             n,
             activation=activaion,
             use_bias=False,
-            kernel_initializer=tf.keras.initializers.VarianceScaling(mode='fan_avg'),
+            kernel_initializer=None,
             bias_initializer=tf.compat.v1.zeros_initializer(),
             kernel_regularizer=None,
             bias_regularizer=None,
@@ -38,8 +37,8 @@ def create_layer(prev, n, activation):
             kernel_constraint=None,
             bias_constraint=None,
             trainable=True,
-            name=activation.name,
+            name="layer/{}".format(activation.__name__),
             reuse=None
         )
     
-    return layer
+    return 0
