@@ -41,4 +41,4 @@ def create_layer(prev, n, activation):
             reuse=None
         )
     
-    return 0
+    return layer
