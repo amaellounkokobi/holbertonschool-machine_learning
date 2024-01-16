@@ -37,7 +37,7 @@ def create_layer(prev, n, activation):
             kernel_constraint=None,
             bias_constraint=None,
             trainable=True,
-            name="layer/{}".format(activation.__name__),
+            name=activation.__name__.capitalize()),
             reuse=None
         )
     
