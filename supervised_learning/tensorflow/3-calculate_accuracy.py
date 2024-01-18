@@ -21,7 +21,8 @@ def calculate_accuracy(y, y_pred):
 
     """
 
-    true_false = tf.where(y == y_pred ,y , y_pred)
+    
+    true_false = tf.where(y == y_pred, tf.argmax(y), tf.argmax(y_pred))
 
     accuracy = tf.reduce_mean( tf.cast(true_false, tf.float32))
 
