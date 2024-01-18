@@ -21,9 +21,8 @@ def calculate_accuracy(y, y_pred):
 
     """
 
-    pred = tf.equal(y, y_pred)
+    pred = tf.where(y == y_pred ,y , y_pred)
 
     accuracy = tf.reduce_mean( tf.cast(pred, tf.float32))
-
     
     return accuracy
