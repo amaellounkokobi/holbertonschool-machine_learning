@@ -22,6 +22,6 @@ def calculate_accuracy(y, y_pred):
     """
 
     pred = tf.equal(tf.argmax(y), tf.argmax(y_pred))
-    accuracy = tf.reduce_mean(tf.cast(pred, tf.float32))
+    accuracy = tf.reduce_mean(1, tf.cast(pred, tf.float32))
 
     return accuracy
