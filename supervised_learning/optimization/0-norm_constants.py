@@ -6,7 +6,6 @@ This module contains a function that calculates the normalization
 Function:
    def normalization_constants(X):
 """
-#!/usr/bin/env python3
 import numpy as np
 
 
