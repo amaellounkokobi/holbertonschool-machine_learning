@@ -6,6 +6,8 @@ This module contains a function that calculates the normalization
 Function:
    def normalization_constants(X):
 """
+#!/usr/bin/env python3
+import numpy as np
 
 
 def normalization_constants(X):
@@ -20,7 +22,7 @@ def normalization_constants(X):
        Returns: the mean and standard deviation of each feature, respectively
     
     """
-    mean = np.mean(X, axis=1)
-    std = np.std(X, axis=1)
+    mean = np.mean(X, axis=0)
+    std = np.std(X, axis=0)
 
     return mean, std
