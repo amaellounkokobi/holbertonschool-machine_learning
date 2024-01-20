@@ -21,18 +21,17 @@ def moving_average(data, beta):
     Returns:
        A list containing the moving averages of data
     """
-
     vt = 0
     ewma = []
     wma = []
     ewma.append(vt)
 
-    #moving average
+    # moving average
     for num in range(len(data)):
         vt = beta * vt + (1 - beta) * data[num]
         ewma.append(vt)
 
-    #bias correction
+    # bias correction
     for key in range(len(ewma)):
         if key > 0:
             wma.append(ewma[key] / (1 - beta**key))
