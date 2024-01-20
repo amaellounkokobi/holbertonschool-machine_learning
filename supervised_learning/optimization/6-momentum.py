@@ -26,6 +26,6 @@ def create_momentum_op(loss, alpha, beta1):
 
     """
 
-    op = tf.compat.v1.train.MomentumOptimizer(alpha).minimize(loss)
+    op = tf.compat.v1.train.MomentumOptimizer(alpha, beta1).minimize(loss)
 
     return op
