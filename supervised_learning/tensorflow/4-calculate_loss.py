@@ -7,6 +7,7 @@ Function:
 def calculate_loss(y, y_pred)
 
 """
+create_placeholders = __import__('0-create_placeholders').create_placeholders
 import tensorflow.compat.v1 as tf
 
 
@@ -22,9 +23,7 @@ def calculate_loss(y, y_pred):
        A tensor containing the loss of the prediction
     """
     
-    true_false = tf.not_equal(tf.argmax(y, axis=1), tf.argmax(y_pred, axis=1))
-
-    loss = tf.reduce_mean(tf.cast(true_false, tf.float32))
+    loss  = tf.nn.softmax_cross_entropy_with_logits(y, y_pred)
 
     return loss
 
