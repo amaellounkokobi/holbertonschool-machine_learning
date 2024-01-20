@@ -2,7 +2,7 @@
 """
 This module contains
 A function that creates the training operation for a
-neural network in tensorflow using the RMSProp 
+neural network in tensorflow using the RMSProp
 optimization algorithm
 
 Function:
@@ -26,6 +26,7 @@ def create_RMSProp_op(loss, alpha, beta2, epsilon):
        the RMSProp optimization operation
     """
 
-    op = tf.train.RMSPropOptimizer(alpha, beta2, epsilon).minimize(loss)
+    op = tf.train.RMSPropOptimizer(
+        alpha, momentum=beta2, epsilon=epsilon).minimize(loss)
 
     return op
