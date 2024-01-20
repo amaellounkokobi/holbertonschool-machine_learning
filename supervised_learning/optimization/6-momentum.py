@@ -8,7 +8,6 @@ optimization algorithm:
 Function:
   def create_momentum_op(loss, alpha, beta1):
 """
-import numpy as np
 import tensorflow.compat.v1 as tf
 
 
