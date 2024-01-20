@@ -7,7 +7,6 @@ Function:
 def calculate_loss(y, y_pred)
 
 """
-create_placeholders = __import__('0-create_placeholders').create_placeholders
 import tensorflow.compat.v1 as tf
 
 
