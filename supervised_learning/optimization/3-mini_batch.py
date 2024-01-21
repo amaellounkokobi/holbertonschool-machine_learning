@@ -88,7 +88,7 @@ def train_mini_batch(X_train,
                 X_batch = X_shuffle[j: j + batch_size]
                 Y_batch = Y_shuffle[j: j + batch_size]
 
-                if (j / batch_size) % 100 == 0 and (j / batch_size) > 0 :
+                if (j / batch_size) % 100 == 0 and (j / batch_size) > 0:
 
                     step_cost = sess.run(
                         loss, feed_dict={x: X_batch, y: Y_batch})
