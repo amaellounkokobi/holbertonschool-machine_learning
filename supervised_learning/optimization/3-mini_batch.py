@@ -88,8 +88,9 @@ def train_mini_batch(X_train,
                 X_batch = X_shuffle[j: j + batch_size]
                 Y_batch = Y_shuffle[j: j + batch_size]
 
-                if (j / batch_size) % 100 == 0 and (j / batch_size) > 0:
+                sess.run(train_op, feed_dict={x: X_batch, y: Y_batch})
 
+                if (j / batch_size) % 100 == 0 and (j / batch_size) > 0:
                     step_cost = sess.run(
                         loss, feed_dict={x: X_batch, y: Y_batch})
                     step_accuracy = sess.run(
@@ -98,8 +99,6 @@ def train_mini_batch(X_train,
                     print("\tStep {}:".format(int(j / batch_size)))
                     print("\t\tCost: {}".format(step_cost))
                     print("\t\tAccuracy: {}".format(step_accuracy))
-
-                sess.run(train_op, feed_dict={x: X_batch, y: Y_batch})
 
             if X_train.shape[0] / batch_size != 0:
                 X_batch = X_shuffle[j:]
