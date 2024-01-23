@@ -27,20 +27,16 @@ def specificity(confusion):
        a numpy.ndarray of shape (classes,) containing
        the specificity of each class
     """
-
     diag_values = np.diag(confusion)
-    precision = np.array([])
+    specificity = np.array([])
 
     for value in range(len(diag_values)):
-        true_pos = diag_values[value]
-        full_matrix = np.sum(confusion)
-        curr_col = np.sum(confusion[:, value])
-        curr_row = np.sum(confusion[value, :])
+        FS = np.sum(confusion)
+        ROW = np.sum(confusion[value, :])
+        COL = np.sum(confusion[:, value])
+        TP = diag_values[value]
+        TN = (FS - ROW - COL + TP)
+        FP = FS - TN - ROW
+        specificity = np.append(specificity, TN / (TN + FP))
 
-        true_negatives = full_matrix - ((curr_col + curr_row) - true_pos)
-        false_positives = full_matrix - curr_col - true_negatives
-        precision = np.append(precision,
-                              true_negatives /
-                              (true_negatives + false_positives))
-
-    return precision
+    return specificity
