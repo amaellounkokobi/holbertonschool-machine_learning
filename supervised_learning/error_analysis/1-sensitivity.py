@@ -27,8 +27,8 @@ def sensitivity(confusion):
        the sensitivity of each class
 
     """
-    max_num_col = np.max(confusion, axis=1)
+    diag_values = np.diag(confusion)
     sum_col = np.sum(confusion, axis=1)
-    sensitivity = max_num_col / sum_col
+    sensitivity = diag_values / sum_col
 
     return sensitivity
