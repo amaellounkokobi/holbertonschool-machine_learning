@@ -29,7 +29,7 @@ def create_confusion_matrix(labels, logits):
        column indices representing the predicted labels
 
     """
-    c_matrix = np.ndarray((labels.shape[1],labels.shape[1]))
+    c_matrix = np.ndarray((labels.shape[1], labels.shape[1]))
 
     for class_col in range(labels.shape[1]):
         col_mat = np.array([])
