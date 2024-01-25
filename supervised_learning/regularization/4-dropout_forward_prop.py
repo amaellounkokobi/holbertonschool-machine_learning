@@ -68,7 +68,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
 
     # Calculate Z
     Z = np.matmul(val_W, val_A) + val_b
-    A = softmax(activation)
+    A = softmax(Z)
 
     cache['A{0}'.format(l_n)] = A
     
