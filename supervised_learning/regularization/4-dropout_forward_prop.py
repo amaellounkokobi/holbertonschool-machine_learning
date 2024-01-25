@@ -15,12 +15,10 @@ def softmax(x):
     Softmax function
 
     Args
-       X 
+       X
     """
     exp_x = np.exp(x)
     return exp_x / np.sum(exp_x, axis=0, keepdims=True)
-
-
 
 
 def dropout_forward_prop(X, weights, L, keep_prob):
@@ -46,22 +44,23 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     cache['A0'] = X
     A = X
 
-    for lay in range(1, L): 
-        Z = np.matmul(weights['W{}'.format(lay)], A) + weights['b{}'.format(lay)] 
+    for lay in range(1, L):
+        Z = np.matmul(
+            weights['W{}'.format(lay)], A) + weights['b{}'.format(lay)]
         A = np.tanh(Z)
 
         D = np.random.rand(A.shape[0], A.shape[1])
         D = D  < keep_prob
 
-        A = A * D 
+        A = A * D
         A = A / keep_prob
 
         cache['A{}'.format(lay)] = A
-        cache['D{}'.format(lay)] = D * 1 
+        cache['D{}'.format(lay)] = D * 1
 
     lay += 1
 
-    Z = np.matmul(weights['W{}'.format(lay)], A) + weights['b{}'.format(lay)] 
+    Z = np.matmul(weights['W{}'.format(lay)], A) + weights['b{}'.format(lay)]
     A = softmax(Z)
 
     cache['A3'] = A
