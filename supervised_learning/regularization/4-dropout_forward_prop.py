@@ -58,14 +58,6 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     # Last layer activation
     l_n += 1
 
-    # set parameters W b A
-    n_W = 'W{0}'.format(l_n)
-    n_b = 'b{0}'.format(l_n)
-    p_A = 'A{0}'.format(l_n - 1)
-    val_W = weights[n_W]
-    val_b = weights[n_b]
-    val_A = cache[p_A]
-
     # Calculate Z
     Z = np.matmul(val_W, val_A) + val_b
     A = softmax(Z)
