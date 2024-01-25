@@ -9,8 +9,18 @@ Function:
 """
 import numpy as np
 
+
 def softmax(x):
-    return (np.exp(x) / np.sum(np.exp(x))) 
+    """
+    Softmax function
+
+    Args
+       X 
+    """
+    exp_x = np.exp(x)
+    return exp_x / np.sum(exp_x, axis=0, keepdims=True)
+
+
 
 
 def dropout_forward_prop(X, weights, L, keep_prob):
@@ -33,39 +43,27 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     """
     cache = {}
 
-    cache['A0'] = A = X
+    cache['A0'] = X
+    A = X
 
-    for l_n in range(1, L):
-        # set parameters W b A
-        n_W = 'W{0}'.format(l_n)
-        n_b = 'b{0}'.format(l_n)
-
-        W = weights[n_W]
-        b = weights[n_b]
-
-        # Calculate Z    
-        Z = np.matmul(W, A) + b
-
+    for lay in range(1, L): 
+        Z = np.matmul(weights['W{}'.format(lay)], A) + weights['b{}'.format(lay)] 
         A = np.tanh(Z)
-        D = np.random.rand(A.shape[0], A.shape[1]) < keep_prob
-        A = A * D / keep_prob
 
-        #register D and Activation
-        cache['A{0}'.format(l_n)] = A
-        cache['D{0}'.format(l_n)] = D * 1 
+        D = np.random.rand(A.shape[0], A.shape[1])
+        D = D  < keep_prob
 
-    # Last layer activation
-    l_n += 1
+        A = A * D 
+        A = A / keep_prob
 
-    n_W = 'W{0}'.format(l_n)
-    n_b = 'b{0}'.format(l_n)
+        cache['A{}'.format(lay)] = A
+        cache['D{}'.format(lay)] = D * 1 
 
-    W = weights[n_W]
-    b = weights[n_b]
+    lay += 1
 
-    # Calculate Z
-    Z = np.matmul(W, A) + b
+    Z = np.matmul(weights['W{}'.format(lay)], A) + weights['b{}'.format(lay)] 
     A = softmax(Z)
-    cache['A{0}'.format(l_n)] = A
-    
+
+    cache['A3'] = A
+
     return cache
