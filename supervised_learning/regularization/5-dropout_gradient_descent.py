@@ -48,11 +48,11 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
 
         if l_n > 1:
             dZ_curr = np.matmul(curr_W.T, dZ_curr)
-            D = cache['D{}'.format(l_n - 1)]
-            dZ_curr *= D / keep_prob
+            dZ_curr *= cache['D{}'.format(l_n - 1)] / keep_prob
             dZ_curr *= (1 - (np.power(prev_A, 2)))
         else:
-            dZ_curr = np.matmul(curr_W.T, dZ_curr) * (1 - (np.power(prev_A, 2)))
+            dZ_curr = np.matmul(
+                curr_W.T, dZ_curr) * (1 - (np.power(prev_A, 2)))
 
         c_b_n = 'b{}'.format(l_n)
 
