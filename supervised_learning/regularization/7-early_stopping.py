@@ -8,7 +8,8 @@ Function:
 
    def early_stopping(cost, opt_cost, threshold, patience, count):
 """
-import numpy as np
+
+
 
 def early_stopping(cost, opt_cost, threshold, patience, count):
     """
