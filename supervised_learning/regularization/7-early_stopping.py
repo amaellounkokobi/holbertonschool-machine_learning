@@ -8,7 +8,7 @@ Function:
 
    def early_stopping(cost, opt_cost, threshold, patience, count):
 """
-
+import numpy as np
 
 def early_stopping(cost, opt_cost, threshold, patience, count):
     """
@@ -25,8 +25,6 @@ def early_stopping(cost, opt_cost, threshold, patience, count):
        early, followed by the updated count
     """
     if count + 1 >= patience:
-        if cost == opt_cost:
-            return False, 0
         return True, count + 1
     else:
         return False, count + 1
