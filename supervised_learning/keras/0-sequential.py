@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""                                                                                                                                                                                                        This module contains :                                                                                                                                                                                     a function that builds a neural network with the Keras library                                                                                                                                             Function:                                                                                                                                                                                                     def build_model(nx, layers, activations, lambtha, keep_prob):
+"""
+This module contains :
+a function that builds a neural network with the Keras library
+Function:
+   def build_model(nx, layers, activations, lambtha, keep_prob):
 
 """
 import tensorflow as tf
@@ -7,13 +11,22 @@ import tensorflow.keras as K
 
 
 def build_model(nx, layers, activations, lambtha, keep_prob):
-    """                                                                                                                                                                                                        Function that builds a neural network with the Keras library                                                                                                                                               Args:                                                                                                                                                                                                         nx: is the number of input features to the network                                                                                                                                                         layers: is a list containing the number of nodes                                                                                                                                                           in each layer of the network                                                                                                                                                                               activations: is a list containing the activation                                                                                                                                                           functions used for each layer of the network                                                                                                                                                               lambtha: is the L2 regularization parameter
-       keep_prob: is the probability that a node 
+    """
+    Function that builds a neural network with the Keras library
+    Args:
+    nx: is the number of input features to the network
+    layers: is a list containing the number of nodes
+    in each layer of the network
+    activations: is a list containing the activation
+    functions used for each layer of the network
+    lambtha: is the L2 regularization parameter
+       keep_prob: is the probability that a node
        will be kept for dropout
     Returns:
        the keras model
      """
-    # create keras model                                                                                                                                                                                    
+    # create keras model
+
     model = K.Sequential()
     K.regularizers.L2(l2=lambtha)
     model.add(K.layers.Dense(layers[0],
