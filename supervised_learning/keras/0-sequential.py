@@ -22,8 +22,10 @@ def build_model(nx, layers, activations, lambtha, keep_prob):
                              input_shape=(nx,)))
 
     for layer_unit, activation in zip(layers[1:], activations[1:]):
-        model.add(K.layers.Dropout(keep_prob))
-        model.add(K.layers.Dense(layer_unit, kernel_regularizer="L2",activation=activation))
+        model.add(K.layers.Dropout(rate=keep_prob))
+        model.add(K.layers.Dense(layer_unit,
+                                 kernel_regularizer="L2",
+                                 activation=activation))
 
     model.build()
     return model
