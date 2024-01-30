@@ -23,8 +23,10 @@ def save_config(network, filename):
     Returns:
        None
     """
-    K.saving.serialize_keras_object(network)
-    network.save(filename)
+    model_json = network.to_json()
+    with open(filename, "w") as json_file:
+        json_file.write(model_json)
+    
     return None
 
 
@@ -39,8 +41,13 @@ def load_config(filename):
     Returns:
        The loaded model
     """
-    
-    model = K.models.load_model(filename)
-    K.saving.deserialize_keras_object(model.get_config())
+    try:
+        json_file = open(filename, 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        model = K.models.model_from_json(filename)
 
-    return model
+        return model
+    except IOError:
+        print("Error: File does not appear to exist.")
+        return 0
