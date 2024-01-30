@@ -6,7 +6,6 @@ A function that converts a label vector into a one-hot matrix:
 Function:
    def one_hot(labels, classes=None):
 """
-import numpy as np
 import tensorflow.keras as K
 
 
