@@ -27,7 +27,7 @@ def save_weights(network, filename, save_format='h5'):
     Returns:
        None
     """
-    if filname.find(save_format) < 0:
+    if filename.find(save_format) < 0:
         filename = "{}.{}".format(filename, save_format)
 
     network.save_weights(filename)
