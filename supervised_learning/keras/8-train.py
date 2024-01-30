@@ -77,12 +77,12 @@ def train_model(network,
        the batches every epoch. Normally, it is a good idea
        to shuffle, but for reproducibility, we have chosen
        to set the default to False.
-    
+
        save_best: is a boolean indicating whether to save the
        model after each epoch if it is the best
-            
+
        filepath: is the file path where the model should be saved
-    
+
     Returns:
        the History object generated after training the model
     """
