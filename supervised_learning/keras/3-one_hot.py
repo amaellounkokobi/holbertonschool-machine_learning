@@ -20,6 +20,7 @@ def one_hot(labels, classes=None):
     """
     if classes is None:
         classes = len(labels)
-    one_hot = K.utils.to_categorical(labels, num_classes = classes)
+
+    one_hot = K.utils.to_categorical(labels, num_classes=classes)
 
     return one_hot
