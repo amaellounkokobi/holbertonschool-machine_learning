@@ -45,7 +45,7 @@ def load_config(filename):
         json_file = open(filename, 'r')
         loaded_model_json = json_file.read()
         json_file.close()
-        model = K.models.model_from_json(filename)
+        model = K.models.model_from_json(loaded_model_json)
 
         return model
     except IOError:
