@@ -20,7 +20,6 @@ def one_hot(labels, classes=None):
     """
     if classes is None:
         classes = len(labels)
-    one_hot = K.layers.CategoryEncoding(
-        num_tokens=classes, output_mode="one_hot")
+    one_hot = K.utils.to_categorical(labels, num_classes = classes)
 
-    return one_hot(labels)
+    return one_hot
