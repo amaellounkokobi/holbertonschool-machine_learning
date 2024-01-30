@@ -74,7 +74,8 @@ def train_model(network,
     Returns:
        the History object generated after training the model
     """
-    schedule = def epoch, lr: alpha / (1 + decay_rate * epoch)
+    def schedule(epoch, lr):
+        return alpha / (1 + decay_rate * epoch)
 
     callbacks = []
 
