@@ -52,7 +52,7 @@ def train_model(network,
        the History object generated after training the model
     """
     network.compile(
-        loss='mse',
+        loss=K.metrics.CategoricalCrossentropy(),
         metrics=[K.metrics.categorical_accuracy])
 
     history = network.fit(
