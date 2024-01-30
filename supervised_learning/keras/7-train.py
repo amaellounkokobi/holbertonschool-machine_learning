@@ -89,7 +89,7 @@ def train_model(network,
     if learning_rate_decay is True:
         learning_decay_cb = K.callbacks.LearningRateScheduler(
             schedule,
-            verbose=0)
+            verbose=1)
         callbacks.append(learning_decay_cb)
 
     if validation_data is not None:
