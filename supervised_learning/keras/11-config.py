@@ -17,7 +17,7 @@ def save_config(network, filename):
 
     Args:
        network: is the model to save
-       filename: is the path of the file that 
+       filename: is the path of the file that
        the configuration should be saved to
 
     Returns:
@@ -26,7 +26,7 @@ def save_config(network, filename):
     model_json = network.to_json()
     with open(filename, "w") as json_file:
         json_file.write(model_json)
-    
+
     return None
 
 
@@ -35,7 +35,7 @@ def load_config(filename):
     Loads a model with a specific configuration
 
     Args:
-      filename: is the path of the file 
+      filename: is the path of the file
       containing the model’s configuration in JSON format
 
     Returns:
