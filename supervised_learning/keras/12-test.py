@@ -6,6 +6,7 @@ A function that tests a neural network.
 Function:
    def test_model(network, data, labels, verbose=True):
 """
+import tensorflow.keras as K
 
 
 def test_model(network, data, labels, verbose=True):
