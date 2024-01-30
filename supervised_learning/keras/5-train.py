@@ -45,8 +45,8 @@ def train_model(network,
 
        verbose: is a boolean that determines if output
        should be printed during training
-       
-       validation_data is the data to validate the model 
+
+       validation_data is the data to validate the model
        with, if not None
 
        shuffle: is a boolean that determines whether to shuffle
