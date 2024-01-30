@@ -7,8 +7,6 @@ a function that sets up Adam optimization for a keras
 Function:
    def optimize_model(network, alpha, beta1, beta2):
 """
-import numpy as np
-import tensorflow as tf
 import tensorflow.keras as K
 
 
