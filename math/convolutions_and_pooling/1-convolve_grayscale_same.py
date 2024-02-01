@@ -66,8 +66,8 @@ def convolve_grayscale_same(images, kernel):
     # Perform the convolution on all images
     for y in range(out_h):
         for x in range(out_w):
-            filter_img = images_pad[:, y * Sh:y * Sh + Fh, x * Sw:x * Sw + Fw]
-            op = np.sum(filter_img * kernel, axis=1)
+            filter_img = images_pad[:, y:y + Fh, x:x + Fw]
+            op = np.sum(kernel * filter_img, axis=1)
             convoluted = np.sum(op, axis=1, keepdims=True)
             # add operations in all layer images
             grayscaled_imgs[:, y:y + 1, x] = convoluted
