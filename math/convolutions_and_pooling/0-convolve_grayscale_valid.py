@@ -47,7 +47,7 @@ def convolve_grayscale_valid(images, kernel):
     out_h = int(np.ceil(H - Fh + 1 / Sh))
 
     # Initialize output images
-    grayscaled_imgs = np.zeros(shape=(m, out_w, out_h))
+    grayscaled_imgs = np.zeros(shape=(m, out_h, out_w))
 
     # Perform the convolution on all images
     for y in range(out_h):
@@ -55,7 +55,7 @@ def convolve_grayscale_valid(images, kernel):
             filter_img = images[:, y:Fh + y, x:Fw + x]
             op = np.sum(filter_img * kernel, axis=1)
             convoluted = np.sum(op, axis=1, keepdims=True)
-    # add operations in all layer images
+            # add operations in all layer images
             grayscaled_imgs[:, y:y + 1, x] = convoluted
 
     return grayscaled_imgs
