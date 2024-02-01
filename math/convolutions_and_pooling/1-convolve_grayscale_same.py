@@ -48,9 +48,9 @@ def convolve_grayscale_same(images, kernel):
 
     
     pad_top = pad_H // 2
-    pad_bottom = pad_H - pad_top
+    pad_bottom = pad_H // 2
     pad_left = pad_W // 2
-    pad_right = pad_W - pad_left
+    pad_right = pad_W // 2
 
     
     imgs_H = H + pad_H
@@ -66,6 +66,7 @@ def convolve_grayscale_same(images, kernel):
     # Perform the convolution on all images
     for y in range(out_h):
         for x in range(out_w):
+            
             filter_img = images_pad[:, y:y + Fh, x:x + Fw]
             op = np.sum(kernel * filter_img, axis=1)
             convoluted = np.sum(op, axis=1, keepdims=True)
