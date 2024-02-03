@@ -89,16 +89,12 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
         pad_W = padding[1]
 
         # Calculate the output convoluted images size
-        out_w = int(np.ceil(W - Fw + 2 * pad_W + 1 / Sw))
-        out_h = int(np.ceil(H - Fh + 2 * pad_H + 1 / Sh))
+        out_w = int(((W + (2 * pad_W) - Fw) / Sw) + 1)
+        out_h = int(((H + (2 * pad_H) - Fh) / Sh) + 1)
 
         # Initialize output images
-
         grayscaled_imgs = np.zeros(shape=(m, out_h, out_w))
-
-        images_pad = np.zeros((m, images.shape[1] + 2 * pad_H,
-                               images.shape[2] + 2 * pad_W))
-
+        images_pad = np.zeros((m, H + 2 * pad_H, W + 2 * pad_W))
         images_pad[:, pad_H:pad_H + H, pad_W: pad_W + W] = images
         images_work = images_pad
 
@@ -112,6 +108,7 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
             filter_img = images_work[:, y0:y1, x0:x1]
             op = np.sum(filter_img * kernel, axis=1)
             convoluted = np.sum(op, axis=1, keepdims=True)
+
             # add operations in all layer images
             grayscaled_imgs[:, y:y + 1, x] = convoluted
 
