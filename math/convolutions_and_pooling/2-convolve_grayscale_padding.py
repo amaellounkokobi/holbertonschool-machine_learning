@@ -62,11 +62,16 @@ def convolve_grayscale_padding(images, kernel, padding):
     images_pad[:, pad_H:pad_H + H, pad_W: pad_W + W] = images
 
     # Perform the convolution on all images
-    for y in range(H):
-        for x in range(W):
+    for y in range(out_h):
+        for x in range(out_w):
 
             filter_img = images_pad[:, y:Fh + y, x:Fw + x]
+            print(filter_img[0, :, :])
+            print(filter_img.shape)
+            print("x:",x,"y:",y)
+            print(images.shape)
             op = np.sum(filter_img * kernel, axis=1)
+
             convoluted = np.sum(op, axis=1, keepdims=True)
             # add operations in all layer images
             grayscaled_imgs[:, y:y + 1, x] = convoluted
