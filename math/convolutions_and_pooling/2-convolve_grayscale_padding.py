@@ -23,7 +23,7 @@ def convolve_grayscale_padding(images, kernel, padding):
     ￼   w is the width in pixels of the images
 
     kernel: is a numpy.ndarray with shape (kh, kw)
-    containing the kernel for the convolution 
+    containing the kernel for the convolution
 ￼       kh is the height of the kernel
         kw is the width of the kernel
 
@@ -31,7 +31,7 @@ def convolve_grayscale_padding(images, kernel, padding):
        ph is the padding for the height of the image
        pw is the padding for the width of the image
        the image should be padded with 0’s
-  
+
     Returns:
        A numpy.ndarray containing the convolved images
     """
@@ -64,14 +64,8 @@ def convolve_grayscale_padding(images, kernel, padding):
     # Perform the convolution on all images
     for y in range(out_h):
         for x in range(out_w):
-
             filter_img = images_pad[:, y:Fh + y, x:Fw + x]
-            print(filter_img[0, :, :])
-            print(filter_img.shape)
-            print("x:",x,"y:",y)
-            print(images.shape)
             op = np.sum(filter_img * kernel, axis=1)
-
             convoluted = np.sum(op, axis=1, keepdims=True)
             # add operations in all layer images
             grayscaled_imgs[:, y:y + 1, x] = convoluted
