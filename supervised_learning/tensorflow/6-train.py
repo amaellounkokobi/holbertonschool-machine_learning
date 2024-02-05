@@ -49,8 +49,8 @@ def train(X_train,
        save_path: designates where to save the model
 
     """
-    x, y = create_placeholders(784,10)
-    y_pred = forward_prop(x, [256, 256,10], [tf.nn.tanh, tf.nn.tanh, None])
+    x, y = create_placeholders(784, 10)
+    y_pred = forward_prop(x, [256, 256, 10], [tf.nn.tanh, tf.nn.tanh, None])
     accuracy = calculate_accuracy(y, y_pred)
     loss = calculate_loss(y, y_pred)
     train_op = create_train_op(loss, 0.01)
@@ -91,7 +91,7 @@ def train(X_train,
                 print("\tValidation Cost: {}".format(valid_cost))
                 print("\tValidation Accuracy: {}".format(valid_accuracy))
 
-            sess.run(train_op, feed_dict={x:X_train, y:Y_train})
+            sess.run(train_op, feed_dict={x: X_train, y: Y_train})
 
         print("After {} epochs:".format(i + 1))
         print("\tTraining Cost: {} ".format(train_cost))
