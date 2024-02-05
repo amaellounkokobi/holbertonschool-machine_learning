@@ -61,6 +61,8 @@ def train(X_train,
 
     with tf.Session() as sess:
         sess.run(init)
+
+        # First train
         valid_cost = sess.run(
             loss, feed_dict={x: X_valid, y: Y_valid})
         valid_accuracy = sess.run(
@@ -95,6 +97,16 @@ def train(X_train,
                 print("\tValidation Accuracy: {}".format(valid_accuracy))
 
             sess.run(train_op, feed_dict={x: X_train, y: Y_train})
+
+        # Last train
+        valid_cost = sess.run(
+            loss, feed_dict={x: X_valid, y: Y_valid})
+        valid_accuracy = sess.run(
+            accuracy, feed_dict={x: X_valid, y: Y_valid})
+        train_cost = sess.run(
+            loss, feed_dict={x: X_train, y: Y_train})
+        train_accuracy = sess.run(
+            accuracy, feed_dict={x: X_train, y: Y_train})
 
         print("After {} epochs:".format(i + 1))
         print("\tTraining Cost: {} ".format(train_cost))
