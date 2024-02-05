@@ -49,24 +49,26 @@ def train(X_train,
        save_path: designates where to save the model
 
     """
-    x, y = create_placeholders(784, 10)
-    y_pred = forward_prop(x, [256, 256, 10], [tf.nn.tanh, tf.nn.tanh, None])
-    accuracy = calculate_accuracy(y, y_pred)
+    nx = X_train.shape[1]
+    classes = Y_train.shape[1]
+    x, y = create_placeholders(nx, classes)
+    y_pred = forward_prop(x, layer_sizes, activations)
     loss = calculate_loss(y, y_pred)
-    train_op = create_train_op(loss, 0.01)
+    accuracy = calculate_accuracy(y, y_pred)
+    train_op = create_train_op(loss, alpha)
     saver = tf.train.Saver()
     init = tf.global_variables_initializer()
 
     with tf.Session() as sess:
         sess.run(init)
-        train_cost = sess.run(
-            loss, feed_dict={x: X_train, y: Y_train})
-        train_accuracy = sess.run(
-            accuracy, feed_dict={x: X_train, y: Y_train})
         valid_cost = sess.run(
             loss, feed_dict={x: X_valid, y: Y_valid})
         valid_accuracy = sess.run(
             accuracy, feed_dict={x: X_valid, y: Y_valid})
+        train_cost = sess.run(
+            loss, feed_dict={x: X_train, y: Y_train})
+        train_accuracy = sess.run(
+            accuracy, feed_dict={x: X_train, y: Y_train})
 
         print("After {} epochs:".format(0))
         print("\tTraining Cost: {} ".format(train_cost))
@@ -77,14 +79,15 @@ def train(X_train,
         for i in range(iterations):
 
             if i % 100 == 0 and i > 0:
-                train_cost = sess.run(
-                    loss, feed_dict={x: X_train, y: Y_train})
-                train_accuracy = sess.run(
-                    accuracy, feed_dict={x: X_train, y: Y_train})
                 valid_cost = sess.run(
                     loss, feed_dict={x: X_valid, y: Y_valid})
                 valid_accuracy = sess.run(
                     accuracy, feed_dict={x: X_valid, y: Y_valid})
+                train_cost = sess.run(
+                    loss, feed_dict={x: X_train, y: Y_train})
+                train_accuracy = sess.run(
+                    accuracy, feed_dict={x: X_train, y: Y_train})
+
                 print("After {} epochs:".format(i))
                 print("\tTraining Cost: {} ".format(train_cost))
                 print("\tTraining Accuracy: {}".format(train_accuracy))
