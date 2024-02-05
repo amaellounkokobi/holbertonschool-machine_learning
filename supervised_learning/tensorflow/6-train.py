@@ -114,6 +114,8 @@ def train(X_train,
         print("\tValidation Cost: {}".format(valid_cost))
         print("\tValidation Accuracy: {}".format(valid_accuracy))
 
-        save_path = saver.save(sess, save_path)
+        save_path = saver.save(sess,
+                               save_relative_paths=save_path,
+                               global_step=(i + 1))
 
     return save_path
