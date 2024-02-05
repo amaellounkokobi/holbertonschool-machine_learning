@@ -73,7 +73,7 @@ def train(X_train,
             accuracy, feed_dict={x: X_train, y: Y_train})
 
         print("After {} iterations:".format(0))
-        print("\tTraining Cost: {} ".format(train_cost))
+        print("\tTraining Cost: {}".format(train_cost))
         print("\tTraining Accuracy: {}".format(train_accuracy))
         print("\tValidation Cost: {}".format(valid_cost))
         print("\tValidation Accuracy: {}".format(valid_accuracy))
@@ -91,7 +91,7 @@ def train(X_train,
                     accuracy, feed_dict={x: X_train, y: Y_train})
 
                 print("After {} iterations:".format(i))
-                print("\tTraining Cost: {} ".format(train_cost))
+                print("\tTraining Cost: {}".format(train_cost))
                 print("\tTraining Accuracy: {}".format(train_accuracy))
                 print("\tValidation Cost: {}".format(valid_cost))
                 print("\tValidation Accuracy: {}".format(valid_accuracy))
@@ -102,7 +102,7 @@ def train(X_train,
         valid_cost = sess.run(
             loss, feed_dict={x: X_valid, y: Y_valid})
         valid_accuracy = sess.run(
-            accuracy, feed_dict={x: X_valid, y: Y_valid})
+             accuracy, feed_dict={x: X_valid, y: Y_valid})
         train_cost = sess.run(
             loss, feed_dict={x: X_train, y: Y_train})
         train_accuracy = sess.run(
