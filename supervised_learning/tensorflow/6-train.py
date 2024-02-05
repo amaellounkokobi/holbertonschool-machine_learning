@@ -109,7 +109,7 @@ def train(X_train,
             accuracy, feed_dict={x: X_train, y: Y_train})
 
         print("After {} iterations:".format(i + 1))
-        print("\tTraining Cost: {} ".format(train_cost))
+        print("\tTraining Cost: {}".format(train_cost))
         print("\tTraining Accuracy: {}".format(train_accuracy))
         print("\tValidation Cost: {}".format(valid_cost))
         print("\tValidation Accuracy: {}".format(valid_accuracy))
