@@ -166,7 +166,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     """
 
     # derivative of A_prev (equivalent to X)
-    dA_prev = convolve(dZ, np.flip(W, axis=0), padding="same", stride=stride)
+    dA_prev = convolve(dZ, np.flip(W, axis=0), padding=padding, stride=stride)
 
     # derivative of W size (Kh Kw)
     dW = convolve(A_prev, dZ, padding=padding, stride=stride)
