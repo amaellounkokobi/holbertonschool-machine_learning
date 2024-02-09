@@ -11,118 +11,6 @@ Function:
 import numpy as np
 
 
-def convolve(images, kernels, padding='same', stride=(1, 1)):
-    """
-    Function that performs a convolution on images
-    using multiple kernels
-    ￼
-    Args:
-    images is a numpy.ndarray with shape (m, h, w, c)
-       containing multiple images
-       m is the number of images
-       h is the height in pixels of the images
-       w is the width in pixels of the images
-       c is the number of channels in the image
-
-    kernel is a numpy.ndarray with shape (kh, kw, c, nc)
-    containing the kernel for the convolution
-       kh is the height of the kernel
-       kw is the width of the kernel
-       c is the number of channels in the image
-       nc is the number of kernels
-
-    padding is either a tuple of (ph, pw), ‘same’, or ‘valid’
-       if ‘same’, performs a same convolution
-       if ‘valid’, performs a valid convolution
-       if a tuple:
-          ph is the padding for the height of the image
-          pw is the padding for the width of the image
-
-    stride is a tuple of (sh, sw)
-       sh is the stride for the height of the image
-       sw is the stride for the width of the image
-
-    Returns:
-       A numpy.ndarray containing the convolved images
-    """
-
-    # Initialize values
-
-    # Image value
-    m = images.shape[0]
-    H = images.shape[1]
-    W = images.shape[2]
-    c = images.shape[3]
-
-    # Filter value
-    Fh = kernels.shape[0]
-    Fw = kernels.shape[1]
-    Fn = kernels.shape[3]
-
-    # Stride value
-    Sh = stride[0]
-    Sw = stride[1]
-
-    # Padding mode
-    if padding == 'same':
-        out_w = W
-        out_h = H
-
-        # Calculate padding
-        pad_H = int(np.ceil(((out_h - 1) * Sh - H + Fh) / 2))
-        pad_W = int(np.ceil(((out_w - 1) * Sw - W + Fw) / 2))
-
-        # Initialize output images
-        grayscaled_imgs = np.zeros(shape=(m, out_h, out_w, Fn))
-        images_pad = np.zeros((m, H + 2 * pad_H, W + 2 * pad_W, c))
-        images_pad[:, pad_H:pad_H + H, pad_W: pad_W + W, :] = images
-        images_work = images_pad
-
-    elif padding == 'valid':
-        # Calculate the output convoluted images size
-        out_w = int(((W - Fw) / Sw) + 1)
-        out_h = int(((H - Fh) / Sh) + 1)
-
-        # Initialize output images
-        grayscaled_imgs = np.zeros(shape=(m, out_h, out_w, Fn))
-        images_work = images
-
-    else:
-        pad_H = padding[0]
-        pad_W = padding[1]
-
-        # Calculate the output convoluted images size
-        out_w = int(((W + (2 * pad_W) - Fw) / Sw) + 1)
-        out_h = int(((H + (2 * pad_H) - Fh) / Sh) + 1)
-
-        # Initialize output images
-        grayscaled_imgs = np.zeros(shape=(m, out_h, out_w, Fn))
-        images_pad = np.zeros((m, H + 2 * pad_H, W + 2 * pad_W, c))
-        images_pad[:, pad_H:pad_H + H, pad_W: pad_W + W, :] = images
-        images_work = images_pad
-
-    # adapt images for seveal kernels
-    images_work = np.repeat(images_work[:, :, :, :, np.newaxis],
-                            Fn, axis=len(images_work.shape))
-
-    # Perform the convolution on all images
-    for y in range(out_h):
-        for x in range(out_w):
-            y0 = y * Sh
-            y1 = Fh + y * Sh
-            x0 = x * Sw
-            x1 = Fw + x * Sw
-            filter_img = images_work[:, y0:y1, x0:x1, :]
-            op = np.sum(filter_img * kernels, axis=1)
-            conv_sum = np.sum(op, axis=2, keepdims=True)
-            conv_sum_ch = np.sum(conv_sum, axis=1)
-
-            # add operations in all layer images
-            grayscaled_imgs[:, y:y + 1, x, :] = conv_sum_ch
-
-    return grayscaled_imgs
-
-
 def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     """
     A function that performs back propagation
@@ -164,14 +52,79 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
        the kernels (dW), and
        the biases (db), respectively
     """
+    m, h, w, c = dZ.shape
+    m, Xh, Xw, Xc = A_prev.shape
+    Kh, Kw, c_prev, c_new = W.shape
+    Sh, Sw = stride
+    X = A_prev
+    dWh = int(((Xh - h) / Sw) + 1)
+    dWw = int(((Xw - w) / Sh) + 1)
+    dW = np.zeros((dWh, dWw, c_prev, c_new))
+    dA_prev = np.zeros((m, Xh, Xw, Xc))
+    db = np.sum(dZ, axis=(0, 1, 2))
+    pad_H = int(np.ceil(((h - 1) * Sh - h + Kh) / 2))
+    pad_W = int(np.ceil(((w - 1) * Sw - w + Kw) / 2))
+    dZ_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
 
-    # derivative of A_prev (equivalent to X)
-    dA_prev = convolve(dZ, np.flip(W, axis=0), padding=padding, stride=stride)
+    dZ_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
 
-    # derivative of W size (Kh Kw)
-    dW = convolve(A_prev, dZ, padding=padding, stride=stride)
-
-    # dL/db = dL/dz * dz/db, dz/db = 1
-    db = np.sum(dZ)
+    for i in range(m):
+        for y in range(h):
+            for x in range(w):
+                for ch in range(c):
+                    dz_kernel = dZ[i, y, x, ch]
+                    A_feature = X[i, y * Sh: Sh * y + Kh, x * Sh: Sh * x + Kw, :]
+                    dW[:, :, :, ch] += A_feature * dz_kernel
+                    compute = np.sum(dZ_pad[i, y, x, ch] * np.flip(W[0:Kh, 0:Kw, :, ch]))
+                    dA_prev[i, y, x] += compute
 
     return dA_prev, dW, db
+
+    
+    """
+    # dZ shape
+    m, h, w, c = dZ.shape
+    
+    # A_prev shape 
+    m,Xh, Xw, Xc = A_prev.shape
+    
+    # W shape 
+    Kh, Kw, c_prev, c_new = W.shape
+
+    # stride
+    Sh, Sw = stride
+
+    # Init dW
+    X = A_prev
+    dWh = int(((Xh - h) / Sw) + 1)
+    dWw = int(((Xw - w) / Sh) + 1)
+    dW = np.zeros((dWh, dWw,c_prev,c_new))
+    
+    # Init dA_prv
+    dA_prev = np.zeros((m,Xh,Xw,Xc))
+
+    # Init Db 
+    db = np.sum(dZ, axis=(0,1,2))
+
+    # Padding DZ     
+    pad_H = int(np.ceil(((h - 1) * Sh - h + Kh) / 2))
+    pad_W = int(np.ceil(((w - 1) * Sw - w + Kw) / 2))
+    
+    dZ_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
+    dZ_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
+       
+    for i in range(m):
+        for y in range(h):
+            for x in range(w):
+                for ch in range(c):
+                    # Calculate dW
+                    dz_kernel = dZ[i, y, x, ch]
+                    A_feature = X[i, y*Sh :Sh * y + Kh, x * Sh :Sh* x + Kw, :]
+                    dW[:, :, :, ch] +=  A_feature * dz_kernel
+
+                    # Calculate dA_prev
+                    compute = np.sum(dZ_pad[i, y, x, ch] * np.flip(W[0:Kh,0:Kw,:,ch]))
+                    dA_prev[i,y,x] += compute   
+
+    return dA_prev, dW, db
+    """
