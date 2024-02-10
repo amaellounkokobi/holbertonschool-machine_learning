@@ -29,14 +29,12 @@ def lenet5(x, y):
 
     w_init = tf.keras.initializers.VarianceScaling(scale=2.0)
 
-    ReLu = tf.nn.relu
-
     # Create layers
     conv2D_1 = tf.layers.conv2d(inputs=x,
                                 filters=6,
                                 kernel_size=(5, 5),
                                 padding='same',
-                                activation=ReLu,
+                                activation=tf.nn.relu,
                                 kernel_initializer=w_init)
 
     m_pool2D_1 = tf.layers.max_pooling2d(conv2D_1,
@@ -47,7 +45,7 @@ def lenet5(x, y):
                                 filters=16,
                                 kernel_size=(5, 5),
                                 padding='valid',
-                                activation=ReLu,
+                                activation=tf.nn.relu,
                                 kernel_initializer=w_init)
 
     m_pool2D_2 = tf.layers.max_pooling2d(inputs=conv2D_1,
@@ -57,11 +55,11 @@ def lenet5(x, y):
     x_flatten = tf.layers.flatten(m_pool2D_2)
 
     l_Dense_1 = tf.layers.Dense(units=120,
-                                activation=ReLu,
+                                activation=tf.nn.relu,
                                 kernel_initializer=w_init)(x_flatten)
 
     l_Dense_2 = tf.layers.Dense(units=84,
-                                activation=ReLu,
+                                activation=tf.nn.relu,
                                 kernel_initializer=w_init)(l_Dense_1)
 
     y_pred = tf.layers.Dense(units=10,
@@ -70,7 +68,7 @@ def lenet5(x, y):
     output_softmax = tf.nn.softmax(y_pred)
 
     # Calculate loss
-    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=output_softmax))
+    loss = tf.losses.softmax_cross_entropy(onehot_labels=y, logits=y_pred)
 
     # Train AdamOptimizer
     train_op = tf.train.AdamOptimizer().minimize(loss)
