@@ -20,7 +20,7 @@ def lenet5(X):
     m is the number of images
     """
     model = K.Sequential()
-    init = tf.keras.initializers.VarianceScaling(scale=2.0)
+    init = K.initializers.HeNormal()
 
     # First convolution
     model.add(K.layers.Conv2D(filters=6,
@@ -65,6 +65,7 @@ def lenet5(X):
 
     # Optimizer
     optim = K.optimizers.Adam()
+    
     model.compile(loss='categorical_crossentropy',
                   optimizer=optim,
                   metrics=[K.metrics.Accuracy()])
