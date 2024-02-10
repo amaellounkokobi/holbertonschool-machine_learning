@@ -52,36 +52,6 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
        the kernels (dW), and
        the biases (db), respectively
     """
-    m, h, w, c = dZ.shape
-    m, Xh, Xw, Xc = A_prev.shape
-    Kh, Kw, c_prev, c_new = W.shape
-    Sh, Sw = stride
-    X = A_prev
-    dWh = int(((Xh - h) / Sw) + 1)
-    dWw = int(((Xw - w) / Sh) + 1)
-    dW = np.zeros((dWh, dWw, c_prev, c_new))
-    dA_prev = np.zeros((m, Xh, Xw, Xc))
-    db = np.sum(dZ, axis=(0, 1, 2))
-    pad_H = int(np.ceil(((h - 1) * Sh - h + Kh) / 2))
-    pad_W = int(np.ceil(((w - 1) * Sw - w + Kw) / 2))
-    dZ_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
-
-    dZ_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
-
-    for i in range(m):
-        for y in range(h):
-            for x in range(w):
-                for ch in range(c):
-                    dz_kernel = dZ[i, y, x, ch]
-                    A_feature = X[i, y * Sh: Sh * y + Kh, x * Sh: Sh * x + Kw, :]
-                    dW[:, :, :, ch] += A_feature * dz_kernel
-                    compute = np.sum(dZ_pad[i, y, x, ch] * np.flip(W[0:Kh, 0:Kw, :, ch]))
-                    dA_prev[i, y, x] += compute
-
-    return dA_prev, dW, db
-
-    
-    """
     # dZ shape
     m, h, w, c = dZ.shape
     
@@ -106,13 +76,15 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     # Init Db 
     db = np.sum(dZ, axis=(0,1,2))
 
-    # Padding DZ     
-    pad_H = int(np.ceil(((h - 1) * Sh - h + Kh) / 2))
-    pad_W = int(np.ceil(((w - 1) * Sw - w + Kw) / 2))
-    
-    dZ_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
-    dZ_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
-       
+    # Padding DZ
+    if padding == 'same':
+        pad_H = int(np.ceil(((h - 1) * Sh - h + Kh) / 2))
+        pad_W = int(np.ceil(((w - 1) * Sw - w + Kw) / 2))    
+        dZ_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
+        dZ_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
+    else:
+        dZ_pad = dZ
+        
     for i in range(m):
         for y in range(h):
             for x in range(w):
@@ -127,4 +99,3 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     dA_prev[i,y,x] += compute   
 
     return dA_prev, dW, db
-    """
