@@ -26,8 +26,6 @@ def lenet5(x, y):
 
     """
     # Init variables
-    m, nx, ny, nc = x.shape
-    classes = y.shape[1]
 
     w_init = tf.keras.initializers.VarianceScaling(scale=2.0)
     b_init = tf.compat.v1.zeros_initializer()
@@ -40,9 +38,7 @@ def lenet5(x, y):
                                 filters=6,
                                 kernel_size=(5, 5),
                                 padding='same',
-                                activation=ReLu,
-                                kernel_initializer=w_init,
-                                bias_initializer=b_init)
+                                activation=ReLu)
 
     m_pool2D_1 = tf.layers.max_pooling2d(conv2D_1,
                                          (2, 2),
@@ -52,9 +48,7 @@ def lenet5(x, y):
                                 filters=16,
                                 kernel_size=(5, 5),
                                 padding='valid',
-                                activation=ReLu,
-                                kernel_initializer=w_init,
-                                bias_initializer=b_init)
+                                activation=ReLu)
 
     m_pool2D_2 = tf.layers.max_pooling2d(conv2D_1,
                                          (2, 2),
@@ -73,9 +67,10 @@ def lenet5(x, y):
                                 bias_initializer=b_init)(l_Dense_1)
 
     y_pred = tf.layers.Dense(10,
-                             activation=softmax,
                              kernel_initializer=w_init,
                              bias_initializer=b_init)(l_Dense_2)
+
+    output_softmax = tf.nn.softmax(y_pred)
 
     # Calculate loss
     loss = tf.losses.softmax_cross_entropy(y, y_pred)
@@ -89,4 +84,4 @@ def lenet5(x, y):
 
     accuracy = tf.reduce_mean(tf.cast(true_false, tf.float32))
 
-    return y_pred, train_op, loss, accuracy
+    return output_softmax, train_op, loss, accuracy
