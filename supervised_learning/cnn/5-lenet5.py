@@ -8,7 +8,6 @@ Function:
    def lenet5(X):
 """
 import tensorflow.keras as K
-import tensorflow.compat.v1 as tf
 
 
 def lenet5(X):
