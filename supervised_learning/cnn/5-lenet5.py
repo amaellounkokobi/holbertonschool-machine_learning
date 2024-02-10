@@ -68,6 +68,6 @@ def lenet5(X):
     
     model.compile(loss='categorical_crossentropy',
                   optimizer=optim,
-                  metrics=[K.metrics.Accuracy()])
+                  metrics=[K.metrics.CategoricalAccuracy()])
 
     return model
