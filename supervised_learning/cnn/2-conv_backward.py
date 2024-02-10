@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """
 This module contains :
 A function that performs back propagation
@@ -66,15 +65,14 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
 
     # Init dA_prev, Db, dW
     X = A_prev
-    dWh = int(((Xh - h) / Sw) + 1)
-    dWw = int(((Xw - w) / Sh) + 1)
-    dW = np.zeros((dWh, dWw, c_prev, c_new))
+    dW = np.zeros((Kh, Kw, c_prev, c_new))
     dA_prev = np.zeros((m, Xh, Xw, Xc))
 
     # Padding A_prev
     if padding == 'same':
-        pad_H = int(np.ceil(((h - 1) * Sh - h + Kh) / 2))
-        pad_W = int(np.ceil(((w - 1) * Sw - w + Kw) / 2))
+        pad_H = int(np.ceil(((Xh - 1) * Sh - Xh + Kh) / 2))
+        pad_W = int(np.ceil(((Xw - 1) * Sw - Xw + Kw) / 2))
+
         A_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
         A_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
     else:
@@ -84,14 +82,20 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
         for y in range(h):
             for x in range(w):
                 for ch in range(c):
+
+                    # Calculate slice size
+                    tl = y * Sh
+                    bl = tl + Kh
+                    tr = x * Sw
+                    br = tr + Kw
+
                     # Calculate dW
                     dz_kernel = dZ[i, y, x, ch]
-                    A_pad = X[i, y * Sh:Sh * y + Kh, x * Sh:Sh * x + Kw, :]
-                    dW[:, :, :, ch] += A_pad * dz_kernel
+                    A_slice = A_pad[i, tl:bl, tr:br, :]
+                    dW[:, :, :, ch] += A_slice * dz_kernel
 
                     # Calculate dA_prev
-                    compute = np.sum(dz_kernel * np.flip(W[0:Kh, 0:Kw, :, ch]))
-                    dA_prev[i, y, x, :] += compute
+                    dA_prev[i, tl:bl, tr:br, :] += dz_kernel * W[:, :, :, ch]
 
     # Calculate db
     db = np.sum(dZ, axis=(0, 1, 2))
