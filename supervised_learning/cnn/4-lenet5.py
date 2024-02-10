@@ -11,77 +11,91 @@ import tensorflow.compat.v1 as tf
 
 
 def lenet5(x, y):
-    """
-    Builds a modified version of the LeNet-5
-    architecture using tensorflow
+    # Define initializer for kernel weights
+    initializer = tf.keras.initializers.VarianceScaling(scale=2.0)
 
-    Args:
-       x is a tf.placeholder of shape (m, 28, 28, 1)
-       containing the input images for the network
+    # Convolutional layer 1
+    conv1 = tf.layers.conv2d(
+        inputs=x,
+        filters=6,
+        kernel_size=(5, 5),
+        padding='same',
+        activation=tf.nn.relu,
+        kernel_initializer=initializer,
+        name='conv1'
+    )
 
-       m is the number of images
+    # Max pooling layer 1
+    pool1 = tf.layers.max_pooling2d(
+        inputs=conv1,
+        pool_size=(2, 2),
+        strides=(2, 2),
+        name='pool1'
+    )
 
-       y is a tf.placeholder of shape (m, 10)
-       containing the one-hot labels for the network
+    # Convolutional layer 2
+    conv2 = tf.layers.conv2d(
+        inputs=pool1,
+        filters=16,
+        kernel_size=(5, 5),
+        padding='valid',
+        activation=tf.nn.relu,
+        kernel_initializer=initializer,
+        name='conv2'
+    )
 
-    """
-    # Init variables
+    # Max pooling layer 2
+    pool2 = tf.layers.max_pooling2d(
+        inputs=conv2,
+        pool_size=(2, 2),
+        strides=(2, 2),
+        name='pool2'
+    )
 
-    w_init = tf.keras.initializers.VarianceScaling(scale=2.0)
-    b_init = tf.compat.v1.zeros_initializer()
+    # Flatten the output of the convolutional layers
+    flattened = tf.layers.flatten(pool2)
 
-    ReLu = tf.nn.relu
-    softmax = tf.nn.softmax
+    # Fully connected layer 1
+    fc1 = tf.layers.dense(
+        inputs=flattened,
+        units=120,
+        activation=tf.nn.relu,
+        kernel_initializer=initializer,
+        name='fc1'
+    )
 
-    # Create layers
-    conv2D_1 = tf.layers.conv2d(x,
-                                filters=6,
-                                kernel_size=(5, 5),
-                                padding='same',
-                                activation=ReLu)
+    # Fully connected layer 2
+    fc2 = tf.layers.dense(
+        inputs=fc1,
+        units=84,
+        activation=tf.nn.relu,
+        kernel_initializer=initializer,
+        name='fc2'
+    )
 
-    m_pool2D_1 = tf.layers.max_pooling2d(conv2D_1,
-                                         (2, 2),
-                                         (2, 2))
+    # Output layer
+    logits = tf.layers.dense(
+        inputs=fc2,
+        units=10,
+        kernel_initializer=initializer,
+        name='output'
+    )
 
-    conv2D_1 = tf.layers.conv2d(m_pool2D_1,
-                                filters=16,
-                                kernel_size=(5, 5),
-                                padding='valid',
-                                activation=ReLu)
+    # Softmax activation
+    softmax_output = tf.nn.softmax(logits)
 
-    m_pool2D_2 = tf.layers.max_pooling2d(conv2D_1,
-                                         (2, 2),
-                                         (2, 2))
-
-    x_flatten = tf.layers.Flatten()(m_pool2D_2)
-
-    l_Dense_1 = tf.layers.Dense(120,
-                                activation=ReLu,
-                                kernel_initializer=w_init,
-                                bias_initializer=b_init)(x_flatten)
-
-    l_Dense_2 = tf.layers.Dense(84,
-                                activation=ReLu,
-                                kernel_initializer=w_init,
-                                bias_initializer=b_init)(l_Dense_1)
-
-    y_pred = tf.layers.Dense(10,
-                             kernel_initializer=w_init,
-                             bias_initializer=b_init)(l_Dense_2)
-
-    output_softmax = tf.nn.softmax(y_pred)
-
-    # Calculate loss
-    loss = tf.losses.softmax_cross_entropy(y, output_softmax)
-
-    # Train AdamOptimizer
-    train_op = tf.train.AdamOptimizer().minimize(loss)
+    # Loss function
+    loss = tf.reduce_mean(
+        tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=logits),
+        name='loss'
+    )
 
     # Accuracy
-    true_false = tf.equal(tf.argmax(y, axis=1),
-                          tf.argmax(output_softmax, axis=1))
+    correct_predictions = tf.equal(tf.argmax(softmax_output, 1), tf.argmax(y, 1))
+    accuracy = tf.reduce_mean(tf.cast(correct_predictions, tf.float32), name='accuracy')
 
-    accuracy = tf.reduce_mean(tf.cast(true_false, tf.float32))
+    # Training operation
+    optimizer = tf.train.AdamOptimizer()
+    train_op = optimizer.minimize(loss)
 
-    return output_softmax, train_op, loss, accuracy
+    return softmax_output, train_op, loss, accuracy
