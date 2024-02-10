@@ -54,48 +54,46 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     """
     # dZ shape
     m, h, w, c = dZ.shape
-    
-    # A_prev shape 
-    m,Xh, Xw, Xc = A_prev.shape
-    
-    # W shape 
+
+    # A_prev shape
+    m, Xh, Xw, Xc = A_prev.shape
+
+    # W shape
     Kh, Kw, c_prev, c_new = W.shape
 
     # stride
     Sh, Sw = stride
 
-    # Init dW
+    # Init dA_prev, Db, dW
     X = A_prev
     dWh = int(((Xh - h) / Sw) + 1)
     dWw = int(((Xw - w) / Sh) + 1)
-    dW = np.zeros((dWh, dWw,c_prev,c_new))
-    
-    # Init dA_prv
-    dA_prev = np.zeros((m,Xh,Xw,Xc))
+    dW = np.zeros((dWh, dWw, c_prev, c_new))
+    dA_prev = np.zeros((m, Xh, Xw, Xc))
 
-    # Init Db 
-    db = np.sum(dZ, axis=(0,1,2))
-
-    # Padding DZ
+    # Padding A_prev
     if padding == 'same':
         pad_H = int(np.ceil(((h - 1) * Sh - h + Kh) / 2))
-        pad_W = int(np.ceil(((w - 1) * Sw - w + Kw) / 2))    
-        dZ_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
-        dZ_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
+        pad_W = int(np.ceil(((w - 1) * Sw - w + Kw) / 2))
+        A_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
+        A_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
     else:
-        dZ_pad = dZ
-        
+        A_pad = X
+
     for i in range(m):
         for y in range(h):
             for x in range(w):
                 for ch in range(c):
                     # Calculate dW
                     dz_kernel = dZ[i, y, x, ch]
-                    A_feature = X[i, y*Sh :Sh * y + Kh, x * Sh :Sh* x + Kw, :]
-                    dW[:, :, :, ch] +=  A_feature * dz_kernel
+                    A_pad = X[i, y * Sh:Sh * y + Kh, x * Sh:Sh * x + Kw, :]
+                    dW[:, :, :, ch] += A_pad * dz_kernel
 
                     # Calculate dA_prev
-                    compute = np.sum(dZ_pad[i, y, x, ch] * np.flip(W[0:Kh,0:Kw,:,ch]))
-                    dA_prev[i,y,x] += compute   
+                    compute = np.sum(dz_kernel * np.flip(W[0:Kh, 0:Kw, :, ch]))
+                    dA_prev[i, y, x, :] += compute
+
+    # Calculate db
+    db = np.sum(dZ, axis=(0, 1, 2))
 
     return dA_prev, dW, db
