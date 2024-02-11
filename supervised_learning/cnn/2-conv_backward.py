@@ -96,7 +96,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     dW[:, :, :, ch] += A_slice * dz_kernel
 
                     # Calculate dA_prev
-                    dA_prev[i, tl:bl, tr:br, :] += dz_kernel * np.flip(W[:, :, :, ch])
+                    dA_prev[i, tl:bl, tr:br, :] += dz_kernel * W[:, :, :, ch]
 
     # Calculate db
     db = np.sum(dZ, axis=(0, 1, 2))
