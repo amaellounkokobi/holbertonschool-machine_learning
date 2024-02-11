@@ -70,11 +70,12 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
 
     # Padding A_prev
     if padding == 'same':
-        pad_H = int(np.ceil(((Xh - 1) * Sh - Xh + Kh) / 2))
-        pad_W = int(np.ceil(((Xw - 1) * Sw - Xw + Kw) / 2))
-
-        A_pad = np.zeros((m, h + 2 * pad_H, w + 2 * pad_W, c))
-        A_pad[:, pad_H:pad_H + h, pad_W: pad_W + w, :] = dZ
+        pad_h = int(np.ceil((Xh * Sh - Sh + Kh - Xh) / 2))
+        pad_w = int(np.ceil((Xw * Sw - Sw + Kw - Xh) / 2))
+        A_pad = np.pad(A_prev,
+                       ((0, 0), (pad_h, pad_h), (pad_w, pad_w), (0, 0)),
+                       mode='constant',
+                       constant_values=0)
     else:
         A_pad = X
 
