@@ -7,7 +7,6 @@ Function:
    def inception_network()
 """
 import tensorflow.keras as K
-import tensorflow as tf
 inception_block = __import__('0-inception_block').inception_block
 
 
