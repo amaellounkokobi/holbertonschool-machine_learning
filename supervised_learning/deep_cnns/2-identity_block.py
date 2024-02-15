@@ -48,6 +48,9 @@ def identity_block(A_prev, filters):
     Bn3 = K.layers.BatchNormalization()(conv_1_1_2)
 
     # Concat input/output
-    output = K.layers.Concatenate()([Bn3, A_prev])
+    output = K.layers.Add()([A_prev, Bn3])
 
-    return output
+    # Relu
+    A_ReLu_2 = K.layers.ReLU()(output)
+    
+    return A_ReLu_2
