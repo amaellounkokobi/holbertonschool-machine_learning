@@ -64,8 +64,8 @@ def identity_block(A_prev, filters):
 
     # Concat input/output
     output = K.layers.Add()([Bn3, A_prev])
-    
+
     # Relu
     A_ReLu_3 = K.layers.ReLU()(output)
-    
+
     return A_ReLu_3
