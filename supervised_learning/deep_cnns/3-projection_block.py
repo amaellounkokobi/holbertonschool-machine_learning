@@ -59,7 +59,7 @@ def projection_block(A_prev, filters, s=2):
     Bn3 = K.layers.BatchNormalization()(conv1x1_2)
 
     # Concatenate outputs
-    add = K.layers.Concatenate()([Bn3, Bn1_add])
+    add = K.layers.Add()([Bn3, Bn1_add])
 
     # Relu activation
     relu_3 = K.layers.ReLU()(add)
