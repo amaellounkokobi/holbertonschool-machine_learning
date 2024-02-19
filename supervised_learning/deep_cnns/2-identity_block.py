@@ -20,37 +20,52 @@ def identity_block(A_prev, filters):
        F3 is the number of filters in the 3x3 convolution
        F12 is the number of filters in the second 1x1 convolution
     """
+    # Init kernels
+    init = K.initializers.HeNormal()
+
     # Init Filters
     F11, F3, F12 = filters
 
     # 1x1 convolution
-    conv_1_1 = K.layers.Conv2D(F11, (1, 1), padding="same")(A_prev)
+    conv_1_1 = K.layers.Conv2D(filters=F11,
+                               kernel_size=(1, 1),
+                               strides=1,
+                               padding="valid",
+                               kernel_initializer=init)(A_prev)
 
     # Batch Norm
-    Bn1 = K.layers.BatchNormalization()(conv_1_1)
+    Bn1 = K.layers.BatchNormalization(axis=3)(conv_1_1)
 
     # Relu
     A_ReLu = K.layers.ReLU()(Bn1)
 
     # 3x3 convolution
-    conv_3_3 = K.layers.Conv2D(F3, (3, 3), padding="same")(A_ReLu)
+    conv_3_3 = K.layers.Conv2D(filters=F3,
+                               kernel_size=(3, 3),
+                               strides=1,
+                               padding="same",
+                               kernel_initializer=init)(A_ReLu)
 
     # Batch Norm
-    Bn2 = K.layers.BatchNormalization()(conv_3_3)
+    Bn2 = K.layers.BatchNormalization(axis=3)(conv_3_3)
 
     # Relu
     A_ReLu_1 = K.layers.ReLU()(Bn2)
 
     # 1x1 convolution
-    conv_1_1_2 = K.layers.Conv2D(F12, (1, 1), padding="same")(A_ReLu_1)
+    conv_1_1_2 = K.layers.Conv2D(filters=F12,
+                                 kernel_size=(1, 1),
+                                 strides=1,
+                                 padding="valid",
+                                 kernel_initializer=init)(A_ReLu_1)
 
     # Batch Norm
-    Bn3 = K.layers.BatchNormalization()(conv_1_1_2)
+    Bn3 = K.layers.BatchNormalization(axis=3)(conv_1_1_2)
 
     # Concat input/output
-    output = K.layers.Add()([A_prev, Bn3])
-
-    # Relu
-    A_ReLu_2 = K.layers.ReLU()(output)
+    output = K.layers.Add()([Bn3, A_prev])
     
-    return A_ReLu_2
+    # Relu
+    A_ReLu_3 = K.layers.ReLU()(output)
+    
+    return A_ReLu_3
