@@ -37,7 +37,7 @@ X_vp , Y_vp = preprocess_data(X_valid, Y_valid)
 
 # Choose base_model
 base_model = K.applications.MobileNet(
-    input_shape=None,
+    input_shape=(224,224,3),
     alpha=1.0,
     depth_multiplier=1,
     dropout=0.001,
@@ -62,7 +62,8 @@ x = resize_layer(inputs)
 # Data Augmentation
 x = K.layers.RandomFlip("horizontal")(x)
 x = K.layers.RandomRotation(0.2)(x)
-
+x = K.layers.RandomTranslation(height_factor=0.1, width_factor=0.1)(x)
+x = K.layers.RandomContrast(factor=0.1)(x)
 x = base_model(x, training=True)
 x = K.layers.MaxPooling2D()(x)
 x = K.layers.Flatten()(x)
@@ -70,15 +71,15 @@ x = K.layers.Dense(10, activation='softmax')(x)
 model = K.Model(inputs=inputs, outputs=x)
 
 # Compile model
-model.compile(optimizer='adam',
+model.compile(optimizer='SGD',
               loss='categorical_crossentropy',
               metrics=[K.metrics.CategoricalAccuracy(name="accuracy")])
 
 # Model fit
 history = model.fit(x=X_prep,
           y=Y_prep,
-          batch_size=32,
-          epochs=10,
+          batch_size=16,
+          epochs=9,
           verbose=True,
           shuffle=True,
           validation_data=(X_vp, Y_vp))
