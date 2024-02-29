@@ -27,14 +27,15 @@ def projection_block(A_prev, filters, s=2):
     s is the stride of the first convolution in both the main
     path and the shortcut connection
     """
+
+    # Init Kernel
+    init = K.initializers.VarianceScaling(scale=1.0,
+                                          mode='fan_in',
+                                          distribution='truncated_normal',
+                                          seed=None)
+
     # Init filters
     F11, F3, F12 = filters
-
-    # conv1x1 shortcut connection
-    conv1x1_add = K.layers.Conv2D(F12, (1, 1), strides=s)(A_prev)
-
-    # Batch Norm
-    Bn1_add = K.layers.BatchNormalization()(conv1x1_add)
 
     # Conv1x1
     conv1x1 = K.layers.Conv2D(F11, (1, 1), strides=s)(A_prev)
@@ -57,6 +58,12 @@ def projection_block(A_prev, filters, s=2):
 
     # Batch Norm
     Bn3 = K.layers.BatchNormalization()(conv1x1_2)
+
+    # conv1x1 shortcut connection
+    conv1x1_add = K.layers.Conv2D(F12, (1, 1), strides=s)(A_prev)
+
+    # Batch Norm
+    Bn1_add = K.layers.BatchNormalization()(conv1x1_add)
 
     # Concatenate outputs
     add = K.layers.Add()([Bn3, Bn1_add])
