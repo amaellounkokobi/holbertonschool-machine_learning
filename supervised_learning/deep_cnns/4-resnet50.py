@@ -17,9 +17,12 @@ def resnet50():
     builds the ResNet-50 architecture
     the input data will have shape (224, 224, 3)
     """
-    # Init Kernels
-    init = K.initializers.HeNormal()
-
+    # Init Kernel
+    init = K.initializers.VarianceScaling(scale=2.0,
+                                          mode='fan_in',
+                                          distribution='truncated_normal',
+                                          seed=None)
+    
     # Input data
     inputs = K.Input(shape=(224, 224, 3))
 
@@ -27,7 +30,10 @@ def resnet50():
     conv7x7 = K.layers.Conv2D(64,
                               kernel_size=(7, 7),
                               strides=2,
-                              padding="same")(inputs)
+                              padding="same",
+                              kernel_initializer=init,
+                              )(inputs)
+
     Bn1 = K.layers.BatchNormalization()(conv7x7)
     relu_1 = K.layers.ReLU()(Bn1)
 
