@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """
 This module contains :
 A function that builds a Dense block
