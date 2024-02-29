@@ -38,7 +38,10 @@ def projection_block(A_prev, filters, s=2):
     F11, F3, F12 = filters
 
     # Conv1x1
-    conv1x1 = K.layers.Conv2D(F11, (1, 1), strides=s)(A_prev)
+    conv1x1 = K.layers.Conv2D(F11,
+                              (1, 1),
+                              strides=s,
+                              kernel_initializer=init)(A_prev)
 
     # Batch Norm
     Bn1 = K.layers.BatchNormalization()(conv1x1)
@@ -47,20 +50,28 @@ def projection_block(A_prev, filters, s=2):
     relu_1 = K.layers.ReLU()(Bn1)
 
     # Conv3x3
-    conv3x3 = K.layers.Conv2D(F3, (3, 3), padding="same")(relu_1)
+    conv3x3 = K.layers.Conv2D(F3,
+                              (3, 3),
+                              padding="same",
+                              kernel_initializer=init)(relu_1)
 
     # Batch Norm
     Bn2 = K.layers.BatchNormalization()(conv3x3)
 
     # Relu activation
     relu_2 = K.layers.ReLU()(Bn2)
-    conv1x1_2 = K.layers.Conv2D(F12, (1, 1))(relu_2)
+    conv1x1_2 = K.layers.Conv2D(F12,
+                                (1, 1),
+                                kernel_initializer=init)(relu_2)
 
     # Batch Norm
     Bn3 = K.layers.BatchNormalization()(conv1x1_2)
 
     # conv1x1 shortcut connection
-    conv1x1_add = K.layers.Conv2D(F12, (1, 1), strides=s)(A_prev)
+    conv1x1_add = K.layers.Conv2D(F12,
+                                  (1, 1),
+                                  strides=s,
+                                  kernel_initializer=init)(A_prev)
 
     # Batch Norm
     Bn1_add = K.layers.BatchNormalization()(conv1x1_add)
