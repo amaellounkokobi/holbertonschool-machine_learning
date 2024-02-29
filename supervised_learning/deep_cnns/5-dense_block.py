@@ -19,6 +19,11 @@ def dense_block(X, nb_filters, growth_rate, layers):
        growth_rate is the growth rate for the dense block
        layers is the number of layers in the dense block
     """
+    # Init Kernel
+    init = K.initializers.VarianceScaling(scale=2.0,
+                                          mode='fan_in',
+                                          distribution='truncated_normal',
+                                          seed=None)
 
     for layer in range(layers):
         # Conv 1x1
@@ -26,7 +31,8 @@ def dense_block(X, nb_filters, growth_rate, layers):
         relu = K.layers.ReLU()(bn)
         conv = K.layers.Conv2D(filters=4 * growth_rate,
                                kernel_size=(1, 1),
-                               strides=1)(relu)
+                               strides=1
+                               kernel_initializer=init)(relu)
 
         # Conv 3x3
         bn1 = K.layers.BatchNormalization()(conv)
@@ -34,7 +40,8 @@ def dense_block(X, nb_filters, growth_rate, layers):
         conv1 = K.layers.Conv2D(filters=growth_rate,
                                 kernel_size=(3, 3),
                                 padding="same",
-                                strides=1)(relu1)
+                                strides=1
+                                kernel_initializer=init)(relu1)
 
         # Concatenate
         concatenate = K.layers.Concatenate()([conv1, X])
