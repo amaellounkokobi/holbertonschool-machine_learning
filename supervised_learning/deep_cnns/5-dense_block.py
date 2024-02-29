@@ -43,7 +43,7 @@ def dense_block(X, nb_filters, growth_rate, layers):
                                 kernel_initializer=init)(relu1)
 
         # Concatenate
-        concatenate = K.layers.Concatenate()([conv1, X])
+        concatenate = K.layers.Concatenate()([X, conv1])
 
         # Update X and filters
         X = concatenate
