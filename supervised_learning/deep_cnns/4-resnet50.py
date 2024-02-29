@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 """
 This module contains :
 A function that builds the ResNet-50 architecture
@@ -22,7 +21,7 @@ def resnet50():
                                           mode='fan_in',
                                           distribution='truncated_normal',
                                           seed=None)
-    
+
     # Input data
     inputs = K.Input(shape=(224, 224, 3))
 
