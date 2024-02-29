@@ -30,7 +30,7 @@ def densenet121(growth_rate=32, compression=1.0):
     conv7x7 = K.layers.Conv2D(64,
                               kernel_size=(7, 7),
                               strides=2,
-                              padding="same"
+                              padding="same",
                               kernel_initializer=init)(relu_1)
 
     # Max pooling layer
