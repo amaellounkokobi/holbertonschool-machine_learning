@@ -29,7 +29,7 @@ def projection_block(A_prev, filters, s=2):
     """
 
     # Init Kernel
-    init = K.initializers.VarianceScaling(scale=1.0,
+    init = K.initializers.VarianceScaling(scale=2.0,
                                           mode='fan_in',
                                           distribution='truncated_normal',
                                           seed=None)
