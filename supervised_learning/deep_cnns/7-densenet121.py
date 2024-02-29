@@ -17,9 +17,11 @@ def densenet121(growth_rate=32, compression=1.0):
     the input data will have shape (224, 224, 3)
     """
     # Init Kernels
-    init = K.initializers.HeNormal()
-
-    # Input data
+    init = K.initializers.VarianceScaling(scale=2.0,
+                                          mode='fan_in',
+                                          distribution='truncated_normal',
+                                          seed=None)
+    # Input datax
     inputs = K.Input(shape=(224, 224, 3))
 
     # Convolution 7x7
@@ -28,7 +30,8 @@ def densenet121(growth_rate=32, compression=1.0):
     conv7x7 = K.layers.Conv2D(64,
                               kernel_size=(7, 7),
                               strides=2,
-                              padding="same")(relu_1)
+                              padding="same"
+                              kernel_initializer=init)(relu_1)
 
     # Max pooling layer
     max_pool = K.layers.MaxPooling2D(pool_size=(3, 3),
