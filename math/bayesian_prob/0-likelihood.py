@@ -10,24 +10,6 @@ def likelihood(x, n, P):
 """
 import numpy as np
 
-
-
-def fact(value):
-    """                                                                                                                                                                                                
-    This method calculate the factoriel                                                                                                                                                                
-    of a number                                                                                                                                                                                                                                                                                                                                                                                                   
-    Args:                                                                                                                                                                                              
-        value(int):Value of factoriel                                                                                                                                                                   
-    """
-    result = 1
-
-    while value >= 1:
-        result *= value
-        value -= 1
-
-    return result
-
-
 def likelihood(x, n, P):
     """
     function def likelihood(x, n, P): that calculates the likelihood
@@ -52,8 +34,8 @@ def likelihood(x, n, P):
 
     if not isinstance(P,np.ndarray) or P.ndim != 1:
         raise TypeError(err4)
-
-    if (np.all(P < 0) or np.all(P > 1)):
+    
+    if not (np.all(P < 0) or np.all(P > 1)):
         raise ValueError(err5)
 
     q = 1 - P
