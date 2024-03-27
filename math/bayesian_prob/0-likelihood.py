@@ -11,6 +11,23 @@ def likelihood(x, n, P):
 import numpy as np
 
 
+
+def fact(value):
+    """                                                                                                                                                                                                
+    This method calculate the factoriel                                                                                                                                                                
+    of a number                                                                                                                                                                                                                                                                                                                                                                                                   
+    Args:                                                                                                                                                                                              
+        value(int):Value of factoriel                                                                                                                                                                   
+    """
+    result = 1
+
+    while value >= 1:
+        result *= value
+        value -= 1
+
+    return result
+
+
 def likelihood(x, n, P):
     """
     function def likelihood(x, n, P): that calculates the likelihood
@@ -33,6 +50,14 @@ def likelihood(x, n, P):
     if not (np.any(P > 0) and np.any(P < 1)):
         raise ValueError('All values in P must be in the range')
 
-    L = np.math.comb(n, x) * (P ** x) * ((1 - P) ** (n - x))
+    q = 1 - P
+    n_fail = n - x
+    coef = np.math.factorial(n) / (np.math.factorial(x)
+                                   * np.math.factorial(n_fail))
+    power_success = pow(P, x)
+    power_fail = pow(q, n_fail)
+        
+    L = coef * power_success * power_fail
+
 
     return L
