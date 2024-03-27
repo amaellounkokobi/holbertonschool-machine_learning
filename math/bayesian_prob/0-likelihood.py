@@ -17,7 +17,7 @@ def likelihood(x, n, P):
     of developing severe side effects
 
     """
-    if n < 0:
+    if not isinstance(n, int) and n < 0:
         raise ValueError('n must be a positive integer')
 
     if not isinstance(x, int) and x >= 0:
