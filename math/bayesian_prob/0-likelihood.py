@@ -22,7 +22,7 @@ def likelihood(x, n, P):
     err2 = 'x must be an integer that is greater than or equal to 0'
     err3 = 'x cannot be greater than n'
     err4 = 'P must be a 1D numpy.ndarray'
-    err5 = 'All values in P must be in the range'
+    err5 = 'All values in P must be in the range [0, 1]'
 
     if not isinstance(n, int) or n <=  0:
         raise ValueError(err1)
