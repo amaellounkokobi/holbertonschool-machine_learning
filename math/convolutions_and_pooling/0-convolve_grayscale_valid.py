@@ -42,12 +42,7 @@ def convolve_grayscale_valid(images, kernel):
     Sh = stride[0]
     Sw = stride[1]
 
-    # Calculate the output convoluted images size
-    out_w = int(np.ceil(W - Fw + 1 / Sw))
-    out_h = int(np.ceil(H - Fh + 1 / Sh))
 
-    # Initialize output images
-    grayscaled_imgs = np.zeros(shape=(m, out_h, out_w))
 
     # Perform the convolution on all images
     for y in range(out_h):
