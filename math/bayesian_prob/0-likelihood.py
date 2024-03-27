@@ -10,6 +10,7 @@ def likelihood(x, n, P):
 """
 import numpy as np
 
+
 def likelihood(x, n, P):
     """
     function def likelihood(x, n, P): that calculates the likelihood
@@ -25,7 +26,7 @@ def likelihood(x, n, P):
 
     if not isinstance(n, int) or n <=  0:
         raise ValueError(err1)
-   
+
     if not isinstance(x, int) or x < 0:
         raise ValueError(err2)
 
@@ -34,8 +35,8 @@ def likelihood(x, n, P):
 
     if not isinstance(P,np.ndarray) or P.ndim != 1:
         raise TypeError(err4)
-    
-    if not (np.all(P < 0) or np.all(P > 1)):
+
+    if not (np.all(P > 0) and  np.all(P < 1)):
         raise ValueError(err5)
 
     q = 1 - P
@@ -44,7 +45,7 @@ def likelihood(x, n, P):
                                    * np.math.factorial(n_fail))
     power_success = pow(P, x)
     power_fail = pow(q, n_fail)
-        
+
     L = coef * power_success * power_fail
 
 
