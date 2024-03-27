@@ -35,20 +35,26 @@ def likelihood(x, n, P):
     of developing severe side effects
 
     """
-    if not isinstance(n, int) or n <=  0:
-        raise ValueError('n must be a positive integer')
+    err1 = 'n must be a positive integer'
+    err2 = 'x must be an integer that is greater than or equal to 0'
+    err3 = 'x cannot be greater than n'
+    err4 = 'P must be a 1D numpy.ndarray'
+    err5 = 'All values in P must be in the range'
 
+    if not isinstance(n, int) or n <=  0:
+        raise ValueError(err1)
+   
     if not isinstance(x, int) or x < 0:
-        raise ValueError('x must be an integer that is greater than or equal to 0')
+        raise ValueError(err2)
 
     if x > n:
-        raise ValueError('x cannot be greater than n')
+        raise ValueError(err3)
 
-    if not isinstance(P,np.ndarray):
-        raise TypeError('P must be a 1D numpy.ndarray')
+    if not isinstance(P,np.ndarray) or P.ndim != 1:
+        raise TypeError(err4)
 
-    if not (np.any(P > 0) and np.any(P < 1)):
-        raise ValueError('All values in P must be in the range')
+    if (np.all(P < 0) or np.all(P > 1)):
+        raise ValueError(err5)
 
     q = 1 - P
     n_fail = n - x
