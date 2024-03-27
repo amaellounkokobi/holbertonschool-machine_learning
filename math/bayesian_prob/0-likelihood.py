@@ -36,7 +36,7 @@ def likelihood(x, n, P):
     if not isinstance(P,np.ndarray) or P.ndim != 1:
         raise TypeError(err4)
 
-    if not (np.all(P > 0) and np.all(P < 1)):
+    if np.any((P < 0) | (P > 1)):
         raise ValueError(err5)
 
     q = 1 - P
