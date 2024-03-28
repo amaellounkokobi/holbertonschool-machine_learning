@@ -5,7 +5,7 @@ This module contains :
 of obtaining this data given various
 hypothetical probabilities of developing severe side effects
 
-- A function that calculates the intersection of obtaining this 
+- A function that calculates the intersection of obtaining this
 data with the various hypothetical probabilities
 
 Function:
@@ -25,7 +25,7 @@ def likelihood(x, n, P):
     Args:
 
     Returns:
-    
+
     """
     err1 = 'n must be a positive integer'
     err2 = 'x must be an integer that is greater than or equal to 0'
@@ -62,9 +62,10 @@ def likelihood(x, n, P):
 
 def intersection(x, n, P, Pr):
     """
-    A function that calculates the intersection of obtaining this                                                                                                                                          
-    data with the various hypothetical probabilities 
-    
+    A function that calculates the intersection of
+    obtaining this data with the various hypothetical
+    probabilities
+
     Args:
        x is the number of patients that develop severe side effects
        n is the total number of patients observed
@@ -72,7 +73,7 @@ def intersection(x, n, P, Pr):
        hypothetical probabilities of developing severe side effects
        Pr is a 1D numpy.ndarray containing the prior beliefs of P
     Returns:
-       A 1D numpy.ndarray containing the intersection 
+       A 1D numpy.ndarray containing the intersection
        of obtaining x and n with each probability in P, respectively
     """
     errs = ['n must be a positive integer',
@@ -81,9 +82,9 @@ def intersection(x, n, P, Pr):
             'P must be a 1D numpy.ndarray',
             'All values in P must be in the range [0, 1]',
             'All values in Pr must be in the range [0, 1]',
-            'Pr must be a numpy.ndarray with the same shape as P',  
+            'Pr must be a numpy.ndarray with the same shape as P',
             'Pr must sum to 1']
-    
+
     Pr_s = len(Pr)
     P_s = len(P)
 
@@ -101,20 +102,20 @@ def intersection(x, n, P, Pr):
 
     if not isinstance(Pr, np.ndarray) or Pr_s != P_s:
         raise TypeError(errs[6])
-    
+
     if np.any((P < 0) | (P > 1)):
         raise ValueError(errs[4])
-    
+
     if np.any((Pr < 0) | (Pr > 1)):
         raise ValueError(errs[5])
 
-    if not int(sum(Pr)) == 1:
+    if not np.round(sum(Pr)) == 1:
         raise ValueError(errs[7])
 
     # Likelihood
     L = likelihood(x, n, P)
 
     # Intersection
-    I = L * Pr
+    inter = L * Pr
 
-    return I
+    return inter
