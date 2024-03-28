@@ -86,7 +86,7 @@ def intersection(x, n, P, Pr):
     
     Pr_s = len(Pr)
     P_s = len(P)
-    
+
     if not isinstance(n, int) or n <= 0:
         raise ValueError(errs[0])
 
@@ -108,7 +108,7 @@ def intersection(x, n, P, Pr):
     if np.any((Pr < 0) | (Pr > 1)):
         raise ValueError(errs[5])
 
-    if not int(sum(Pr)):
+    if not int(sum(Pr)) == 1:
         raise ValueError(errs[7])
 
     # Likelihood
