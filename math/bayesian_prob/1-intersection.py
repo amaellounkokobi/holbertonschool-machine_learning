@@ -99,14 +99,14 @@ def intersection(x, n, P, Pr):
     if not isinstance(P, np.ndarray) or P.ndim != 1:
         raise TypeError(errs[3])
 
+    if not isinstance(Pr, np.ndarray) or Pr_s != P_s:
+        raise TypeError(errs[6])
+    
     if np.any((P < 0) | (P > 1)):
         raise ValueError(errs[4])
     
     if np.any((Pr < 0) | (Pr > 1)):
         raise ValueError(errs[5])
-
-    if not isinstance(Pr, np.ndarray) or Pr_s != P_s:
-        raise TypeError(errs[6])
 
     if not int(sum(Pr)):
         raise TypeError(errs[7])
