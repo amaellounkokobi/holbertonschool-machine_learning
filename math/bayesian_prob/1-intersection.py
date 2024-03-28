@@ -109,7 +109,7 @@ def intersection(x, n, P, Pr):
         raise ValueError(errs[5])
 
     if not int(sum(Pr)):
-        raise TypeError(errs[7])
+        raise ValueError(errs[7])
 
     # Likelihood
     L = likelihood(x, n, P)
