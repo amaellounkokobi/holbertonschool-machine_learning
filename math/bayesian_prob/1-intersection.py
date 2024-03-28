@@ -82,8 +82,8 @@ def intersection(x, n, P, Pr):
             'All values in {P} must be in the range [0, 1]',
             'Pr must be a numpy.ndarray with the same shape as P',  
             'Pr must sum to 1']
-    Pr_s = Pr.shape 
-    P_s = P.shape
+    Pr_s = len(Pr)
+    P_s = len(P)
     
     if not isinstance(n, int) or n <= 0:
         raise ValueError(errs[0])
