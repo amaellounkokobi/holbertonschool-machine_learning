@@ -177,4 +177,3 @@ def marginal(x, n, P, Pr):
     marg = np.sum(intersection(x, n, P, Pr))
 
     return marg
-
