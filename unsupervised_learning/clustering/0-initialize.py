@@ -33,9 +33,12 @@ def initialize(X, k):
     if not isinstance(X ,np.ndarray):
         return None
 
-    if k <= 0 or not isinstance(k, int):
+    if not isinstance(k, int):
         return None
-    
+
+    if  k < 0:
+        return None
+
     centroids = []
 
     # Get the lowest point coordinate
