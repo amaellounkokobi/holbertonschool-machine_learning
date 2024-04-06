@@ -29,6 +29,13 @@ def initialize(X, k):
     centroids for each cluster, or None on failure
 
     """
+
+    if not isinstance(X ,np.ndarray):
+        return None
+
+    if k <= 0 or not isinstance(k, int):
+        return None
+    
     centroids = []
 
     # Get the lowest point coordinate
