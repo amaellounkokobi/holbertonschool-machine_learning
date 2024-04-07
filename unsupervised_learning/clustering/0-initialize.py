@@ -39,7 +39,7 @@ def initialize(X, k):
     if  k < 0:
         return None
 
-    centroids = []
+    centroids = None
 
     # Get the lowest point coordinate
     min_point = np.min(X, axis=0)
