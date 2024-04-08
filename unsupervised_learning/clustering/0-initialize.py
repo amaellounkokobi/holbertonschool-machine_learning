@@ -29,14 +29,14 @@ def initialize(X, k):
     centroids for each cluster, or None on failure
 
     """
-
-    if not isinstance(X ,np.ndarray):
+    # check numbers of dimensions!!!
+    if not isinstance(X ,np.ndarray): 
         return None
 
     if not isinstance(k, int):
         return None
 
-    if  k < 0:
+    if  k < 1:
         return None
 
     centroids = None
