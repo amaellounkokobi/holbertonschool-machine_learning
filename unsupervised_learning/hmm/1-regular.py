@@ -35,4 +35,4 @@ def regular(P):
         PIn[0] = 1
         for _ in range(100):
             PIn = np.matmul(PIn, P)
-        return [PIn]
+        return np.array([PIn])
