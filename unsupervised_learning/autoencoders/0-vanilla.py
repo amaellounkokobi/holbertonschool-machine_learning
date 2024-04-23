@@ -26,7 +26,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
        auto is the full autoencoder model
     """
     hl_len = len(hidden_layers)
-    print(hl_len)
+
     # *--------------*
     # | Endoder part |
     # *--------------*
