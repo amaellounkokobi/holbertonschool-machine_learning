@@ -79,5 +79,5 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     adam_opt = K.optimizers.Adam()
     auto.compile(loss='binary_crossentropy',
                  optimizer=adam_opt)
-    decoder.summary()
+
     return encoder, decoder, auto
