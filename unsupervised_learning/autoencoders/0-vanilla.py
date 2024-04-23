@@ -25,6 +25,8 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
        decoder is the decoder model
        auto is the full autoencoder model
     """
+    hl_len = len(hidden_layers)
+    print(hl_len)
     # *--------------*
     # | Endoder part |
     # *--------------*
@@ -34,7 +36,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     # Add hidden layers from left to right according
     # to hidden_layers (Relu activation)
-    for index in range(0, len(hidden_layers)):
+    for index in range(hl_len):
         enco = K.layers.Dense(hidden_layers[index],
                               activation='relu')(enco)
 
@@ -52,7 +54,8 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     # Add hidden layers from right to left according
     # to hidden_layers
-    for index in range(len(hidden_layers) - 1, 0):
+    for index in range(hl_len - 1, -1, -1):
+        print("HIDDEENNNNNNNNNNN", hidden_layers[index])
         deco = K.layers.Dense(hidden_layers[index],
                               activation='relu')(deco)
 
@@ -76,5 +79,5 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     adam_opt = K.optimizers.Adam()
     auto.compile(loss='binary_crossentropy',
                  optimizer=adam_opt)
-
+    decoder.summary()
     return encoder, decoder, auto
