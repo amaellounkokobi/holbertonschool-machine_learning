@@ -55,7 +55,6 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     # Add hidden layers from right to left according
     # to hidden_layers
     for index in range(hl_len - 1, -1, -1):
-        print("HIDDEENNNNNNNNNNN", hidden_layers[index])
         deco = K.layers.Dense(hidden_layers[index],
                               activation='relu')(deco)
 
