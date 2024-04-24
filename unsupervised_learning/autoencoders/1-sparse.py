@@ -45,11 +45,13 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
                               activation='relu')(enco)
 
     # Add the lattent space layer with latent_dims
-    lt_sp = K.layers.Dense(latent_dims,
-                           activation='relu')(enco)
-    out_L1 = K.layers.ActivityRegularization(l1=lambtha)(lt_sp)
+    L1 = K.regularizers.l1(lambtha)
 
-    encoder = K.Model(enco_in, out_L1)
+    lt_sp = K.layers.Dense(latent_dims,
+                           activation='relu'
+                           kernel_regularizer=L1)(enco)
+
+    encoder = K.Model(enco_in, lt_sp)
 
     # *--------------*
     # | Decoder part |
