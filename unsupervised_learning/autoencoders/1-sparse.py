@@ -48,7 +48,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
     L1 = K.regularizers.l1(lambtha)
 
     lt_sp = K.layers.Dense(latent_dims,
-                           activation='relu'
+                           activation='relu',
                            kernel_regularizer=L1)(enco)
 
     encoder = K.Model(enco_in, lt_sp)
