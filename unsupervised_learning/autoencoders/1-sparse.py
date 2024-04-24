@@ -19,10 +19,10 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
 
        hidden_layers(int[]): is a list containing
        the number of nodes for each hidden layer
-       latent_dims: is an integer containing 
+       latent_dims: is an integer containing
        the dimensions of the latent space representation
-       
-       lambtha: is the regularization parameter 
+
+       lambtha: is the regularization parameter
        used for L1 regularization on the encoded output
     Returns:
        encoder is the encoder model
@@ -65,14 +65,13 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
     # Add an output layer of dim input_dims
     # (Sigmoid activation)
 
-    # L1 regularizer
-    L1 = K.regularizers.l1(lambtha)
-    
     out_deco = K.layers.Dense(input_dims,
-                              activation='sigmoid',
-                              kernel_regularizer=L1
-                              )(deco)
-    decoder = K.Model(deco_in, out_deco)
+                              activation='sigmoid')(deco)
+
+    # Layer L1 regularizer
+    out_L1 = K.layers.ActivityRegularization(l1=lambtha)(out_deco)
+
+    decoder = K.Model(deco_in, out_L1)
 
     # *--------------*
     # | AutoEncoder  |
