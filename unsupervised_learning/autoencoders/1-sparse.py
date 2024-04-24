@@ -47,7 +47,9 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
     # Add the lattent space layer with latent_dims
     lt_sp = K.layers.Dense(latent_dims,
                            activation='relu')(enco)
-    encoder = K.Model(enco_in, lt_sp)
+    out_L1 = K.layers.ActivityRegularization(l1=lambtha)(lt_sp)
+
+    encoder = K.Model(enco_in, out_L1)
 
     # *--------------*
     # | Decoder part |
@@ -69,9 +71,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims, lambtha):
                               activation='sigmoid')(deco)
 
     # Layer L1 regularizer
-    out_L1 = K.layers.ActivityRegularization(l1=lambtha)(out_deco)
-
-    decoder = K.Model(deco_in, out_L1)
+    decoder = K.Model(deco_in, out_deco)
 
     # *--------------*
     # | AutoEncoder  |
