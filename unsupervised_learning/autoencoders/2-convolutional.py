@@ -47,12 +47,12 @@ def autoencoder(input_dims, filters, latent_dims):
                                      padding='same')(enco)
 
     # Add the lattent space layer with latent_dims
-    lt_sp = K.layers.Conv2D(filters=latent_dims[-1],
-                            kernel_size=(3, 3),
-                            activation='relu',
-                            padding='same')(enco)
+    #lt_sp = K.layers.Conv2D(filters=latent_dims[-1],
+    #                        kernel_size=(3, 3),
+    #                        activation='relu',
+    #                        padding='same')(enco)
 
-    encoder = K.Model(enco_in, lt_sp)
+    encoder = K.Model(enco_in, enco)
 
     # *--------------*
     # | Decoder part |
