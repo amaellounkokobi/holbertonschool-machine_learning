@@ -43,7 +43,6 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
                                kernel_size=(3, 3),
                                activation='relu',
                                padding='same')(enco)
-
         enco = K.layers.MaxPooling2D(enco,
                                      pool_size=(2, 2))
 
@@ -54,7 +53,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
                            padding='same')(enco)
 
     lt_sp = K.layers.MaxPooling2D(lt_sp,
-                                 pool_size=(2, 2))
+                                  pool_size=(2, 2))
 
     encoder = K.Model(enco_in, lt_sp)
 
@@ -81,7 +80,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
                                padding='valid')(deco)
 
     deco = K.layers.UpSampling2D(deco,
-                                     pool_size=(2, 2))
+                                 pool_size=(2, 2))
 
 
     # Add an output layer of dim input_dims
@@ -89,7 +88,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     out_deco = K.layers.Conv2D(filters=input_dims[-1],
                                kernel_size=(3, 3),
-                              activation='sigmoid')(deco)
+                               activation='sigmoid')(deco)
     decoder = K.Model(deco_in, out_deco)
 
     # *--------------*
