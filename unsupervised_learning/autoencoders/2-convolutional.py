@@ -9,7 +9,7 @@ def autoencoder(input_dims, filters, latent_dims):
 import tensorflow.keras as K
 
 
-def autoencoder(input_dims, hidden_layers, latent_dims):
+def autoencoder(input_dims, filters, latent_dims):
     """
     Creates an autoencoder
 
@@ -38,22 +38,19 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     # Add hidden layers from left to right according
     # to hidden_layers (Relu activation)
-    for filter in filters:
-        enco = K.layers.Conv2d(filters=filter,
+    for f in filters:
+        enco = K.layers.Conv2D(filters=f,
                                kernel_size=(3, 3),
                                activation='relu',
                                padding='same')(enco)
-        enco = K.layers.MaxPooling2D(enco,
-                                     pool_size=(2, 2))
+        enco = K.layers.MaxPooling2D((2, 2),
+                                     padding='same')(enco)
 
     # Add the lattent space layer with latent_dims
-    lt_sp = K.layers.Dense(filters=latent_dims[-1],
-                           kernel_size=(3, 3),
-                           activation='relu',
-                           padding='same')(enco)
-
-    lt_sp = K.layers.MaxPooling2D(lt_sp,
-                                  pool_size=(2, 2))
+    lt_sp = K.layers.Conv2D(filters=latent_dims[-1],
+                            kernel_size=(3, 3),
+                            activation='relu',
+                            padding='same')(enco)
 
     encoder = K.Model(enco_in, lt_sp)
 
@@ -66,28 +63,26 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     # Add hidden layers from right to left according
     # to hidden_layers
-    for index in reversed(filters[:-1]):
-        deco = K.layers.Conv2d(filters=filter,
+    for f in reversed(filters[:-1]):
+        deco = K.layers.Conv2D(filters=f,
                                kernel_size=(3, 3),
                                activation='relu',
                                padding='same')(deco)
-        deco = K.layers.UpSampling2D(deco,
-                                     pool_size=(2, 2))
+        deco = K.layers.UpSampling2D((2, 2))(deco)
 
-    deco = K.layers.Conv2d(filters=filters[-1],
-                               kernel_size=(3, 3),
-                               activation='relu',
-                               padding='valid')(deco)
+    deco = K.layers.Conv2D(filters=filters[-1],
+                           kernel_size=(3, 3),
+                           activation='relu',
+                           padding='valid')(deco)
 
-    deco = K.layers.UpSampling2D(deco,
-                                 pool_size=(2, 2))
-
+    deco = K.layers.UpSampling2D((2, 2))(deco)
 
     # Add an output layer of dim input_dims
     # (Sigmoid activation)
 
     out_deco = K.layers.Conv2D(filters=input_dims[-1],
                                kernel_size=(3, 3),
+                               padding="same",
                                activation='sigmoid')(deco)
     decoder = K.Model(deco_in, out_deco)
 
@@ -105,5 +100,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     adam_opt = K.optimizers.Adam()
     auto.compile(loss='binary_crossentropy',
                  optimizer=adam_opt)
+
+    auto.summary()
 
     return encoder, decoder, auto
