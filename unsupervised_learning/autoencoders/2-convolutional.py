@@ -49,7 +49,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
 
     # Add the lattent space layer with latent_dims
     lt_sp = K.layers.Dense(filters=latent_dims[-1],
-                           kernel_size=(3, 3)
+                           kernel_size=(3, 3),
                            activation='relu',
                            padding='same')(enco)
 
