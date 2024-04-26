@@ -57,7 +57,7 @@ def autoencoder(input_dims, filters, latent_dims):
 
     # Add hidden layers from right to left according
     # to hidden_layers
-    for f in  filters[::-1][:-1]:
+    for f in filters[::-1][:-1]:
         deco = K.layers.Conv2D(filters=f,
                                kernel_size=(3, 3),
                                activation='relu',
