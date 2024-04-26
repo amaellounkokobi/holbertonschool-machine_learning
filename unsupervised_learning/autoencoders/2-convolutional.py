@@ -46,12 +46,6 @@ def autoencoder(input_dims, filters, latent_dims):
         enco = K.layers.MaxPooling2D((2, 2),
                                      padding='same')(enco)
 
-    # Add the lattent space layer with latent_dims
-    #lt_sp = K.layers.Conv2D(filters=latent_dims[-1],
-    #                        kernel_size=(3, 3),
-    #                        activation='relu',
-    #                        padding='same')(enco)
-
     encoder = K.Model(enco_in, enco)
 
     # *--------------*
@@ -63,14 +57,14 @@ def autoencoder(input_dims, filters, latent_dims):
 
     # Add hidden layers from right to left according
     # to hidden_layers
-    for f in reversed(filters[:-1]):
+    for f in  filters[::-1][:-1]:
         deco = K.layers.Conv2D(filters=f,
                                kernel_size=(3, 3),
                                activation='relu',
                                padding='same')(deco)
         deco = K.layers.UpSampling2D((2, 2))(deco)
 
-    deco = K.layers.Conv2D(filters=filters[-1],
+    deco = K.layers.Conv2D(filters=filters[::-1][-1],
                            kernel_size=(3, 3),
                            activation='relu',
                            padding='valid')(deco)
@@ -79,7 +73,6 @@ def autoencoder(input_dims, filters, latent_dims):
 
     # Add an output layer of dim input_dims
     # (Sigmoid activation)
-
     out_deco = K.layers.Conv2D(filters=input_dims[-1],
                                kernel_size=(3, 3),
                                padding="same",
@@ -96,7 +89,6 @@ def autoencoder(input_dims, filters, latent_dims):
 
     # Compile the model with binary cross antropy
     # and adam optimizer
-
     adam_opt = K.optimizers.Adam()
     auto.compile(loss='binary_crossentropy',
                  optimizer=adam_opt)
