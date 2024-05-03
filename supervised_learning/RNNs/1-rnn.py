@@ -20,13 +20,12 @@ def rnn(rnn_cell, X, h_0):
     hiddenState = h_0.shape[1]
 
     # Set initial state
-    H = np.zeros((steps, samples, hiddenState))
+    H = np.zeros((steps + 1, samples, hiddenState))
     Y = np.zeros((steps, samples, rnn_cell.Wy.shape[1]))
     h_next = h_0
-
+    H[0] = h_next
     for step in range(steps):
         h_next, y = rnn_cell.forward(h_next, X[step])
-        H[step] = h_next
+        H[step + 1] = h_next
         Y[step] = y
-
     return H, Y
