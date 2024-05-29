@@ -24,7 +24,7 @@ def bag_of_words(sentences, vocab=None):
     reg1 = "'s"
     reg2 = "[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~]"
     embedding = []
-    if vocab == None:
+    if vocab is None:
         # Sentences to vocab
         for sentence in sentences:
             sentence = norm_sentence(reg1, reg2, sentence)
