@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-This module contains a 
+This module contains a
 function that creates a bag of words embedding matrix
 
 Function:
@@ -16,7 +16,7 @@ def bag_of_words(sentences, vocab=None):
 
     Args:
         sentences: list of sentences to analyze
-        vocab:  list of the vocabulary words to use 
+        vocab:  list of the vocabulary words to use
         for the analysis
     """
 
@@ -51,7 +51,7 @@ def bag_of_words(sentences, vocab=None):
 
 def norm_sentence(reg1, reg2, sentence):
     """
-    Return a sentece without 
+    Return a sentece without
     """
     sentence = re.sub(reg1, '', sentence)
     sentence = re.sub(reg2, '', sentence)
