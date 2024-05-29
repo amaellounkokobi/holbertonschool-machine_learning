@@ -20,21 +20,22 @@ def bag_of_words(sentences, vocab=None):
         for the analysis
     """
 
-
     vocab_list = []
     reg1 = "'s"
     reg2 = "[!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~]"
     embedding = []
+    if vocab == None:
+        # Sentences to vocab
+        for sentence in sentences:
+            sentence = norm_sentence(reg1, reg2, sentence)
+            vocab_list += sentence.split()
 
-    # Sentences to vocab
-    for sentence in sentences:
-        sentence = norm_sentence(reg1, reg2, sentence)
-        vocab_list += sentence.split()
+        vocab_list = [v.lower() for v in vocab_list]
+        features = sorted(set(vocab_list))
+    else:
+        features = vocab
 
-    vocab_list = [v.lower() for v in vocab_list]
-    features = sorted(set(vocab_list))
-
-    # Sentences and vocab to embedding  
+    # Sentences and vocab to embedding
     for sentence in sentences:
         sentence = norm_sentence(reg1, reg2, sentence)
         words_sentence = sentence.split()
@@ -46,6 +47,7 @@ def bag_of_words(sentences, vocab=None):
         embedding.append(count_vocab)
 
     return np.array(embedding), features
+
 
 def norm_sentence(reg1, reg2, sentence):
     """
